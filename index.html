@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3 小時速成｜把生成教材做成技能</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0e27; --bg-2:#11163a;
+  --ink:#eef3ff; --ink-2:#b8c5e0; --ink-3:#7a8bb8; --ink-4:#4a5680;
+  --accent:#00d4ff; --accent-2:#ff006e; --warn:#ffb800; --bad:#ff4466;
+  --t1:64px; --t2:42px; --t3:26px; --t4:18px;
+  --s1:56px; --s2:40px; --s3:24px; --s4:16px; --s5:8px;
+  --gap:24px; --radius:16px;
+  --line:rgba(184,197,224,.16);
+  --card:rgba(255,255,255,.045);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Noto Sans TC",system-ui,sans-serif; font-weight:400;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(900px 600px at 12% -10%, rgba(0,212,255,.10), transparent 60%),
+    radial-gradient(800px 560px at 92% 108%, rgba(255,0,110,.09), transparent 60%);
+}
+
+/* ── 全域 UI ── */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:40;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .45s ease}
+#section-tag{position:fixed;top:var(--s3);left:var(--s2);z-index:30;
+  font-family:"JetBrains Mono",monospace;font-size:var(--t4);letter-spacing:.16em;
+  color:var(--ink-3);text-transform:uppercase}
+#pageInfo{position:fixed;bottom:var(--s3);right:var(--s2);z-index:30;
+  font-family:"JetBrains Mono",monospace;font-size:var(--t4);color:var(--ink-4);letter-spacing:.1em}
+#hint{position:fixed;bottom:var(--s3);left:var(--s2);z-index:30;
+  font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--ink-4);letter-spacing:.08em}
+
+/* ── slide 容器 ── */
+.slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  padding:var(--s1) 72px;opacity:0;pointer-events:none;z-index:1;
+  transition:opacity .55s ease,transform .55s ease;transform:translateY(16px);overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto;transform:translateY(0);z-index:2}
+.slide-inner{width:100%;max-width:1320px}
+
+/* ── 文字階層 ── */
+.kicker{font-family:"JetBrains Mono",monospace;font-size:var(--t4);letter-spacing:.2em;
+  color:var(--accent);text-transform:uppercase;margin:0 0 var(--s4)}
+h1{font-size:var(--t1);font-weight:900;line-height:1.16;margin:0 0 var(--s3);letter-spacing:.01em}
+h2{font-size:var(--t2);font-weight:700;line-height:1.28;margin:0 0 var(--s3)}
+h3{font-size:var(--t3);font-weight:700;line-height:1.4;margin:0 0 var(--s5)}
+p,li{font-size:var(--t3);line-height:1.72;color:var(--ink-2);margin:0 0 var(--s4)}
+.lead{font-size:var(--t2);line-height:1.5;color:var(--ink);font-weight:400}
+.small{font-size:var(--t4);color:var(--ink-3);line-height:1.7}
+.hl{color:var(--accent);font-weight:700}
+.hl2{color:var(--accent-2);font-weight:700}
+.warn{color:var(--warn);font-weight:700}
+.dim{color:var(--ink-4)}
+
+/* ── 版面 ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);align-items:center}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+.grid2x2{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.grid2x3{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:var(--gap)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--s3);position:relative;overflow:hidden}
+.card .num{font-family:"JetBrains Mono",monospace;font-size:var(--t4);color:var(--accent);
+  letter-spacing:.16em;margin-bottom:var(--s5);display:block}
+.card.accent{border-color:rgba(0,212,255,.42);background:rgba(0,212,255,.07)}
+.card.accent2{border-color:rgba(255,0,110,.42);background:rgba(255,0,110,.07)}
+.card.warn{border-color:rgba(255,184,0,.42);background:rgba(255,184,0,.07)}
+.card p{font-size:var(--t4);margin:0;color:var(--ink-2);line-height:1.72}
+.card h3{font-size:var(--t3)}
+
+/* ── 章節分隔頁 ── */
+.divider{text-align:center}
+.divider .big{font-size:128px;font-weight:900;line-height:1;
+  background:linear-gradient(120deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:var(--s3)}
+
+/* ── 表格（#17 框線越少越好）── */
+table{width:100%;border-collapse:collapse;font-size:var(--t4)}
+th,td{padding:var(--s4) var(--s3);text-align:left;border-bottom:1px solid var(--line)}
+th{color:var(--ink-3);font-weight:700;font-family:"JetBrains Mono",monospace;
+  letter-spacing:.08em;cursor:pointer;user-select:none;transition:color .2s}
+th:hover{color:var(--accent)}
+th .arrow{opacity:.4;font-size:14px}
+td{color:var(--ink-2)}
+td strong{color:var(--ink)}
+
+/* ── 四象限互動 ── */
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+.q{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--s3);cursor:pointer;transition:border-color .28s,background .28s,transform .28s}
+.q:hover{transform:translateY(-3px)}
+.q .qh{display:flex;align-items:baseline;gap:var(--s4)}
+.q .qn{font-family:"JetBrains Mono",monospace;font-size:var(--t2);font-weight:700;color:var(--ink-4);
+  transition:color .28s;line-height:1}
+.q .qt{font-size:var(--t3);font-weight:700;color:var(--ink)}
+.q .qb{max-height:0;overflow:hidden;transition:max-height .38s ease,margin .38s ease;margin-top:0}
+.q.open .qb{max-height:200px;margin-top:var(--s4)}
+.q .qb p{font-size:var(--t4);margin:0;line-height:1.72}
+.q.key{border-color:rgba(255,0,110,.34)}
+.q.key .qn{color:var(--accent-2)}
+.q.open{border-color:var(--accent);background:rgba(0,212,255,.07)}
+.q.key.open{border-color:var(--accent-2);background:rgba(255,0,110,.08)}
+
+/* ── 任務卡 ── */
+.task{display:grid;grid-template-columns:1.35fr 1fr;gap:var(--s2)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;position:relative;padding-left:var(--s2);margin-bottom:var(--s4);
+  font-size:var(--t4);line-height:1.72;color:var(--ink-2)}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;
+  width:var(--s3);height:var(--s3);border-radius:var(--s3);background:rgba(0,212,255,.16);
+  color:var(--accent);font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center}
+.pbox{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:var(--s3)}
+.pline{display:flex;gap:var(--s4);align-items:flex-start;margin-bottom:var(--s4)}
+.pline:last-child{margin-bottom:0}
+.ptag{font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:700;color:var(--bg);
+  background:var(--accent);border-radius:var(--s5);padding:3px var(--s5);flex-shrink:0;letter-spacing:.06em}
+.pline.key .ptag{background:var(--accent-2);color:#fff}
+.pline span{font-size:var(--t4);line-height:1.68;color:var(--ink-2)}
+
+/* ── 雜項 ── */
+.big-q{font-size:88px;font-weight:900;line-height:1.2;letter-spacing:.01em}
+.stat{font-family:"JetBrains Mono",monospace;font-size:var(--t1);font-weight:700;color:var(--accent);line-height:1}
+.credit{margin-top:var(--s2);padding-top:var(--s3);border-top:1px solid var(--line);
+  max-width:760px;margin-left:auto;margin-right:auto}
+.credit p{font-size:var(--t4);color:var(--ink-3);margin:0 0 var(--s5);line-height:1.72}
+.credit p.tiny{font-size:15px;color:var(--ink-4);margin-top:var(--s4)}
+.credit a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,212,255,.4);
+  transition:color .2s,border-color .2s}
+.credit a:hover{color:var(--accent-2);border-color:var(--accent-2)}
+.chartwrap{height:400px;display:flex;align-items:center;justify-content:center}
+.note{border-left:3px solid var(--accent-2);padding-left:var(--s3);margin-top:var(--s3)}
+.note p{font-size:var(--t4);margin:0;color:var(--ink-2)}
+.flow{display:flex;align-items:center;gap:var(--s3);justify-content:center;flex-wrap:wrap}
+.flow .step{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--s3) var(--s2);text-align:center;min-width:216px}
+.flow .step .t{font-size:var(--t3);font-weight:700;color:var(--ink);margin-bottom:var(--s5)}
+.flow .step .d{font-size:var(--t4);color:var(--ink-3)}
+.flow .ar{color:var(--accent);font-size:var(--t2);line-height:1}
+svg .lbl{font-family:"Noto Sans TC",sans-serif;font-size:19px;fill:var(--ink-2)}
+svg .lbl-b{font-family:"Noto Sans TC",sans-serif;font-size:22px;font-weight:700;fill:var(--ink)}
+svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-4)}
+
+@media (max-width:1100px){
+  .slide{padding:var(--s2) var(--s3)}
+  .grid2,.task{grid-template-columns:1fr;gap:var(--s3)}
+  .grid3,.grid2x3{grid-template-columns:1fr 1fr}
+  h1{font-size:44px} .big-q{font-size:44px} .divider .big{font-size:76px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="section-tag"></div>
+<div id="pageInfo"></div>
+<div id="hint">← → 切頁　F 全螢幕　E 匯出本頁 PNG</div>
+
+<!-- ══════════ 引起動機 ══════════ -->
+
+<section class="slide active" data-slide="1" data-section="引起動機">
+ <div class="slide-inner" style="text-align:center">
+  <svg viewBox="0 0 560 160" style="width:100%;max-width:560px;height:auto;margin-bottom:var(--s2)">
+   <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+     <stop offset="0" stop-color="#00d4ff"/><stop offset="1" stop-color="#ff006e"/></linearGradient></defs>
+   <rect x="24" y="40" width="120" height="88" rx="12" fill="none" stroke="#00d4ff" stroke-width="2" opacity=".8"/>
+   <text class="lbl-s" x="84" y="90" text-anchor="middle" fill="#7a8bb8">教材</text>
+   <path d="M160 84 h56" stroke="url(#g1)" stroke-width="2"/><path d="M210 78 l10 6 -10 6z" fill="#00d4ff"/>
+   <circle cx="280" cy="84" r="48" fill="none" stroke="url(#g1)" stroke-width="2"/>
+   <circle cx="280" cy="84" r="30" fill="none" stroke="#ff006e" stroke-width="1" opacity=".5"/>
+   <circle cx="280" cy="84" r="6" fill="#00d4ff"/>
+   <path d="M344 84 h56" stroke="url(#g1)" stroke-width="2"/><path d="M394 78 l10 6 -10 6z" fill="#ff006e"/>
+   <rect x="416" y="40" width="120" height="88" rx="12" fill="none" stroke="#ff006e" stroke-width="2" opacity=".8"/>
+   <text class="lbl-s" x="476" y="90" text-anchor="middle" fill="#7a8bb8">技能</text>
+  </svg>
+  <p class="kicker">高中教師 AI Agent 研習｜速成版 3 小時</p>
+  <h1 style="font-size:76px">把生成教材<span class="hl">做成技能</span></h1>
+  <p class="lead" style="max-width:800px;margin:0 auto">散場時你會帶走一份考卷、一整包教材，<br>還有一個<span class="hl2">可以送給同事</span>的技能。</p>
+ </div>
+</section>
+
+<section class="slide" data-slide="2" data-section="引起動機">
+ <div class="slide-inner">
+  <p class="kicker">先想一件事</p>
+  <div class="big-q">你上次出一份段考卷，<br>花了<span class="hl2">多久</span>？</div>
+  <div class="grid3" style="margin-top:var(--s1)">
+   <div class="card"><span class="num">01</span><h3>打數學式</h3><p>分數、根號、上下標，一題排半天，還常常跑版。</p></div>
+   <div class="card"><span class="num">02</span><h3>畫圖</h3><p>幾何圖、函數圖，畫完貼進去比例又不對。</p></div>
+   <div class="card"><span class="num">03</span><h3>雙向細目表</h3><p>配分加總對不上，改一題就要重算一次。</p></div>
+  </div>
+  <div class="note"><p>這三件事，今天下午你會讓 AI 全部做完 —— 而且做成以後每次都能重複使用的流程。</p></div>
+ </div>
+</section>
+
+<section class="slide" data-slide="3" data-section="引起動機">
+ <div class="slide-inner">
+  <p class="kicker">今天的起點</p>
+  <h1>它不是更聰明的 AI</h1>
+  <div class="grid2" style="margin-top:var(--s2)">
+   <div>
+    <svg viewBox="0 0 460 300" style="width:100%;height:auto">
+     <rect x="16" y="24" width="200" height="120" rx="12" fill="rgba(122,139,184,.07)" stroke="#4a5680" stroke-width="1"/>
+     <text class="lbl-b" x="116" y="60" text-anchor="middle" fill="#b8c5e0">生成式 AI</text>
+     <text class="lbl" x="116" y="88" text-anchor="middle">在雲端</text>
+     <text class="lbl" x="116" y="112" text-anchor="middle">只輸出文字給你</text>
+     <path d="M116 152 v24" stroke="#4a5680" stroke-width="1" stroke-dasharray="3 3"/>
+     <text class="lbl-s" x="116" y="196" text-anchor="middle">你再自己複製貼上</text>
+     <text class="lbl-s" x="116" y="218" text-anchor="middle">切視窗、存檔、排版</text>
+     <rect x="244" y="24" width="200" height="120" rx="12" fill="rgba(0,212,255,.09)" stroke="#00d4ff" stroke-width="2"/>
+     <text class="lbl-b" x="344" y="60" text-anchor="middle" fill="#eef3ff">AI Agent</text>
+     <text class="lbl" x="344" y="88" text-anchor="middle" fill="#00d4ff">在你的電腦裡</text>
+     <text class="lbl" x="344" y="112" text-anchor="middle" fill="#00d4ff">直接動手做完</text>
+     <path d="M344 152 v24" stroke="#00d4ff" stroke-width="2"/>
+     <path d="M338 170 l6 10 6 -10z" fill="#00d4ff"/>
+     <rect x="264" y="188" width="160" height="76" rx="10" fill="rgba(0,212,255,.07)" stroke="#00d4ff" stroke-width="1" opacity=".7"/>
+     <text class="lbl" x="344" y="216" text-anchor="middle" fill="#00d4ff">檔案直接生出來</text>
+     <text class="lbl-s" x="344" y="242" text-anchor="middle">在你指定的資料夾</text>
+    </svg>
+   </div>
+   <div>
+    <p class="lead" style="margin-bottom:var(--s3)">很多老師以為 AI Agent 是「會生成更多文字的進階版 AI」。</p>
+    <p>其實它已經能<span class="hl">直接在你的電腦上</span>讀檔案、跑程式、上網、產出檔案。</p>
+    <p>就像請了一位實習老師 —— 你不只要交代<span class="hl2">做什麼</span>，還要告訴它<span class="hl2">東西在哪裡</span>。</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-slide="4" data-section="引起動機">
+ <div class="slide-inner">
+  <p class="kicker">這 3 小時怎麼走</p>
+  <h1>只有一條線</h1>
+  <div class="flow" style="margin:var(--s2) 0 var(--s1)">
+   <div class="step"><div class="t">先講清楚</div><div class="d">把沒說出口的需求問出來</div></div>
+   <div class="ar">→</div>
+   <div class="step"><div class="t">做一次</div><div class="d">出一份考卷、生一整包教材</div></div>
+   <div class="ar">→</div>
+   <div class="step" style="border-color:rgba(255,0,110,.42);background:rgba(255,0,110,.07)">
+     <div class="t">變成永久的</div><div class="d">把流程包成技能</div></div>
+  </div>
+  <div class="grid3">
+   <div class="card accent"><span class="num">S1 · 90 min</span><h3>先講清楚，再讓它做</h3>
+     <p>觀念只給到夠用就好，其餘全部換成動手。</p></div>
+   <div class="card accent2"><span class="num">S2 · 90 min</span><h3>做過一次，就讓它變成你的</h3>
+     <p>今天的重點在這裡：把做過的流程打包起來。</p></div>
+   <div class="card"><span class="num">今天不教</span><h3>記憶管理</h3>
+     <p>藍圖、開工收工、上下文管理 —— 3 小時用不到，但回校後會遇到。最後一頁會預告。</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- ══════════ 維持注意 ══════════ -->
+
+<section class="slide" data-slide="5" data-section="維持注意">
+ <div class="slide-inner divider">
+  <div class="big">S1</div>
+  <h1 style="margin-bottom:var(--s4)">先講清楚，再讓它做</h1>
+  <p class="lead dim">90 分鐘 · 帶走一份考卷</p>
+ </div>
+</section>
+
+<section class="slide" data-slide="6" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S1 · 觀念最低限度</p>
+  <h1>它會做的四件事</h1>
+  <div class="grid2x2" style="margin-top:var(--s2)">
+   <div class="card accent"><span class="num">01</span><h3>讀檔案</h3>
+     <p>給它路徑，它自己打開來讀。<strong style="color:var(--ink)">今天最常用的一招。</strong></p></div>
+   <div class="card"><span class="num">02</span><h3>寫程式</h3>
+     <p>你不用懂。它需要什麼工具會自己裝、自己寫、自己跑。</p></div>
+   <div class="card"><span class="num">03</span><h3>上網</h3>
+     <p>自己去找考古題、下載 PDF 到你指定的資料夾。</p></div>
+   <div class="card"><span class="num">04</span><h3>產出檔案</h3>
+     <p>Word、簡報、試算表、圖表 —— 直接生成檔案，不是給你一段文字。</p></div>
+  </div>
+  <div class="note"><p>今天全部只用這四樣，不碰任何外部平台。</p></div>
+ </div>
+</section>
+
+<section class="slide" data-slide="7" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S1 · 比喻</p>
+  <div class="grid2">
+   <div>
+    <svg viewBox="0 0 440 300" style="width:100%;height:auto">
+     <rect x="24" y="180" width="392" height="16" rx="4" fill="rgba(0,212,255,.18)" stroke="#00d4ff" stroke-width="1"/>
+     <text class="lbl-s" x="220" y="222" text-anchor="middle">專案資料夾＝料理台</text>
+     <rect x="56" y="120" width="72" height="56" rx="8" fill="rgba(255,255,255,.05)" stroke="#4a5680"/>
+     <text class="lbl" x="92" y="154" text-anchor="middle">教材</text>
+     <rect x="148" y="104" width="72" height="72" rx="8" fill="rgba(255,255,255,.05)" stroke="#4a5680"/>
+     <text class="lbl" x="184" y="146" text-anchor="middle">考古題</text>
+     <rect x="240" y="132" width="72" height="44" rx="8" fill="rgba(255,255,255,.05)" stroke="#4a5680"/>
+     <text class="lbl" x="276" y="160" text-anchor="middle">範本</text>
+     <circle cx="368" cy="140" r="30" fill="rgba(255,0,110,.12)" stroke="#ff006e" stroke-width="2"/>
+     <text class="lbl" x="368" y="146" text-anchor="middle" fill="#ff006e">Agent</text>
+     <rect x="40" y="40" width="112" height="40" rx="8" fill="none" stroke="#4a5680" stroke-dasharray="4 4"/>
+     <text class="lbl-s" x="96" y="65" text-anchor="middle">桌面</text>
+     <rect x="288" y="40" width="112" height="40" rx="8" fill="none" stroke="#4a5680" stroke-dasharray="4 4"/>
+     <text class="lbl-s" x="344" y="65" text-anchor="middle">下載區</text>
+     <text class="lbl-s" x="220" y="66" text-anchor="middle" fill="#ff4466">✕ 散在這裡它找不到</text>
+    </svg>
+   </div>
+   <div>
+    <h1>資料夾是料理台</h1>
+    <p>做菜前會把食材、鍋具、調味料都放在料理台上。<span class="hl">AI Agent 也一樣。</span></p>
+    <p>給它一個專案資料夾，它才能在裡面讀檔、存檔、產出成品。</p>
+    <p>檔案散落在桌面或下載區，<span class="hl2">它就找不到、做不好</span>。</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-slide="8" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S1 · 今天最常用的動作</p>
+  <div class="grid2">
+   <div>
+    <h1>路徑是它的地址</h1>
+    <p>很多人以為把檔案<span class="dim">「拖進對話框」</span>給 AI 看就好。</p>
+    <p>其實它是<span class="hl">直接在你的電腦上工作</span>，需要你告訴它檔案在哪裡。</p>
+    <div class="card accent" style="margin-top:var(--s3)">
+     <h3 style="margin-bottom:var(--s4)">檔案總管 → 右鍵 → 複製路徑</h3>
+     <p>整個下午你會做很多次這個動作。<br>複製完直接貼給 Agent，一句「去讀這個檔案」它就找得到。</p>
+    </div>
+   </div>
+   <div>
+    <svg viewBox="0 0 440 300" style="width:100%;height:auto">
+     <rect x="24" y="32" width="392" height="72" rx="12" fill="rgba(255,255,255,.045)" stroke="#4a5680"/>
+     <circle cx="56" cy="68" r="12" fill="rgba(0,212,255,.2)"/>
+     <text class="lbl" x="88" y="62" fill="#b8c5e0">段考複習卷.docx</text>
+     <text class="lbl-s" x="88" y="86">在你的電腦某個角落</text>
+     <path d="M220 112 v40" stroke="#00d4ff" stroke-width="2"/>
+     <path d="M214 144 l6 10 6 -10z" fill="#00d4ff"/>
+     <rect x="56" y="160" width="328" height="44" rx="8" fill="rgba(0,212,255,.08)" stroke="#00d4ff" stroke-width="1"/>
+     <text x="220" y="188" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="16" fill="#00d4ff">C:\教學\段考\段考複習卷.docx</text>
+     <path d="M220 212 v32" stroke="#ff006e" stroke-width="2"/>
+     <path d="M214 236 l6 10 6 -10z" fill="#ff006e"/>
+     <rect x="120" y="252" width="200" height="36" rx="8" fill="rgba(255,0,110,.1)" stroke="#ff006e"/>
+     <text class="lbl" x="220" y="276" text-anchor="middle" fill="#ff006e">貼給你的 AI Agent</text>
+    </svg>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-slide="9" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S1 · 動手前</p>
+  <h1>三條安全底線</h1>
+  <div class="grid3" style="margin-top:var(--s2)">
+   <div class="card accent"><span class="num">底線 01</span><h3>半自動起步</h3>
+    <p>它只在<strong style="color:var(--ink)">刪除、覆蓋、搬移</strong>這類動作停下來問你，日常動作不會打斷。
+    全自動等你熟悉它的行為之後再說。</p></div>
+   <div class="card warn"><span class="num">底線 02</span><h3>「待刪除」紙箱</h3>
+    <p>它覺得沒用的檔案，只能<strong style="color:var(--ink)">移進「待刪除」資料夾，不能直接刪</strong>。
+    像請工讀生把不要的文件先放紙箱，你親自看過才丟。</p></div>
+   <div class="card accent2"><span class="num">底線 03</span><h3>來路不明不要裝</h3>
+    <p>網路上有很多「一鍵安裝」的 AI 技能包，<strong style="color:var(--ink)">有些會把你的資料回傳出去</strong>。
+    不認識的作者，寧可不要裝。</p></div>
+  </div>
+  <div class="note"><p>這三條今天全程適用。等一下實作時，權限請設在半自動。</p></div>
+ </div>
+</section>
+
+<section class="slide" data-slide="10" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S1 · 這一段是今天最省時間的 20 分鐘</p>
+  <h1>你沒說的，它不會猜</h1>
+  <p class="small" style="margin-bottom:var(--s3)">
+   很多老師以為提示詞寫得夠長 AI 就懂。其實讓成品走針的，往往是你<span class="hl2">沒說出口</span>的預設細節。
+   <span class="dim">（點卡片展開）</span></p>
+  <div class="quad">
+   <div class="q" onclick="this.classList.toggle('open')">
+    <div class="qh"><span class="qn">Ⅰ</span><span class="qt">你說得出的</span></div>
+    <div class="qb"><p>「我要一份指數與對數的複習卷。」<br>這是你一開口就會講的部分。</p></div></div>
+   <div class="q" onclick="this.classList.toggle('open')">
+    <div class="qh"><span class="qn">Ⅱ</span><span class="qt">你知道自己不懂的</span></div>
+    <div class="qb"><p>「數學式怎麼排才不會變成打字稿？」<br>你知道有問題，但不知道答案。</p></div></div>
+   <div class="q key" onclick="this.classList.toggle('open')">
+    <div class="qh"><span class="qn">Ⅲ</span><span class="qt">理所當然、所以沒說的</span></div>
+    <div class="qb"><p>要不要答案卷？配分怎麼分？印出來幾頁？<br><strong style="color:var(--ink)">你覺得這還用說嗎 —— 但 AI 不知道。</strong></p></div></div>
+   <div class="q key" onclick="this.classList.toggle('open')">
+    <div class="qh"><span class="qn">Ⅳ</span><span class="qt">你根本沒想到的</span></div>
+    <div class="qb"><p>難度分布？要不要附圖？細目表要一起出嗎？<br><strong style="color:var(--ink)">連問題本身都還不存在。</strong></p></div></div>
+  </div>
+  <div class="note"><p><span class="hl2">第三、第四象限才是成敗關鍵。</span>一般人的需求表達只停在前兩格 ——
+   像到咖啡廳只說「我要一杯咖啡」，店員遞給你熱美式，你卻想要冰拿鐵。</p></div>
+ </div>
+</section>
+
+<section class="slide" data-slide="11" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S1 · 實作 ① · 45 分鐘</p>
+  <h1>出一份考卷</h1>
+  <div class="task" style="margin-top:var(--s3)">
+   <div>
+    <ol class="steps">
+     <li>建立專案資料夾，教材或考古題放進去，<strong style="color:var(--ink)">複製路徑</strong>貼給 Agent。</li>
+     <li><strong style="color:var(--ink)">第一則指令一次講完</strong>：單元、題型、題數、配分、格式、是否附圖、要產出哪幾份檔案。</li>
+     <li>要求產出三份 Word：<span class="hl">題目卷、答案卷、雙向細目表</span>。</li>
+     <li>數學科要明確說「數學式以 <strong style="color:var(--ink)">OMML 格式</strong>呈現」——不講的話分數會變成 <span class="dim">1/2</span> 這種打字稿。其他科目指定該科的專業格式。</li>
+     <li>需要圖形時，要它<strong style="color:var(--ink)">先用 Python 畫成圖檔再插入</strong>，不要叫它直接生一張圖。</li>
+     <li><span class="hl2">逐題核對答案</span>，發現錯誤用「指出位置＋期望結果」修正，不要只說「再改一下」。</li>
+    </ol>
+   </div>
+   <div class="pbox">
+    <h3 style="margin-bottom:var(--s3)">要交什麼</h3>
+    <div class="pline"><span class="ptag">P1</span><span>題目卷、答案卷、雙向細目表三個 Word 檔</span></div>
+    <div class="pline"><span class="ptag">P2</span><span>第一則完整指令 ＋ 所有修正指令</span></div>
+    <div class="pline key"><span class="ptag">P3</span><span><strong style="color:var(--ink)">檢查紀錄表</strong>：專業格式、答案逐題核對、細目表配分是否一致、附圖位置。<strong style="color:var(--ink)">每項都要寫結論，含「核對無誤」</strong></span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-slide="12" data-section="維持注意">
+ <div class="slide-inner divider">
+  <div class="big">S2</div>
+  <h1 style="margin-bottom:var(--s4)">做過一次，就讓它變成你的</h1>
+  <p class="lead dim">90 分鐘 · 帶走一整包教材與一個技能</p>
+ </div>
+</section>
+
+<section class="slide" data-slide="13" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S2 · 35 分鐘</p>
+  <h1>一份教材長出一整包</h1>
+  <div class="grid2x3" style="margin-top:var(--s2)">
+   <div class="card accent"><span class="num">01</span><h3>簡報</h3><p>至少 10 頁，風格你指定。</p></div>
+   <div class="card"><span class="num">02</span><h3>資訊圖表</h3><p>每個重點一張，16:9 橫式。</p></div>
+   <div class="card"><span class="num">03</span><h3>備課說明</h3><p>Word 檔，給自己看的教學筆記。</p></div>
+   <div class="card accent2"><span class="num">04</span><h3>記憶理解層</h3><p>知道什麼。</p></div>
+   <div class="card accent2"><span class="num">05</span><h3>應用層</h3><p>會怎麼用。</p></div>
+   <div class="card accent2"><span class="num">06</span><h3>分析層</h3><p>為什麼這樣。</p></div>
+  </div>
+  <div class="note"><p><strong style="color:var(--ink)">限制條件一定要寫進指令</strong>：
+   所有內容不得超出教材範圍、測驗答案必須能從教材推得。不講，它就會自己去外面抓。</p></div>
+ </div>
+</section>
+
+<section class="slide" data-slide="14" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S2 · 這是最容易做假的地方</p>
+  <h1>分層不是寫簡單點</h1>
+  <p class="small" style="margin-bottom:var(--s3)">很多老師以為差異化就是「請 AI 寫簡單一點」。
+   <span class="dim">（點欄位標題可排序）</span></p>
+  <table id="bloomTable">
+   <thead><tr>
+     <th data-col="0">層次 <span class="arrow">⇅</span></th>
+     <th data-col="1">學生要做什麼 <span class="arrow">⇅</span></th>
+     <th data-col="2">題目長相 <span class="arrow">⇅</span></th>
+     <th data-col="3">假分層的樣子 <span class="arrow">⇅</span></th>
+   </tr></thead>
+   <tbody>
+    <tr><td><strong>記憶理解</strong></td><td>知道什麼</td><td>說出定義、指認名詞、複述步驟</td><td>把題目換句話說</td></tr>
+    <tr><td><strong>應用</strong></td><td>會怎麼用</td><td>放進新情境、算出結果、選對方法</td><td>只是換一組數字</td></tr>
+    <tr><td><strong>分析</strong></td><td>為什麼這樣</td><td>比較、找出關係、判斷理由、評估優劣</td><td>在題幹前面加「請分析」</td></tr>
+   </tbody>
+  </table>
+  <div class="note"><p><span class="hl2">檢查方式</span>：把三層各抽一題並排看。
+   如果一個學生會寫第一層就一定會寫第三層 —— 那就是假分層，要求它重做。</p></div>
+ </div>
+</section>
+
+<section class="slide" data-slide="15" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S2 · 今天的重點從這裡開始</p>
+  <div class="grid2">
+   <div>
+    <h1>技能就是說明書</h1>
+    <p><span class="hl">不是程式。</span>是一份純文字說明書，寫清楚要做什麼、怎麼做，AI 照著跑就會產出你要的結果。</p>
+    <p class="lead" style="margin-top:var(--s3)">你不需要會寫程式，<br>只需要會<span class="hl2">把流程寫清楚</span> ——</p>
+    <p class="lead">而這正是老師最擅長的事。</p>
+   </div>
+   <div>
+    <svg viewBox="0 0 440 320" style="width:100%;height:auto">
+     <rect x="40" y="24" width="160" height="200" rx="12" fill="rgba(255,255,255,.05)" stroke="#4a5680"/>
+     <text class="lbl-b" x="120" y="56" text-anchor="middle" fill="#b8c5e0">代課通知單</text>
+     <path d="M64 80 h112 M64 104 h112 M64 128 h88 M64 152 h112 M64 176 h72"
+       stroke="#4a5680" stroke-width="2" stroke-linecap="round"/>
+     <text class="lbl-s" x="120" y="248" text-anchor="middle">你寫給代課老師的</text>
+     <text class="lbl-s" x="120" y="270" text-anchor="middle">教學流程單</text>
+     <text x="220" y="130" text-anchor="middle" font-size="28" fill="#00d4ff">≈</text>
+     <rect x="240" y="24" width="160" height="200" rx="12" fill="rgba(0,212,255,.08)" stroke="#00d4ff" stroke-width="2"/>
+     <text class="lbl-b" x="320" y="56" text-anchor="middle" fill="#eef3ff">技能說明書</text>
+     <path d="M264 80 h112 M264 104 h112 M264 128 h88 M264 152 h112 M264 176 h72"
+       stroke="#00d4ff" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+     <text class="lbl-s" x="320" y="248" text-anchor="middle" fill="#00d4ff">你寫給 AI 的</text>
+     <text class="lbl-s" x="320" y="270" text-anchor="middle" fill="#00d4ff">同一份流程單</text>
+    </svg>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-slide="16" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S2 · 最容易踩的坑</p>
+  <h1>對話型還是檔案型</h1>
+  <svg viewBox="0 0 900 320" style="width:100%;height:auto;margin-top:var(--s3)">
+   <rect x="300" y="8" width="300" height="64" rx="12" fill="rgba(255,184,0,.1)" stroke="#ffb800" stroke-width="2"/>
+   <text class="lbl-b" x="450" y="47" text-anchor="middle" fill="#ffb800">它需要讀寫你電腦上的檔案嗎？</text>
+   <path d="M400 72 L200 128" stroke="#4a5680" stroke-width="2"/>
+   <path d="M500 72 L700 128" stroke="#00d4ff" stroke-width="2"/>
+   <text class="lbl-s" x="272" y="104" fill="#7a8bb8">不用</text>
+   <text class="lbl-s" x="596" y="104" fill="#00d4ff">要</text>
+   <rect x="60" y="128" width="280" height="160" rx="12" fill="rgba(255,255,255,.05)" stroke="#4a5680"/>
+   <text class="lbl-b" x="200" y="164" text-anchor="middle" fill="#b8c5e0">對話型</text>
+   <text class="lbl" x="200" y="196" text-anchor="middle">只靠對話就能完成</text>
+   <text class="lbl" x="200" y="224" text-anchor="middle">發想貼文、擬會議流程</text>
+   <text class="lbl-s" x="200" y="258" text-anchor="middle">哪裡都能跑</text>
+   <rect x="560" y="128" width="280" height="160" rx="12" fill="rgba(0,212,255,.08)" stroke="#00d4ff" stroke-width="2"/>
+   <text class="lbl-b" x="700" y="164" text-anchor="middle" fill="#eef3ff">檔案型</text>
+   <text class="lbl" x="700" y="196" text-anchor="middle" fill="#00d4ff">要讀檔、要產出檔案</text>
+   <text class="lbl" x="700" y="224" text-anchor="middle" fill="#00d4ff">出考卷、生教材 ← 今天做的</text>
+   <text class="lbl-s" x="700" y="258" text-anchor="middle" fill="#00d4ff">只能在支援本機操作的環境跑</text>
+  </svg>
+  <div class="note"><p><span class="hl2">判斷錯誤，技能就會「跑不動」</span> —— 這是新手做完技能卻無法執行的頭號原因。動手寫之前先問這一句。</p></div>
+ </div>
+</section>
+
+<!-- ══════════ 喚起行動 ══════════ -->
+
+<section class="slide" data-slide="17" data-section="喚起行動">
+ <div class="slide-inner">
+  <p class="kicker">S2 · 說明書要寫哪些</p>
+  <h1>五個欄位</h1>
+  <div class="grid2x3" style="margin-top:var(--s2)">
+   <div class="card"><span class="num">01</span><h3>技能名稱</h3><p>簡短、好叫。</p></div>
+   <div class="card accent"><span class="num">02</span><h3>觸發條件</h3>
+     <p>哪些關鍵字會觸發，<strong style="color:var(--ink)">以及什麼時候不該觸發</strong>。<br>寫太寬會誤觸發，太窄會叫不出來。</p></div>
+   <div class="card"><span class="num">03</span><h3>流程步驟</h3><p>從收到指令到產出成品。</p></div>
+   <div class="card"><span class="num">04</span><h3>規則</h3><p>題型、配分、格式、不得超出範圍。</p></div>
+   <div class="card"><span class="num">05</span><h3>輸出格式</h3><p>要產出哪些檔案、各含哪些欄位。</p></div>
+   <div class="card warn"><span class="num">前提</span><h3>先跑過一次再打包</h3>
+     <p>今天的順序是刻意的：你已經手動跑過完整流程，現在才打包。<strong style="color:var(--ink)">沒跑過就打包的技能，通常跑不動。</strong></p></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-slide="18" data-section="喚起行動">
+ <div class="slide-inner">
+  <p class="kicker">S2 · 實作 ② · 40 分鐘</p>
+  <h1>把流程包成技能</h1>
+  <div class="task" style="margin-top:var(--s3)">
+   <div>
+    <ol class="steps">
+     <li>從今天做過的兩件事挑一個：<span class="hl">出考卷</span> 或 <span class="hl">生教材</span>。</li>
+     <li>要求 Agent 把這個流程包成技能，說明書必須含<strong style="color:var(--ink)">五個欄位</strong>。</li>
+     <li>觸發條件記得寫「什麼時候<strong style="color:var(--ink)">不該</strong>觸發」。</li>
+     <li>先用<strong style="color:var(--ink)">原本的教材</strong>觸發一次，確認能重現。</li>
+     <li><span class="hl2">換一份教材、換一個單元</span>，再觸發同一個技能。</li>
+     <li>發現寫死的地方（科目名稱、檔案路徑、題型）就修正，修正後再測一次。</li>
+    </ol>
+    <div class="note"><p><strong style="color:var(--ink)">第 5 步不能省。</strong>
+     只在原情境跑過等於什麼都沒證明 —— 技能裡常有寫死的隱含假設，換情境才會現形。</p></div>
+   </div>
+   <div class="pbox">
+    <h3 style="margin-bottom:var(--s3)">要交什麼</h3>
+    <div class="pline"><span class="ptag">P1</span><span>技能資料夾（含說明書）＋ 兩次觸發紀錄</span></div>
+    <div class="pline"><span class="ptag">P2</span><span>觸發與執行的完整對話</span></div>
+    <div class="pline key"><span class="ptag">P3</span><span><strong style="color:var(--ink)">檢查紀錄表</strong>：五欄位是否齊備、對話型／檔案型判斷、換情境重測結果</span></div>
+    <div class="note" style="margin-top:var(--s3)"><p>技能資料夾<strong style="color:var(--ink)">整個複製給同事，對方貼上就能用</strong>。</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-slide="19" data-section="喚起行動">
+ <div class="slide-inner">
+  <p class="kicker">評分怎麼看</p>
+  <h1>做出來只有一半</h1>
+  <div class="grid2" style="margin-top:var(--s3)">
+   <div class="chartwrap"><canvas id="radar"></canvas></div>
+   <div>
+    <div class="card accent" style="margin-bottom:var(--gap)">
+     <span class="num">D1 · 50%</span><h3>成品完成度</h3>
+     <p>東西做出來了嗎？符合規格嗎？三份文件齊備嗎？技能叫得動嗎？</p></div>
+    <div class="card accent2">
+     <span class="num">D2 · 50%</span><h3>正確性與檢查</h3>
+     <p>有沒有經過人工檢查？<strong style="color:var(--ink)">有沒有抓到 AI 的錯？</strong><br>
+      考卷做得漂亮但檢查紀錄表空白，最高只能拿一半。</p></div>
+    <div class="note"><p>把「抓到 AI 的錯」設為最高級，是想講一件事：<br>
+      <span class="hl2">你的專業價值在判斷，不在生成。</span></p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-slide="20" data-section="喚起行動">
+ <div class="slide-inner">
+  <p class="kicker">回校後你一定會撞到</p>
+  <h1>三件事，先預告</h1>
+  <div class="grid3" style="margin-top:var(--s2)">
+   <div class="card warn"><span class="num">狀況 01</span><h3>「昨天教過它的，怎麼今天忘了？」</h3>
+    <p>它只記得兩個地方：全域藍圖與專案藍圖。<strong style="color:var(--ink)">關掉對話，其餘全部忘記。</strong></p></div>
+   <div class="card warn"><span class="num">狀況 02</span><h3>「用一用它就變笨了」</h3>
+    <p>上下文（它的記憶體空間）快滿時，會開始遺忘前面的內容。<strong style="color:var(--ink)">做完一件事就開新對話。</strong></p></div>
+   <div class="card warn"><span class="num">狀況 03</span><h3>「額度怎麼一下就沒了」</h3>
+    <p>對話拖太長，每次都在重讀前面全部內容，<strong style="color:var(--ink)">反覆燒同一筆帳。</strong></p></div>
+  </div>
+  <div class="note"><p>這三件事都不是你做錯，也不是工具爛 —— 是<span class="hl">記憶管理</span>，今天沒教。
+   <span class="dim">散場會發一頁講義，上面有解法與後續進修順序。</span></p></div>
+ </div>
+</section>
+
+<section class="slide" data-slide="21" data-section="喚起行動">
+ <div class="slide-inner">
+  <p class="kicker">下一步</p>
+  <h1>想再往下走的話</h1>
+  <div class="flow" style="margin-top:var(--s2)">
+   <div class="step" style="border-color:rgba(0,212,255,.42);background:rgba(0,212,255,.07)">
+    <div class="t">先補 A5</div><div class="d">記憶管理<br>藍圖、開工收工、上下文</div></div>
+   <div class="ar">→</div>
+   <div class="step"><div class="t">再看 A2</div><div class="d">權限與供應鏈安全</div></div>
+   <div class="ar">→</div>
+   <div class="step"><div class="t">依需求選</div><div class="d">A6 連外部工具<br>A7 教材自動化<br>A11 第二大腦</div></div>
+  </div>
+  <div class="grid3" style="margin-top:var(--s1)">
+   <div class="card"><span class="num">完整版</span><h3>12 單元 · 18 小時</h3><p>系列研習、校內社群長期共備。</p></div>
+   <div class="card"><span class="num">精簡版</span><h3>7 單元 · 10.5 小時</h3><p>一天半的暑期研習。</p></div>
+   <div class="card accent"><span class="num">你在這裡</span><h3>速成版 · 3 小時</h3><p>今天下午。</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-slide="22" data-section="喚起行動">
+ <div class="slide-inner" style="text-align:center">
+  <svg viewBox="0 0 640 120" style="width:100%;max-width:640px;height:auto;margin-bottom:var(--s2)">
+   <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+     <stop offset="0" stop-color="#00d4ff"/><stop offset="1" stop-color="#ff006e"/></linearGradient></defs>
+   <rect x="40" y="36" width="88" height="48" rx="8" fill="none" stroke="#00d4ff" stroke-width="2"/>
+   <text class="lbl-s" x="84" y="65" text-anchor="middle" fill="#7a8bb8">考卷</text>
+   <rect x="152" y="36" width="88" height="48" rx="8" fill="none" stroke="#00d4ff" stroke-width="2"/>
+   <text class="lbl-s" x="196" y="65" text-anchor="middle" fill="#7a8bb8">教材包</text>
+   <rect x="264" y="28" width="112" height="64" rx="10" fill="rgba(255,0,110,.1)" stroke="#ff006e" stroke-width="2"/>
+   <text class="lbl" x="320" y="65" text-anchor="middle" fill="#ff006e">技能</text>
+   <path d="M392 60 h64" stroke="url(#g2)" stroke-width="2"/><path d="M450 54 l10 6 -10 6z" fill="#ff006e"/>
+   <circle cx="500" cy="60" r="18" fill="none" stroke="#ff006e" stroke-width="2"/>
+   <circle cx="548" cy="60" r="18" fill="none" stroke="#ff006e" stroke-width="2" opacity=".6"/>
+   <circle cx="596" cy="60" r="18" fill="none" stroke="#ff006e" stroke-width="2" opacity=".3"/>
+  </svg>
+  <h1 style="font-size:76px">你做的不只是一份考卷</h1>
+  <p class="lead" style="max-width:760px;margin:0 auto">是一個<span class="hl2">可以送人的流程</span>。<br>
+   複製給同事，他貼上就能用 —— 而且下一次段考，你不用再做一遍。</p>
+  <div class="credit">
+   <p>本研習的觀念與方法，整理自 <a href="https://www.youtube.com/@sensebar" target="_blank" rel="noopener">三師爸 Sense Bar</a> 的教學影片</p>
+   <p><a href="https://www.youtube.com/playlist?list=PLkNQUBglz8EyGuOIKfrKX9V7ot5VbZKha" target="_blank" rel="noopener">AI Agent 基本功（EP01–EP07）</a>
+    ·　<a href="https://www.youtube.com/@sensebar/playlists" target="_blank" rel="noopener">全部播放清單</a></p>
+   <p class="tiny">單元架構、實作題與評分規準為本研習之教學設計；觀念來源請見上方影片，建議搭配原片學習。</p>
+  </div>
+ </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+const total = slides.length;
+let cur = 0, radarDone = false;
+
+function render(){
+  slides.forEach((s,i)=> s.classList.toggle('active', i===cur));
+  document.getElementById('progress').style.width = ((cur+1)/total*100)+'%';
+  document.getElementById('pageInfo').textContent = String(cur+1).padStart(2,'0')+' / '+total;
+  document.getElementById('section-tag').textContent = '— '+slides[cur].dataset.section+' —';
+  if(slides[cur].dataset.slide === '19' && !radarDone) initRadar();
+}
+function go(n){ cur = Math.max(0, Math.min(total-1, n)); render(); }
+
+document.addEventListener('keydown', e=>{
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){ e.preventDefault(); go(cur+1); }
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); go(cur-1); }
+  else if(e.key==='Home'){ go(0); } else if(e.key==='End'){ go(total-1); }
+  else if(e.key==='f'||e.key==='F'){ document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+  else if(e.key==='e'||e.key==='E'){ exportPNG(); }
+});
+document.addEventListener('click', e=>{
+  if(e.target.closest('.q, th, a, button, .credit')) return;
+  go(e.clientX > innerWidth*0.7 ? cur+1 : (e.clientX < innerWidth*0.3 ? cur-1 : cur));
+});
+
+/* 可排序表格 */
+document.querySelectorAll('#bloomTable th').forEach(th=>{
+  th.addEventListener('click', ()=>{
+    const tb = th.closest('table').querySelector('tbody');
+    const i = +th.dataset.col;
+    const asc = th.dataset.asc !== 'true';
+    th.dataset.asc = asc;
+    [...tb.rows].sort((a,b)=>{
+      const x=a.cells[i].innerText.trim(), y=b.cells[i].innerText.trim();
+      return asc ? x.localeCompare(y,'zh-Hant') : y.localeCompare(x,'zh-Hant');
+    }).forEach(r=>tb.appendChild(r));
+  });
+});
+
+/* 雷達圖（切到該頁才 render） */
+function initRadar(){
+  radarDone = true;
+  const ctx = document.getElementById('radar');
+  if(!ctx || !window.Chart) return;
+  new Chart(ctx, {
+    type:'radar',
+    data:{
+      labels:['三份文件齊備','符合命題條件','專業格式檢查','答案逐題核對'],
+      datasets:[
+        {label:'只顧做出來', data:[4,4,1,1], borderColor:'#7a8bb8',
+         backgroundColor:'rgba(122,139,184,.14)', borderWidth:2, pointBackgroundColor:'#7a8bb8'},
+        {label:'做出來且檢查過', data:[4,4,4,4], borderColor:'#00d4ff',
+         backgroundColor:'rgba(0,212,255,.16)', borderWidth:2, pointBackgroundColor:'#00d4ff'}
+      ]},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#b8c5e0', font:{family:'Noto Sans TC', size:17}}}},
+      scales:{r:{
+        min:0, max:4, ticks:{display:false, stepSize:1},
+        grid:{color:'rgba(184,197,224,.16)'}, angleLines:{color:'rgba(184,197,224,.16)'},
+        pointLabels:{color:'#b8c5e0', font:{family:'Noto Sans TC', size:17}}
+      }}
+    }});
+}
+
+/* E 鍵匯出當前頁 PNG */
+async function exportPNG(){
+  const el = document.querySelector('.slide.active');
+  if(!el || !window.htmlToImage) return;
+  const n = el.dataset.slide;
+  try{
+    const url = await htmlToImage.toPng(el, {
+      pixelRatio:2, backgroundColor:getComputedStyle(document.body).backgroundColor });
+    const a = document.createElement('a');
+    a.href = url; a.download = 'slide-'+String(n).padStart(2,'0')+'.png'; a.click();
+  }catch(err){ console.error('匯出失敗', err); }
+}
+
+render();
+</script>
+</body>
+</html>
