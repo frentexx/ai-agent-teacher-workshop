@@ -139,6 +139,10 @@ td strong{color:var(--ink)}
 .credit a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,212,255,.4);
   transition:color .2s,border-color .2s}
 .credit a:hover{color:var(--accent-2);border-color:var(--accent-2)}
+.code{font-family:"JetBrains Mono",monospace;font-size:16px;line-height:1.85;
+  background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:12px;
+  padding:var(--s3);color:var(--ink-2);white-space:pre-wrap;margin:0}
+.code b{color:var(--accent);font-weight:700}
 .chartwrap{height:400px;display:flex;align-items:center;justify-content:center}
 .note{border-left:3px solid var(--accent-2);padding-left:var(--s3);margin-top:var(--s3)}
 .note p{font-size:var(--t4);margin:0;color:var(--ink-2)}
@@ -375,6 +379,36 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
 
 <section class="slide" data-slide="10" data-section="維持注意">
  <div class="slide-inner">
+  <p class="kicker">S1 · 2b · 10 分鐘 · 今天唯一要記住的東西</p>
+  <h1>交辦四問</h1>
+  <p class="small" style="margin-bottom:var(--s3)">
+   新手交辦失敗，八成是漏掉其中一項。<span class="hl2">寫在白板上不要擦掉，今天會用整天。</span></p>
+  <div class="quad">
+   <div class="q" onclick="this.classList.toggle('open')">
+    <div class="qh"><span class="qn">1</span><span class="qt">做什麼</span></div>
+    <div class="qb"><p>我要的成品長什麼樣：格式、幾份、多長。<br>
+     <strong style="color:var(--ink)">漏掉 → 給你一坨散文。</strong></p></div></div>
+   <div class="q" onclick="this.classList.toggle('open')">
+    <div class="qh"><span class="qn">2</span><span class="qt">用什麼</span></div>
+    <div class="qb"><p>拿哪些資料做、哪些不准另外查。<br>
+     <strong style="color:var(--ink)">漏掉 → 自己編一份。</strong></p></div></div>
+   <div class="q key" onclick="this.classList.toggle('open')">
+    <div class="qh"><span class="qn">3</span><span class="qt">不做什麼</span></div>
+    <div class="qb"><p>哪裡不准碰、<strong style="color:var(--ink)">做到哪就停</strong>。<br>
+     漏掉 → 一路做到底、真的寄出去。</p></div></div>
+   <div class="q key" onclick="this.classList.toggle('open')">
+    <div class="qh"><span class="qn">4</span><span class="qt">驗什麼</span></div>
+    <div class="qb"><p>我要親自核對哪一項。<br>
+     <strong style="color:var(--ink)">漏掉 → 你不知道錯在哪。</strong></p></div></div>
+  </div>
+  <div class="note"><p><strong style="color:var(--ink)">四問跟下一段的四象限是什麼關係？</strong>
+   <span class="hl">四象限是問出需求的工具，四問是把需求交出去的格式。</span>
+   下一段你會讓 AI 照四象限反問你 —— 問出來的答案，就填進這四個格子。</p></div>
+ </div>
+</section>
+
+<section class="slide" data-slide="11" data-section="維持注意">
+ <div class="slide-inner">
   <p class="kicker">S1 · 這一段是今天最省時間的 20 分鐘</p>
   <h1>你沒說的，它不會猜</h1>
   <p class="small" style="margin-bottom:var(--s3)">
@@ -399,7 +433,38 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  </div>
 </section>
 
-<section class="slide" data-slide="11" data-section="維持注意">
+<section class="slide" data-slide="12" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S1 · 現場活動 · 15 分鐘</p>
+  <h1>不用背四象限，讓它問你</h1>
+  <p class="small" style="margin-bottom:var(--s3)">
+   四象限是<span class="hl">給 AI 用的提問架構</span>，不是要你背下來。
+   把下面這則指令改掉科目與單元，<strong style="color:var(--ink)">直接貼上</strong> —— 這是今天第一則正式指令。</p>
+  <div class="grid2" style="align-items:start">
+   <pre class="code">我要請你幫我做一份〔科目〕〔單元〕的段考複習卷。
+動手之前，先別開始出題，請先反問我，
+把我沒講清楚的需求挖出來：
+ 1 我說了、但講得不夠精確的地方
+ 2 我可能不知道該怎麼指定的地方
+ 3 我大概覺得理所當然、所以沒講的
+ 4 我根本沒想到、但你認為會影響成品的
+一次最多問我 8 題，編號列出，
+每題附上你建議的預設值。
+<b>問完就停，等我回覆再開始動手。</b></pre>
+   <div>
+    <div class="note"><p><strong style="color:var(--ink)">最後一句就是停點。</strong>
+     沒寫的話，它會自己問完自己答，直接開始出考卷。</p></div>
+    <div class="note" style="border-left-color:var(--accent)"><p>
+     回答完，請它把最終需求整理成 <strong style="color:var(--ink)">需求清單.md</strong> 放進專案資料夾。
+     <span class="hl">這張清單是下一段的指令來源，也是下午技能說明書的骨架 —— 請不要關掉。</span></p></div>
+    <p class="small" style="margin-top:var(--s3)">
+     沒電腦或網路不穩：兩人一組，把第三、四象限各問出三條寫在紙上，效果一樣，只是慢一點。</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-slide="13" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S1 · 實作 ① · 45 分鐘</p>
   <h1>出一份考卷</h1>
@@ -424,7 +489,7 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  </div>
 </section>
 
-<section class="slide" data-slide="12" data-section="維持注意">
+<section class="slide" data-slide="14" data-section="維持注意">
  <div class="slide-inner divider">
   <div class="big">S2</div>
   <h1 style="margin-bottom:var(--s4)">做過一次，就讓它變成你的</h1>
@@ -432,7 +497,7 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  </div>
 </section>
 
-<section class="slide" data-slide="13" data-section="維持注意">
+<section class="slide" data-slide="15" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 35 分鐘</p>
   <h1>一份教材長出一整包</h1>
@@ -449,7 +514,7 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  </div>
 </section>
 
-<section class="slide" data-slide="14" data-section="維持注意">
+<section class="slide" data-slide="16" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 這是最容易做假的地方</p>
   <h1>分層不是寫簡單點</h1>
@@ -470,10 +535,15 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
   </table>
   <div class="note"><p><span class="hl2">檢查方式</span>：把三層各抽一題並排看。
    如果一個學生會寫第一層就一定會寫第三層 —— 那就是假分層，要求它重做。</p></div>
+  <div class="note" style="margin-top:var(--s4);border-left-color:var(--warn)"><p>
+   <strong style="color:var(--ink)">再多檢查一件事：它有沒有在貼標籤。</strong>
+   AI 常在備課說明裡寫「低程度學生」「能力較弱的孩子」，甚至寫進給學生的版本 ——
+   <span class="hl2">這種字發下去會直接傷到人，而且家長看得到。</span>
+   要求它用「尚在建立這個概念」取代「程度低」。<strong style="color:var(--ink)">難度分層是對題目分層，不是對學生分類。</strong></p></div>
  </div>
 </section>
 
-<section class="slide" data-slide="15" data-section="維持注意">
+<section class="slide" data-slide="17" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 今天的重點從這裡開始</p>
   <div class="grid2">
@@ -504,11 +574,11 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  </div>
 </section>
 
-<section class="slide" data-slide="16" data-section="維持注意">
+<section class="slide" data-slide="18" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 最容易踩的坑</p>
   <h1>對話型還是檔案型</h1>
-  <svg viewBox="0 0 900 320" style="width:100%;height:auto;margin-top:var(--s3)">
+  <svg viewBox="0 0 900 320" style="width:100%;height:auto;max-height:46vh;margin-top:var(--s3)">
    <rect x="300" y="8" width="300" height="64" rx="12" fill="rgba(255,184,0,.1)" stroke="#ffb800" stroke-width="2"/>
    <text class="lbl-b" x="450" y="47" text-anchor="middle" fill="#ffb800">它需要讀寫你電腦上的檔案嗎？</text>
    <path d="M400 72 L200 128" stroke="#4a5680" stroke-width="2"/>
@@ -532,24 +602,25 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
 
 <!-- ══════════ 喚起行動 ══════════ -->
 
-<section class="slide" data-slide="17" data-section="喚起行動">
+<section class="slide" data-slide="19" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">S2 · 說明書要寫哪些</p>
-  <h1>五個欄位</h1>
-  <div class="grid2x3" style="margin-top:var(--s2)">
+  <h1>六個欄位</h1>
+  <div class="grid2x3" style="margin-top:var(--s4)">
    <div class="card"><span class="num">01</span><h3>技能名稱</h3><p>簡短、好叫。</p></div>
    <div class="card accent"><span class="num">02</span><h3>觸發條件</h3>
      <p>哪些關鍵字會觸發，<strong style="color:var(--ink)">以及什麼時候不該觸發</strong>。<br>寫太寬會誤觸發，太窄會叫不出來。</p></div>
    <div class="card"><span class="num">03</span><h3>流程步驟</h3><p>從收到指令到產出成品。</p></div>
    <div class="card"><span class="num">04</span><h3>規則</h3><p>題型、配分、格式、不得超出範圍。</p></div>
    <div class="card"><span class="num">05</span><h3>輸出格式</h3><p>要產出哪些檔案、各含哪些欄位。</p></div>
-   <div class="card warn"><span class="num">前提</span><h3>先跑過一次再打包</h3>
-     <p>今天的順序是刻意的：你已經手動跑過完整流程，現在才打包。<strong style="color:var(--ink)">沒跑過就打包的技能，通常跑不動。</strong></p></div>
+   <div class="card accent2"><span class="num">06</span><h3>驗收檢查點</h3>
+     <p>跑完要主動回報哪幾件<strong style="color:var(--ink)">可核對的事實</strong>。<br>等於把早上那張檢查紀錄表寫進技能。</p></div>
   </div>
+  <div class="note" style="margin-top:var(--s4)"><p><strong style="color:var(--ink)">先跑過一次再打包</strong> —— <span class="hl2">沒跑過就打包的技能，通常跑不動。</span></p></div>
  </div>
 </section>
 
-<section class="slide" data-slide="18" data-section="喚起行動">
+<section class="slide" data-slide="20" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">S2 · 實作 ② · 40 分鐘</p>
   <h1>把流程包成技能</h1>
@@ -557,7 +628,7 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
    <div>
     <ol class="steps">
      <li>從今天做過的兩件事挑一個：<span class="hl">出考卷</span> 或 <span class="hl">生教材</span>。</li>
-     <li>要求 Agent 把這個流程包成技能，說明書必須含<strong style="color:var(--ink)">五個欄位</strong>。</li>
+     <li>要求 Agent 把這個流程包成技能，說明書必須含<strong style="color:var(--ink)">六個欄位</strong>。</li>
      <li>觸發條件記得寫「什麼時候<strong style="color:var(--ink)">不該</strong>觸發」。</li>
      <li>先用<strong style="color:var(--ink)">原本的教材</strong>觸發一次，確認能重現。</li>
      <li><span class="hl2">換一份教材、換一個單元</span>，再觸發同一個技能。</li>
@@ -565,19 +636,23 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
     </ol>
     <div class="note"><p><strong style="color:var(--ink)">第 5 步不能省。</strong>
      只在原情境跑過等於什麼都沒證明 —— 技能裡常有寫死的隱含假設，換情境才會現形。</p></div>
+    <div class="note" style="margin-top:var(--s3);border-left-color:var(--warn)"><p>
+     <strong style="color:var(--ink)">觸發詞沒反應？先關掉重開。</strong>
+     技能檔常是<span class="hl">啟動時才掛載</span>，不是即時熱更新。
+     重開你的 AI Agent 或開新對話再測一次 —— 多半不是說明書寫壞了。</p></div>
    </div>
    <div class="pbox">
     <h3 style="margin-bottom:var(--s3)">要交什麼</h3>
     <div class="pline"><span class="ptag">P1</span><span>技能資料夾（含說明書）＋ 兩次觸發紀錄</span></div>
     <div class="pline"><span class="ptag">P2</span><span>觸發與執行的完整對話</span></div>
-    <div class="pline key"><span class="ptag">P3</span><span><strong style="color:var(--ink)">檢查紀錄表</strong>：五欄位是否齊備、對話型／檔案型判斷、換情境重測結果</span></div>
+    <div class="pline key"><span class="ptag">P3</span><span><strong style="color:var(--ink)">檢查紀錄表</strong>：六欄位是否齊備、對話型／檔案型判斷、換情境重測結果</span></div>
     <div class="note" style="margin-top:var(--s3)"><p>技能資料夾<strong style="color:var(--ink)">整個複製給同事，對方貼上就能用</strong>。</p></div>
    </div>
   </div>
  </div>
 </section>
 
-<section class="slide" data-slide="19" data-section="喚起行動">
+<section class="slide" data-slide="21" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">評分怎麼看</p>
   <h1>做出來只有一半</h1>
@@ -598,7 +673,7 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  </div>
 </section>
 
-<section class="slide" data-slide="20" data-section="喚起行動">
+<section class="slide" data-slide="22" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">回校後你一定會撞到</p>
   <h1>三件事，先預告</h1>
@@ -615,7 +690,7 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  </div>
 </section>
 
-<section class="slide" data-slide="21" data-section="喚起行動">
+<section class="slide" data-slide="23" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">下一步</p>
   <h1>想再往下走的話</h1>
@@ -635,9 +710,9 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  </div>
 </section>
 
-<section class="slide" data-slide="22" data-section="喚起行動">
+<section class="slide" data-slide="24" data-section="喚起行動">
  <div class="slide-inner" style="text-align:center">
-  <svg viewBox="0 0 640 120" style="width:100%;max-width:640px;height:auto;margin-bottom:var(--s2)">
+  <svg viewBox="0 0 640 120" style="width:100%;max-width:560px;height:auto;margin-bottom:var(--s4)">
    <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
      <stop offset="0" stop-color="#00d4ff"/><stop offset="1" stop-color="#ff006e"/></linearGradient></defs>
    <rect x="40" y="36" width="88" height="48" rx="8" fill="none" stroke="#00d4ff" stroke-width="2"/>
@@ -651,14 +726,16 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
    <circle cx="548" cy="60" r="18" fill="none" stroke="#ff006e" stroke-width="2" opacity=".6"/>
    <circle cx="596" cy="60" r="18" fill="none" stroke="#ff006e" stroke-width="2" opacity=".3"/>
   </svg>
-  <h1 style="font-size:76px">你做的不只是一份考卷</h1>
-  <p class="lead" style="max-width:760px;margin:0 auto">是一個<span class="hl2">可以送人的流程</span>。<br>
+  <h1 style="font-size:64px">你做的不只是一份考卷</h1>
+  <p class="lead" style="max-width:1200px;margin:0 auto;font-size:36px">是一個<span class="hl2">可以送人的流程</span>。<br>
    複製給同事，他貼上就能用 —— 而且下一次段考，你不用再做一遍。</p>
   <div class="credit">
-   <p>本研習的觀念與方法，整理自 <a href="https://www.youtube.com/@sensebar" target="_blank" rel="noopener">三師爸 Sense Bar</a> 的教學影片</p>
+   <p>想先把觀念講清楚再動手？另一份 <a href="concept.html">概念入門版簡報（2hr 講述／3hr 實作）</a></p>
+   <p>實作情境整理自 <a href="https://www.youtube.com/@sensebar" target="_blank" rel="noopener">三師爸 Sense Bar</a> 教學影片，經原作者同意教育使用與改作</p>
    <p><a href="https://www.youtube.com/playlist?list=PLkNQUBglz8EyGuOIKfrKX9V7ot5VbZKha" target="_blank" rel="noopener">AI Agent 基本功（EP01–EP07）</a>
     ·　<a href="https://www.youtube.com/@sensebar/playlists" target="_blank" rel="noopener">全部播放清單</a></p>
-   <p class="tiny">單元架構、實作題與評分規準為本研習之教學設計；觀念來源請見上方影片，建議搭配原片學習。</p>
+   <p class="tiny"><strong class="ink">授權分兩層</strong>：實作情境與流程改編自上述影片；單元架構、交辦四問、實作題與評分規準為本校自編。
+    均以 <strong class="ink" style="white-space:nowrap">CC BY-NC-SA 4.0</strong> 釋出，引用時請分別標示。</p>
   </div>
  </div>
 </section>
@@ -675,7 +752,7 @@ function render(){
   document.getElementById('progress').style.width = ((cur+1)/total*100)+'%';
   document.getElementById('pageInfo').textContent = String(cur+1).padStart(2,'0')+' / '+total;
   document.getElementById('section-tag').textContent = '— '+slides[cur].dataset.section+' —';
-  if(slides[cur].dataset.slide === '19' && !radarDone) initRadar();
+  if(slides[cur].querySelector('#radar') && !radarDone) initRadar();
 }
 function go(n){ cur = Math.max(0, Math.min(total-1, n)); render(); }
 
