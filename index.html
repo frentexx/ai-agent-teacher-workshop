@@ -9,13 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0a0e27; --bg-2:#11163a;
-  --ink:#eef3ff; --ink-2:#b8c5e0; --ink-3:#7a8bb8; --ink-4:#4a5680;
-  --accent:#00d4ff; --accent-2:#ff006e; --warn:#ffb800; --bad:#ff4466;
+  --bg:#10141F; --bg-2:#161B27;
+  --ink:#F3F6FB; --ink-2:#C8D2E0; --ink-3:#9BA9BD; --ink-4:#6B7891;
+  --accent:#7CB7E8; --accent-2:#E0A458; --warn:#E0A458; --bad:#D96A5A;
   --t1:64px; --t2:42px; --t3:26px; --t4:18px;
   --s1:56px; --s2:40px; --s3:24px; --s4:16px; --s5:8px;
   --gap:24px; --radius:16px;
-  --line:rgba(184,197,224,.16);
+  --line:rgba(203,213,229,0.192);
   --card:rgba(255,255,255,.045);
 }
 *{box-sizing:border-box}
@@ -28,8 +28,8 @@ body{
 body::before{
   content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
   background:
-    radial-gradient(900px 600px at 12% -10%, rgba(0,212,255,.10), transparent 60%),
-    radial-gradient(800px 560px at 92% 108%, rgba(255,0,110,.09), transparent 60%);
+    radial-gradient(900px 600px at 12% -10%, rgba(124,183,232,0.11), transparent 60%),
+    radial-gradient(800px 560px at 92% 108%, rgba(224,164,88,0.095), transparent 60%);
 }
 
 /* ── 全域 UI ── */
@@ -73,9 +73,9 @@ p,li{font-size:var(--t3);line-height:1.72;color:var(--ink-2);margin:0 0 var(--s4
   padding:var(--s3);position:relative;overflow:hidden}
 .card .num{font-family:"JetBrains Mono",monospace;font-size:var(--t4);color:var(--accent);
   letter-spacing:.16em;margin-bottom:var(--s5);display:block}
-.card.accent{border-color:rgba(0,212,255,.42);background:rgba(0,212,255,.07)}
-.card.accent2{border-color:rgba(255,0,110,.42);background:rgba(255,0,110,.07)}
-.card.warn{border-color:rgba(255,184,0,.42);background:rgba(255,184,0,.07)}
+.card.accent{border-color:rgba(124,183,232,0.462);background:rgba(124,183,232,0.077)}
+.card.accent2{border-color:rgba(224,164,88,0.441);background:rgba(224,164,88,0.074)}
+.card.warn{border-color:rgba(224,164,88,0.441);background:rgba(224,164,88,0.074)}
 .card p{font-size:var(--t4);margin:0;color:var(--ink-2);line-height:1.72}
 .card h3{font-size:var(--t3)}
 
@@ -107,10 +107,10 @@ td strong{color:var(--ink)}
 .q .qb{max-height:0;overflow:hidden;transition:max-height .38s ease,margin .38s ease;margin-top:0}
 .q.open .qb{max-height:200px;margin-top:var(--s4)}
 .q .qb p{font-size:var(--t4);margin:0;line-height:1.72}
-.q.key{border-color:rgba(255,0,110,.34)}
+.q.key{border-color:rgba(224,164,88,0.357)}
 .q.key .qn{color:var(--accent-2)}
-.q.open{border-color:var(--accent);background:rgba(0,212,255,.07)}
-.q.key.open{border-color:var(--accent-2);background:rgba(255,0,110,.08)}
+.q.open{border-color:var(--accent);background:rgba(124,183,232,0.077)}
+.q.key.open{border-color:var(--accent-2);background:rgba(224,164,88,0.084)}
 
 /* ── 任務卡 ── */
 .task{display:grid;grid-template-columns:1.35fr 1fr;gap:var(--s2)}
@@ -118,7 +118,7 @@ td strong{color:var(--ink)}
 .steps li{counter-increment:s;position:relative;padding-left:var(--s2);margin-bottom:var(--s4);
   font-size:var(--t4);line-height:1.72;color:var(--ink-2)}
 .steps li::before{content:counter(s);position:absolute;left:0;top:0;
-  width:var(--s3);height:var(--s3);border-radius:var(--s3);background:rgba(0,212,255,.16);
+  width:var(--s3);height:var(--s3);border-radius:var(--s3);background:rgba(124,183,232,0.176);
   color:var(--accent);font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:700;
   display:flex;align-items:center;justify-content:center}
 .pbox{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:var(--s3)}
@@ -136,7 +136,7 @@ td strong{color:var(--ink)}
   max-width:760px;margin-left:auto;margin-right:auto}
 .credit p{font-size:var(--t4);color:var(--ink-3);margin:0 0 var(--s5);line-height:1.72}
 .credit p.tiny{font-size:15px;color:var(--ink-4);margin-top:var(--s4)}
-.credit a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,212,255,.4);
+.credit a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,183,232,0.44);
   transition:color .2s,border-color .2s}
 .credit a:hover{color:var(--accent-2);border-color:var(--accent-2)}
 .code{font-family:"JetBrains Mono",monospace;font-size:16px;line-height:1.85;
@@ -152,6 +152,10 @@ td strong{color:var(--ink)}
 .flow .step .t{font-size:var(--t3);font-weight:700;color:var(--ink);margin-bottom:var(--s5)}
 .flow .step .d{font-size:var(--t4);color:var(--ink-3)}
 .flow .ar{color:var(--accent);font-size:var(--t2);line-height:1}
+.ink{color:var(--ink)}
+.note.a{border-left-color:var(--accent)}
+.note.w{border-left-color:var(--warn)}
+table.tight th,table.tight td{padding:11px var(--s3)}
 svg .lbl{font-family:"Noto Sans TC",sans-serif;font-size:19px;fill:var(--ink-2)}
 svg .lbl-b{font-family:"Noto Sans TC",sans-serif;font-size:22px;font-weight:700;fill:var(--ink)}
 svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-4)}
@@ -162,6 +166,83 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
   .grid3,.grid2x3{grid-template-columns:1fr 1fr}
   h1{font-size:44px} .big-q{font-size:44px} .divider .big{font-size:76px}
 }
+
+/* ══ 2026-09-15 暗色投影精修（Kimi K3 × Qwen3.8-Max 建議，Claude 仲裁）══ */
+/* ── 仲裁版：暗色投影精修 ── */
+:root{
+  --bg:#10141F; --bg-2:#161B27;
+  --ink:#F3F6FB; --ink-2:#C8D2E0; --ink-3:#9BA9BD; --ink-4:#8A97AB;
+  --accent:#7CB7E8; --accent-2:#E0A458; --warn:#E0A458; --bad:#D96A5A;
+  --line:rgba(203,213,229,.20); --card:rgba(255,255,255,.055);
+}
+body::before{content:none}                                   /* 兩家共識：拿掉霓虹光暈 */
+#progress{background:var(--accent)}                          /* 共識：進度條實色 */
+#section-tag{color:var(--ink-3)}
+#pageInfo,#hint{color:var(--ink-4)}                          /* 共識：原本 2.6:1 不達標 */
+.slide{transition:opacity .35s ease,transform .35s ease}     /* Qwen：.55s 偏慢 */
+.divider .big{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--accent)}
+.card.accent{border-color:rgba(124,183,232,.45);background:rgba(124,183,232,.08)}
+.card.accent2,.card.warn{border-color:rgba(224,164,88,.45);background:rgba(224,164,88,.08)}
+.q:hover{transform:none;border-color:rgba(124,183,232,.4)}  /* Qwen：投影時不跳動 */
+.q .qn{color:var(--ink-3)}
+.q.key .qn{color:var(--accent-2)}
+.q.key{border-color:rgba(224,164,88,.4)}
+.q.open{border-color:rgba(124,183,232,.6);background:rgba(124,183,232,.08)}
+.q.key.open{border-color:rgba(224,164,88,.6);background:rgba(224,164,88,.08)}
+.steps li::before{background:rgba(124,183,232,.18);color:var(--accent)}
+.ptag,.pline.key .ptag{color:var(--bg)}                      /* 共識：白字配桃紅原本 3.8:1 */
+.note{border-left-width:4px}                                 /* 共識：開燈下 3px 看不見 */
+svg .lbl{fill:var(--ink-2)}
+svg .lbl-s{fill:var(--ink-3)}                                /* 共識：SVG 小字補對比，但不放大字級 */
+.credit a{border-bottom-color:rgba(124,183,232,.5)}
+
+
+/* ══ 資訊圖表元件（P7／P8／P17）══ */
+.ig-ico{width:36px;height:36px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.ig-cap{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:700;letter-spacing:.16em;color:var(--accent);margin:0 0 var(--s4)}
+.ig-arrow{color:var(--accent);font-size:26px;line-height:1;align-self:center}
+/* P7 料理台 */
+.ig-kitchen{display:grid;grid-template-columns:1fr 1.08fr;gap:var(--s2);align-items:center;margin-top:var(--s4)}
+.ig-kitchen>div>svg{width:100%;height:auto;max-height:54vh;display:block}
+.ig-lead{font-size:24px;line-height:1.6;color:var(--ink);margin:0 0 var(--s4)}
+.ig-bad{display:flex;gap:var(--s4);align-items:center;font-size:var(--t4);line-height:1.6;color:var(--ink-2);margin:0 0 var(--s3)}
+.ig-bad .ig-ico{width:28px;height:28px;color:var(--accent-2)}
+.ig-panel{border:1px solid rgba(124,183,232,.45);background:rgba(124,183,232,.07);border-radius:var(--radius);padding:var(--s3)}
+.ig-steps{display:flex;gap:var(--s5);margin-bottom:var(--s3)}
+.ig-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:var(--s5);padding:var(--s4) var(--s5);
+  border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--accent)}
+.ig-step b{font-size:20px;color:var(--ink);font-weight:700;white-space:nowrap}
+.ig-step.on{border-color:var(--accent);background:rgba(124,183,232,.14)}
+.ig-panel p{font-size:var(--t4);line-height:1.7;color:var(--ink-2);margin:0 0 var(--s5)}
+.ig-panel p:last-child{margin:0}
+/* P8 資料流 */
+.ig-quote{margin:0 0 var(--s3)}
+.ig-quote p{font-size:var(--t4);line-height:1.7;margin:0;color:var(--ink-3)}
+.ig-quote p.hl2{color:var(--accent-2);font-size:22px}
+.ig-flow{display:flex;align-items:center;justify-content:center;gap:var(--s4);margin:0 0 var(--s3)}
+.ig-local{display:flex;align-items:center;gap:var(--s4);padding:var(--s4) var(--s3);border:1.5px dashed rgba(124,183,232,.6);border-radius:18px}
+.ig-node{display:flex;align-items:center;gap:var(--s4);padding:12px var(--s3);border-radius:12px;background:var(--card);border:1px solid var(--line);color:var(--accent)}
+.ig-node .ig-ico{width:40px;height:40px}
+.ig-node .t{font-size:22px;font-weight:700;color:var(--ink);line-height:1.3}
+.ig-node .d{font-size:16px;color:var(--ink-3);line-height:1.4}
+.ig-node.warn{border-color:rgba(224,164,88,.65);background:rgba(224,164,88,.10);color:var(--accent-2)}
+.ig-node.warn .d strong{color:var(--accent-2)}
+.ig-leak{width:112px;height:32px;flex-shrink:0}
+.ig-myth{border-top:1px solid var(--line)}
+.ig-row{display:grid;grid-template-columns:1fr 40px 1.3fr;align-items:center;gap:var(--s4);padding:10px 0;border-bottom:1px solid var(--line)}
+.ig-row.head{padding:6px 0}
+.ig-row.head span{font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:700;letter-spacing:.14em}
+.ig-row .l,.ig-row .r{display:flex;align-items:center;gap:12px;font-size:19px;line-height:1.5}
+.ig-row .l{color:var(--ink-3)} .ig-row .l .ig-ico{width:22px;height:22px;color:var(--ink-4)}
+.ig-row .r{color:var(--ink-2)} .ig-row .r .ig-ico{width:22px;height:22px;color:var(--accent)}
+.ig-row .r strong{color:var(--ink)}
+.ig-row .m{color:var(--accent);font-size:22px;text-align:center}
+.ig-alert{display:flex;gap:var(--s4);align-items:center;margin-top:var(--s3);padding:12px var(--s3);border-radius:12px;
+  background:rgba(224,164,88,.08);border:1px solid rgba(224,164,88,.38)}
+.ig-alert .ig-ico{width:32px;height:32px;color:var(--accent-2)}
+.ig-alert p{font-size:var(--t4);line-height:1.65;margin:0;color:var(--ink-2)}
+/* P17 */
+.ig-desk>svg{width:100%;height:auto;max-height:52vh;display:block}
 </style>
 </head>
 <body>
@@ -177,16 +258,16 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  <div class="slide-inner" style="text-align:center">
   <svg viewBox="0 0 560 160" style="width:100%;max-width:560px;height:auto;margin-bottom:var(--s2)">
    <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-     <stop offset="0" stop-color="#00d4ff"/><stop offset="1" stop-color="#ff006e"/></linearGradient></defs>
-   <rect x="24" y="40" width="120" height="88" rx="12" fill="none" stroke="#00d4ff" stroke-width="2" opacity=".8"/>
-   <text class="lbl-s" x="84" y="90" text-anchor="middle" fill="#7a8bb8">教材</text>
-   <path d="M160 84 h56" stroke="url(#g1)" stroke-width="2"/><path d="M210 78 l10 6 -10 6z" fill="#00d4ff"/>
-   <circle cx="280" cy="84" r="48" fill="none" stroke="url(#g1)" stroke-width="2"/>
-   <circle cx="280" cy="84" r="30" fill="none" stroke="#ff006e" stroke-width="1" opacity=".5"/>
-   <circle cx="280" cy="84" r="6" fill="#00d4ff"/>
-   <path d="M344 84 h56" stroke="url(#g1)" stroke-width="2"/><path d="M394 78 l10 6 -10 6z" fill="#ff006e"/>
-   <rect x="416" y="40" width="120" height="88" rx="12" fill="none" stroke="#ff006e" stroke-width="2" opacity=".8"/>
-   <text class="lbl-s" x="476" y="90" text-anchor="middle" fill="#7a8bb8">技能</text>
+     <stop offset="0" stop-color="#7CB7E8"/><stop offset="1" stop-color="#E0A458"/></linearGradient></defs>
+   <rect x="24" y="40" width="120" height="88" rx="12" fill="none" stroke="#7CB7E8" stroke-width="2" opacity=".8"/>
+   <text class="lbl-s" x="84" y="90" text-anchor="middle" style="fill:#9BA9BD">教材</text>
+   <path d="M160 84 h56" stroke="#7CB7E8" stroke-width="2"/><path d="M210 78 l10 6 -10 6z" fill="#7CB7E8"/>
+   <circle cx="280" cy="84" r="48" fill="none" stroke="#7CB7E8" stroke-width="2"/>
+   <circle cx="280" cy="84" r="30" fill="none" stroke="#E0A458" stroke-width="1" opacity=".5"/>
+   <circle cx="280" cy="84" r="6" fill="#7CB7E8"/>
+   <path d="M344 84 h56" stroke="#7CB7E8" stroke-width="2"/><path d="M394 78 l10 6 -10 6z" fill="#E0A458"/>
+   <rect x="416" y="40" width="120" height="88" rx="12" fill="none" stroke="#E0A458" stroke-width="2" opacity=".8"/>
+   <text class="lbl-s" x="476" y="90" text-anchor="middle" style="fill:#9BA9BD">技能</text>
   </svg>
   <p class="kicker">高中教師 AI Agent 研習｜速成版</p>
   <h1 style="font-size:76px">把生成教材<span class="hl">做成技能</span></h1>
@@ -214,21 +295,21 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
   <div class="grid2" style="margin-top:var(--s2)">
    <div>
     <svg viewBox="0 0 460 300" style="width:100%;height:auto">
-     <rect x="16" y="24" width="200" height="120" rx="12" fill="rgba(122,139,184,.07)" stroke="#4a5680" stroke-width="1"/>
-     <text class="lbl-b" x="116" y="60" text-anchor="middle" fill="#b8c5e0">生成式 AI</text>
+     <rect x="16" y="24" width="200" height="120" rx="12" fill="rgba(155,169,189,0.07)" stroke="#6B7891" stroke-width="1"/>
+     <text class="lbl-b" x="116" y="60" text-anchor="middle" style="fill:#C8D2E0">生成式 AI</text>
      <text class="lbl" x="116" y="88" text-anchor="middle">在雲端</text>
      <text class="lbl" x="116" y="112" text-anchor="middle">只輸出文字給你</text>
-     <path d="M116 152 v24" stroke="#4a5680" stroke-width="1" stroke-dasharray="3 3"/>
+     <path d="M116 152 v24" stroke="#6B7891" stroke-width="1" stroke-dasharray="3 3"/>
      <text class="lbl-s" x="116" y="196" text-anchor="middle">你再自己複製貼上</text>
      <text class="lbl-s" x="116" y="218" text-anchor="middle">切視窗、存檔、排版</text>
-     <rect x="244" y="24" width="200" height="120" rx="12" fill="rgba(0,212,255,.09)" stroke="#00d4ff" stroke-width="2"/>
-     <text class="lbl-b" x="344" y="60" text-anchor="middle" fill="#eef3ff">AI Agent</text>
-     <text class="lbl" x="344" y="88" text-anchor="middle" fill="#00d4ff">在你的電腦裡</text>
-     <text class="lbl" x="344" y="112" text-anchor="middle" fill="#00d4ff">直接動手做完</text>
-     <path d="M344 152 v24" stroke="#00d4ff" stroke-width="2"/>
-     <path d="M338 170 l6 10 6 -10z" fill="#00d4ff"/>
-     <rect x="264" y="188" width="160" height="76" rx="10" fill="rgba(0,212,255,.07)" stroke="#00d4ff" stroke-width="1" opacity=".7"/>
-     <text class="lbl" x="344" y="216" text-anchor="middle" fill="#00d4ff">檔案直接生出來</text>
+     <rect x="244" y="24" width="200" height="120" rx="12" fill="rgba(124,183,232,0.099)" stroke="#7CB7E8" stroke-width="2"/>
+     <text class="lbl-b" x="344" y="60" text-anchor="middle" style="fill:#F3F6FB">AI Agent</text>
+     <text class="lbl" x="344" y="88" text-anchor="middle" style="fill:#7CB7E8">在你的電腦裡</text>
+     <text class="lbl" x="344" y="112" text-anchor="middle" style="fill:#7CB7E8">直接動手做完</text>
+     <path d="M344 152 v24" stroke="#7CB7E8" stroke-width="2"/>
+     <path d="M338 170 l6 10 6 -10z" fill="#7CB7E8"/>
+     <rect x="264" y="188" width="160" height="76" rx="10" fill="rgba(124,183,232,0.077)" stroke="#7CB7E8" stroke-width="1" opacity=".7"/>
+     <text class="lbl" x="344" y="216" text-anchor="middle" style="fill:#7CB7E8">檔案直接生出來</text>
      <text class="lbl-s" x="344" y="242" text-anchor="middle">在你指定的資料夾</text>
     </svg>
    </div>
@@ -250,7 +331,7 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
    <div class="ar">→</div>
    <div class="step"><div class="t">做一次</div><div class="d">出一份考卷、生一整包教材</div></div>
    <div class="ar">→</div>
-   <div class="step" style="border-color:rgba(255,0,110,.42);background:rgba(255,0,110,.07)">
+   <div class="step" style="border-color:rgba(224,164,88,0.441);background:rgba(224,164,88,0.074)">
      <div class="t">變成永久的</div><div class="d">把流程包成技能</div></div>
   </div>
   <div class="grid3">
@@ -258,8 +339,8 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
      <p>觀念只給到夠用就好，其餘全部換成動手。</p></div>
    <div class="card accent2"><span class="num">S2</span><h3>做過一次，就讓它變成你的</h3>
      <p>今天的重點在這裡：把做過的流程打包起來。</p></div>
-   <div class="card"><span class="num">今天不教</span><h3>記憶管理</h3>
-     <p>藍圖、開工收工、上下文管理 —— 今天用不到，但回校後會遇到。最後一頁會預告。</p></div>
+   <div class="card"><span class="num">今天只體驗</span><h3>記憶管理</h3>
+     <p>裝一次開工、收工技能，體驗換個對話也接得上。完整的上下文管理，散場前預告。</p></div>
   </div>
  </div>
 </section>
@@ -277,49 +358,105 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
 <section class="slide" data-slide="6" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S1 · 觀念最低限度</p>
-  <h1>它會做的四件事</h1>
-  <div class="grid2x2" style="margin-top:var(--s2)">
-   <div class="card accent"><span class="num">01</span><h3>讀檔案</h3>
-     <p>給它路徑，它自己打開來讀。<strong style="color:var(--ink)">今天最常用的一招。</strong></p></div>
-   <div class="card"><span class="num">02</span><h3>寫程式</h3>
-     <p>你不用懂。它需要什麼工具會自己裝、自己寫、自己跑。</p></div>
-   <div class="card"><span class="num">03</span><h3>上網</h3>
-     <p>自己去找考古題、下載 PDF 到你指定的資料夾。</p></div>
-   <div class="card"><span class="num">04</span><h3>產出檔案</h3>
-     <p>Word、簡報、試算表、圖表 —— 直接生成檔案，不是給你一段文字。</p></div>
-  </div>
-  <div class="note"><p>今天全部只用這四樣，不碰任何外部平台。</p></div>
+  <h1 style="font-size:48px">中間那個迴圈，就是 Agent 的全部</h1>
+  <svg viewBox="0 0 1240 440" style="width:100%;height:auto;max-height:54vh">
+   <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+     <path d="M0,0 L10,5 L0,10 z" fill="#7CB7E8"/></marker>
+    <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+     <path d="M0,0 L10,5 L0,10 z" fill="#E0A458"/></marker>
+   </defs>
+
+   <!-- Harness 外框 -->
+   <rect x="210" y="56" width="760" height="300" rx="20" fill="rgba(124,183,232,0.055)"
+         stroke="#7CB7E8" stroke-width="2" stroke-dasharray="8 6"/>
+   <text class="lbl-b" x="590" y="90" text-anchor="middle" style="fill:#7CB7E8">HARNESS 外框（管家）</text>
+   <text class="lbl-s" x="590" y="112" text-anchor="middle">決定下面這些怎麼運作</text>
+
+   <!-- Context -->
+   <rect x="260" y="136" width="300" height="72" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(203,213,229,0.36)"/>
+   <text class="lbl-b" x="410" y="167" text-anchor="middle">CONTEXT 桌面</text>
+   <text class="lbl-s" x="410" y="190" text-anchor="middle">設定 / 對話 / 檔案 / 技能說明書</text>
+
+   <!-- LLM -->
+   <rect x="260" y="252" width="300" height="72" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(203,213,229,0.36)"/>
+   <text class="lbl-b" x="410" y="283" text-anchor="middle">LLM 腦袋</text>
+   <text class="lbl-s" x="410" y="306" text-anchor="middle">想一想，然後產生文字</text>
+
+   <!-- Tools -->
+   <rect x="680" y="194" width="240" height="72" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(203,213,229,0.36)"/>
+   <text class="lbl-b" x="800" y="225" text-anchor="middle">TOOLS 鑰匙</text>
+   <text class="lbl-s" x="800" y="248" text-anchor="middle">讀寫檔 / 跑程式 / 上網</text>
+
+   <!-- 左側輸入 -->
+   <text class="lbl" x="196" y="160" text-anchor="end">你的任務</text>
+   <path d="M204,153 L254,166" stroke="#7CB7E8" stroke-width="2" marker-end="url(#ar)"/>
+   <text class="lbl" x="196" y="208" text-anchor="end">Memory 交接本</text>
+   <path d="M204,201 L254,188" stroke="#7CB7E8" stroke-width="2" marker-end="url(#ar)"/>
+
+   <!-- Context → LLM -->
+   <path d="M410,214 L410,246" stroke="#7CB7E8" stroke-width="2" marker-end="url(#ar)"/>
+
+   <!-- LLM → Tools -->
+   <path d="M566,272 L674,246" stroke="#7CB7E8" stroke-width="2" marker-end="url(#ar)"/>
+   <text class="lbl-s" x="628" y="298" text-anchor="middle">要用工具</text>
+
+   <!-- Tools → Context（結果回傳） -->
+   <path d="M674,212 L566,186" stroke="#7CB7E8" stroke-width="2" marker-end="url(#ar)"/>
+   <text class="lbl-s" x="628" y="166" text-anchor="middle">結果回傳</text>
+
+   <!-- Tools → 外面 -->
+   <path d="M924,230 L1012,230" stroke="#E0A458" stroke-width="2" marker-end="url(#ar2)"/>
+   <text class="lbl" x="1022" y="224" style="fill:#E0A458">真的動到</text>
+   <text class="lbl" x="1022" y="248" style="fill:#E0A458">外面的東西</text>
+   <text class="lbl-s" x="1022" y="276" style="fill:#E0A458">經 MCP／連接器</text>
+
+   <!-- LLM → 停點 -->
+   <path d="M410,330 L410,384" stroke="#E0A458" stroke-width="2" marker-end="url(#ar2)"/>
+   <text class="lbl-s" x="426" y="344" text-anchor="start">不用工具就直接輸出</text>
+   <text class="lbl-b" x="410" y="412" text-anchor="middle" style="fill:#E0A458">停點 ／ 交給你驗收</text>
+  </svg>
+  <div class="note a"><p>想 → 用工具 → 看結果 → 再想。<strong class="ink">它會做的四件事——讀檔案、寫程式、上網、產出檔案——都在 TOOLS 那一格。</strong>
+   <span class="dim">今天全部只用這四樣，不碰任何外部平台。</span></p></div>
  </div>
 </section>
 
 <section class="slide" data-slide="7" data-section="維持注意">
  <div class="slide-inner">
-  <p class="kicker">S1 · 比喻</p>
-  <div class="grid2">
+  <p class="kicker">S1 · 今天最常用的動作</p>
+  <h1 style="margin-bottom:0">資料夾是料理台</h1>
+  <div class="ig-kitchen">
    <div>
-    <svg viewBox="0 0 440 300" style="width:100%;height:auto">
-     <rect x="24" y="180" width="392" height="16" rx="4" fill="rgba(0,212,255,.18)" stroke="#00d4ff" stroke-width="1"/>
-     <text class="lbl-s" x="220" y="222" text-anchor="middle">專案資料夾＝料理台</text>
-     <rect x="56" y="120" width="72" height="56" rx="8" fill="rgba(255,255,255,.05)" stroke="#4a5680"/>
-     <text class="lbl" x="92" y="154" text-anchor="middle">教材</text>
-     <rect x="148" y="104" width="72" height="72" rx="8" fill="rgba(255,255,255,.05)" stroke="#4a5680"/>
-     <text class="lbl" x="184" y="146" text-anchor="middle">考古題</text>
-     <rect x="240" y="132" width="72" height="44" rx="8" fill="rgba(255,255,255,.05)" stroke="#4a5680"/>
-     <text class="lbl" x="276" y="160" text-anchor="middle">範本</text>
-     <circle cx="368" cy="140" r="30" fill="rgba(255,0,110,.12)" stroke="#ff006e" stroke-width="2"/>
-     <text class="lbl" x="368" y="146" text-anchor="middle" fill="#ff006e">Agent</text>
-     <rect x="40" y="40" width="112" height="40" rx="8" fill="none" stroke="#4a5680" stroke-dasharray="4 4"/>
-     <text class="lbl-s" x="96" y="65" text-anchor="middle">桌面</text>
-     <rect x="288" y="40" width="112" height="40" rx="8" fill="none" stroke="#4a5680" stroke-dasharray="4 4"/>
-     <text class="lbl-s" x="344" y="65" text-anchor="middle">下載區</text>
-     <text class="lbl-s" x="220" y="66" text-anchor="middle" fill="#ff4466">✕ 散在這裡它找不到</text>
-    </svg>
+  <svg viewBox="0 0 640 440" aria-label="專案資料夾是料理台">
+   <rect x="20" y="20" width="250" height="150" rx="14" fill="none" stroke="#6B7891" stroke-width="1.5" stroke-dasharray="7 6"/>
+   <rect x="370" y="20" width="250" height="150" rx="14" fill="none" stroke="#6B7891" stroke-width="1.5" stroke-dasharray="7 6"/>
+   <g transform="translate(34,128) scale(1.0833)" fill="none" stroke="#6B7891" stroke-width="1.66" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></g><text class="lbl-s" x="68" y="150">桌面</text>
+   <g transform="translate(384,128) scale(1.0833)" fill="none" stroke="#6B7891" stroke-width="1.66" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v10M7.5 8.5L12 13l4.5-4.5"/><path d="M4 15v5h16v-5"/></g><text class="lbl-s" x="418" y="150">下載區</text>
+   <g transform="rotate(-14 68 82)"><path d="M50,60 h26 l10,10 v34 h-36 z" fill="#161B27" stroke="#6B7891" stroke-width="1.4"/></g><g transform="rotate(10 138 112)"><path d="M120,90 h26 l10,10 v34 h-36 z" fill="#161B27" stroke="#6B7891" stroke-width="1.4"/></g><g transform="rotate(-4 198 72)"><path d="M180,50 h26 l10,10 v34 h-36 z" fill="#161B27" stroke="#6B7891" stroke-width="1.4"/></g><g transform="rotate(8 418 92)"><path d="M400,70 h26 l10,10 v34 h-36 z" fill="#161B27" stroke="#6B7891" stroke-width="1.4"/></g><g transform="rotate(-10 478 70)"><path d="M460,48 h26 l10,10 v34 h-36 z" fill="#161B27" stroke="#6B7891" stroke-width="1.4"/></g><g transform="rotate(16 548 114)"><path d="M530,92 h26 l10,10 v34 h-36 z" fill="#161B27" stroke="#6B7891" stroke-width="1.4"/></g>
+   <g transform="translate(302,76) scale(1.5000)" fill="none" stroke="#E0A458" stroke-width="1.73" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></g>
+   <text class="lbl" x="320" y="206" text-anchor="middle" style="fill:#E0A458">✕ 散在這裡它找不到</text>
+   <path d="M320,218 v14" stroke="#4A5568" stroke-width="1.5" stroke-dasharray="3 4"/>
+   <path d="M60,250 h70 l20,20 v90 h-90 z" fill="#1A2233" stroke="#9BA9BD" stroke-width="1.5"/><path d="M130,250 v20 h20" fill="none" stroke="#9BA9BD" stroke-width="1.5"/><path d="M78,300 h54 M78,316 h54 M78,332 h36" stroke="#4A5568" stroke-width="2" stroke-linecap="round"/><text class="lbl" x="105" y="286" text-anchor="middle" style="fill:#F3F6FB">教材</text><path d="M180,250 h70 l20,20 v90 h-90 z" fill="#1A2233" stroke="#9BA9BD" stroke-width="1.5"/><path d="M250,250 v20 h20" fill="none" stroke="#9BA9BD" stroke-width="1.5"/><path d="M198,300 h54 M198,316 h54 M198,332 h36" stroke="#4A5568" stroke-width="2" stroke-linecap="round"/><text class="lbl" x="225" y="286" text-anchor="middle" style="fill:#F3F6FB">考古題</text><path d="M300,250 h70 l20,20 v90 h-90 z" fill="#1A2233" stroke="#9BA9BD" stroke-width="1.5"/><path d="M370,250 v20 h20" fill="none" stroke="#9BA9BD" stroke-width="1.5"/><path d="M318,300 h54 M318,316 h54 M318,332 h36" stroke="#4A5568" stroke-width="2" stroke-linecap="round"/><text class="lbl" x="345" y="286" text-anchor="middle" style="fill:#F3F6FB">範本</text>
+   <circle cx="520" cy="305" r="46" fill="rgba(124,183,232,.12)" stroke="#7CB7E8" stroke-width="2"/>
+   <text class="lbl-b" x="520" y="312" text-anchor="middle" style="fill:#7CB7E8">Agent</text>
+   <path d="M472,300 C440,290 420,286 392,290" fill="none" stroke="#7CB7E8" stroke-width="1.5" stroke-dasharray="4 5"/>
+   <rect x="36" y="366" width="568" height="16" rx="5" fill="rgba(124,183,232,.22)" stroke="#7CB7E8" stroke-width="1.5"/>
+   <text class="lbl-s" x="320" y="416" text-anchor="middle" style="fill:#C8D2E0">專案資料夾＝料理台</text>
+  </svg>
    </div>
    <div>
-    <h1>資料夾是料理台</h1>
-    <p>做菜前會把食材、鍋具、調味料都放在料理台上。<span class="hl">AI Agent 也一樣。</span></p>
-    <p>給它一個專案資料夾，它才能在裡面讀檔、存檔、產出成品。</p>
-    <p>檔案散落在桌面或下載區，<span class="hl2">它就找不到、做不好</span>。</p>
+    <p class="ig-lead">給它一個專案資料夾，它才能在裡面讀檔、存檔、產出成品。</p>
+    <p class="ig-bad"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><span>檔案散落在桌面或下載區，<span class="hl2">它就找不到、做不好</span>。</span></p>
+    <div class="ig-panel">
+     <p class="ig-cap">路徑是它的地址</p>
+     <div class="ig-steps">
+      <div class="ig-step"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h6l2 2h10v12H3z"/></svg><b>檔案總管</b></div><span class="ig-arrow">→</span>
+      <div class="ig-step"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="5"/><path d="M12 3v6M7 9h10"/><path d="M12 3.2a5 5 0 0 1 5 4.8v1h-5z" fill="currentColor" stroke="none"/></svg><b>右鍵</b></div><span class="ig-arrow">→</span>
+      <div class="ig-step on"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M4 16V5a2 2 0 0 1 2-2h9"/></svg><b>複製路徑</b></div>
+     </div>
+     <p>不是把檔案<span class="dim">「拖進對話框」</span>——它是直接在你的電腦上工作。</p>
+     <p>複製完貼給 Agent，一句「去讀這個檔案」它就找得到。<strong class="ink">整個下午你會做很多次。</strong></p>
+    </div>
    </div>
   </div>
  </div>
@@ -327,34 +464,32 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
 
 <section class="slide" data-slide="8" data-section="維持注意">
  <div class="slide-inner">
-  <p class="kicker">S1 · 今天最常用的動作</p>
-  <div class="grid2">
-   <div>
-    <h1>路徑是它的地址</h1>
-    <p>很多人以為把檔案<span class="dim">「拖進對話框」</span>給 AI 看就好。</p>
-    <p>其實它是<span class="hl">直接在你的電腦上工作</span>，需要你告訴它檔案在哪裡。</p>
-    <div class="card accent" style="margin-top:var(--s3)">
-     <h3 style="margin-bottom:var(--s4)">檔案總管 → 右鍵 → 複製路徑</h3>
-     <p>整個下午你會做很多次這個動作。<br>複製完直接貼給 Agent，一句「去讀這個檔案」它就找得到。</p>
-    </div>
-   </div>
-   <div>
-    <svg viewBox="0 0 440 300" style="width:100%;height:auto">
-     <rect x="24" y="32" width="392" height="72" rx="12" fill="rgba(255,255,255,.045)" stroke="#4a5680"/>
-     <circle cx="56" cy="68" r="12" fill="rgba(0,212,255,.2)"/>
-     <text class="lbl" x="88" y="62" fill="#b8c5e0">段考複習卷.docx</text>
-     <text class="lbl-s" x="88" y="86">在你的電腦某個角落</text>
-     <path d="M220 112 v40" stroke="#00d4ff" stroke-width="2"/>
-     <path d="M214 144 l6 10 6 -10z" fill="#00d4ff"/>
-     <rect x="56" y="160" width="328" height="44" rx="8" fill="rgba(0,212,255,.08)" stroke="#00d4ff" stroke-width="1"/>
-     <text x="220" y="188" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="16" fill="#00d4ff">C:\教學\段考\段考複習卷.docx</text>
-     <path d="M220 212 v32" stroke="#ff006e" stroke-width="2"/>
-     <path d="M214 236 l6 10 6 -10z" fill="#ff006e"/>
-     <rect x="120" y="252" width="200" height="36" rx="8" fill="rgba(255,0,110,.1)" stroke="#ff006e"/>
-     <text class="lbl" x="220" y="276" text-anchor="middle" fill="#ff006e">貼給你的 AI Agent</text>
-    </svg>
-   </div>
+  <p class="kicker">S1 · 這一頁關係到個資，務必講</p>
+  <h1 style="font-size:56px;margin-bottom:var(--s4)">管家在你電腦上，腦袋不在</h1>
+  <div class="ig-quote">
+   <p>「它能直接在你電腦上動手」這句話對。但它很容易被聽成另一件事 ——</p>
+   <p class="hl2">「所以我的檔案沒有上傳，不會有個資問題」。這個推論是錯的。</p>
   </div>
+  <div class="ig-flow">
+   <div class="ig-local">
+    <div class="ig-node"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v4h4"/><path d="M9 12h6M9 16h6"/></svg><div><div class="t">你的檔案</div><div class="d">在你電腦上</div></div></div>
+    <span class="ig-arrow">→</span>
+    <div class="ig-node"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/><path d="M10 14.5l2 2 2-2"/></svg><div><div class="t">管家讀出內容</div><div class="d">本機</div></div></div>
+   </div>
+   <svg class="ig-leak" viewBox="0 0 112 32" aria-hidden="true"><path d="M4,16 H100" stroke="#E0A458" stroke-width="2.5" stroke-dasharray="9 6"/><path d="M92,7 L106,16 L92,25" fill="none" stroke="#E0A458" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   <div class="ig-node warn"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 19h10a4 4 0 0 0 .4-8 6 6 0 0 0-11.6 1.6A3.3 3.3 0 0 0 7 19z"/><circle cx="12" cy="14" r="1.6"/></svg><div><div class="t">送到腦袋那一端</div><div class="d"><strong>不在你的電腦上</strong></div></div></div>
+  </div>
+  <div class="ig-myth">
+   <div class="ig-row head"><span style="color:var(--ink-4)">你以為</span><span></span><span style="color:var(--accent)">實際上</span></div>
+   <div class="ig-row"><div class="l"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>它在我電腦上跑，所以是離線的</div><div class="m">→</div>
+    <div class="r"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>它在你電腦上<strong>動手</strong>，但<strong>想事情是在外面想的</strong></span></div></div>
+   <div class="ig-row"><div class="l"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>我沒按上傳，所以沒有上傳</div><div class="m">→</div>
+    <div class="r"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>你給它路徑、它讀了檔，<strong>內容就已經送出去了</strong></span></div></div>
+   <div class="ig-row"><div class="l"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>本機工具比網頁版安全</div><div class="m">→</div>
+    <div class="r"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>本機工具<strong>權限更大</strong>，而資料一樣會送出去</span></div></div>
+  </div>
+  <div class="ig-alert"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.4"/></svg><p><span class="hl2">「它在我電腦上跑」不等於「資料沒有離開我的電腦」。</span>
+   含學生姓名、成績的檔案，<strong class="ink">給路徑之前先去識別化</strong>——今天的考卷與教材都用不到個資。</p></div>
  </div>
 </section>
 
@@ -545,6 +680,84 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
 
 <section class="slide" data-slide="17" data-section="維持注意">
  <div class="slide-inner">
+  <p class="kicker">S2 · 做技能之前，先看一張圖</p>
+  <h1 style="font-size:48px">桌面上的東西，是從哪裡來的？</h1>
+  <div class="ig-desk">
+  <svg viewBox="0 0 1240 420" aria-label="桌面上的東西從哪裡來">
+   <rect x="30" y="70" width="280" height="68" rx="12" fill="#1A2030" stroke="rgba(203,213,229,.38)" stroke-width="1.5"/><g transform="translate(46,90) scale(1.1667)" fill="none" stroke="#7CB7E8" stroke-width="1.54" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v18M12 8h4M12 12h4"/></g><text class="lbl-b" x="188" y="100" text-anchor="middle" style="fill:#F3F6FB">MEMORY 交接本</text><text class="lbl-s" x="188" y="124" text-anchor="middle">每次開工</text>
+   <rect x="30" y="150" width="280" height="68" rx="12" fill="#1A2030" stroke="rgba(203,213,229,.38)" stroke-width="1.5"/><g transform="translate(46,170) scale(1.1667)" fill="none" stroke="#7CB7E8" stroke-width="1.54" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h7M8 11h7"/></g><text class="lbl-b" x="188" y="180" text-anchor="middle" style="fill:#F3F6FB">SKILL 說明書</text><text class="lbl-s" x="188" y="204" text-anchor="middle">講到觸發詞才上桌</text>
+   <rect x="30" y="230" width="280" height="68" rx="12" fill="rgba(224,164,88,.12)" stroke="#E0A458" stroke-width="1.5"/><g transform="translate(46,250) scale(1.1667)" fill="none" stroke="#E0A458" stroke-width="1.54" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v5M15 2v5M6 7h12v4a6 6 0 0 1-12 0z"/><path d="M12 17v5"/></g><text class="lbl-b" x="188" y="260" text-anchor="middle" style="fill:#E0A458">MCP 轉接頭</text><text class="lbl-s" x="188" y="284" text-anchor="middle">裝了就一直在</text>
+   <rect x="30" y="310" width="280" height="68" rx="12" fill="#1A2030" stroke="rgba(203,213,229,.38)" stroke-width="1.5"/><g transform="translate(46,330) scale(1.1667)" fill="none" stroke="#7CB7E8" stroke-width="1.54" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M18 12v3M21 12v3"/></g><text class="lbl-b" x="188" y="340" text-anchor="middle" style="fill:#F3F6FB">TOOLS 回傳結果</text><text class="lbl-s" x="188" y="364" text-anchor="middle">真的用了才有</text>
+
+   <rect x="370" y="14" width="400" height="392" rx="20" fill="rgba(124,183,232,.05)" stroke="#7CB7E8" stroke-width="1.8" stroke-dasharray="8 6"/>
+   <text class="lbl-b" x="570" y="48" text-anchor="middle" style="fill:#7CB7E8">CONTEXT 桌面</text>
+   <rect x="395" y="76" width="350" height="56" rx="10" fill="rgba(255,255,255,.04)" stroke="rgba(203,213,229,.26)" stroke-width="1.3"/><circle cx="415" cy="104" r="5" fill="#7CB7E8"/><text class="lbl" x="575" y="111" text-anchor="middle" style="fill:#C8D2E0">你的設定、專案藍圖</text>
+   <rect x="395" y="156" width="350" height="56" rx="10" fill="rgba(255,255,255,.04)" stroke="rgba(203,213,229,.26)" stroke-width="1.3"/><circle cx="415" cy="184" r="5" fill="#7CB7E8"/><text class="lbl" x="575" y="191" text-anchor="middle" style="fill:#C8D2E0">這次用得到的那份 SOP</text>
+   <rect x="395" y="236" width="350" height="56" rx="10" fill="rgba(224,164,88,.12)" stroke="#E0A458" stroke-width="1.3"/><circle cx="415" cy="264" r="5" fill="#E0A458"/><text class="lbl" x="540" y="271" text-anchor="middle" style="fill:#E0A458">每個轉接頭的使用說明</text><rect x="652" y="250" width="84" height="28" rx="14" fill="rgba(224,164,88,.22)"/><text class="lbl-s" x="694" y="269" text-anchor="middle" style="fill:#E0A458">越裝越擠</text>
+   <rect x="395" y="316" width="350" height="56" rx="10" fill="rgba(255,255,255,.04)" stroke="rgba(203,213,229,.26)" stroke-width="1.3"/><circle cx="415" cy="344" r="5" fill="#7CB7E8"/><text class="lbl" x="575" y="351" text-anchor="middle" style="fill:#C8D2E0">查到的行事曆、讀到的貼文</text>
+
+   <path d="M314,104 L387,104" stroke="#7CB7E8" stroke-width="2" marker-end="url(#ar)"/>
+   <path d="M314,184 L387,184" stroke="#7CB7E8" stroke-width="2" marker-end="url(#ar)"/>
+   <path d="M314,264 L387,264" stroke="#E0A458" stroke-width="2" marker-end="url(#ar2)"/>
+   <path d="M314,344 L387,344" stroke="#7CB7E8" stroke-width="2" marker-end="url(#ar)"/>
+
+   <rect x="850" y="40" width="360" height="84" rx="12" fill="#1A2030" stroke="rgba(203,213,229,.38)" stroke-width="1.5"/>
+   <g transform="translate(866,66) scale(1.3333)" fill="none" stroke="#7CB7E8" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/></g>
+   <text class="lbl-b" x="1046" y="76" text-anchor="middle">LLM 腦袋</text>
+   <text class="lbl-s" x="1046" y="104" text-anchor="middle">「我要查行事曆」也只是文字</text>
+   <rect x="850" y="176" width="360" height="84" rx="12" fill="rgba(124,183,232,.10)" stroke="#7CB7E8" stroke-width="1.8"/>
+   <g transform="translate(866,202) scale(1.3333)" fill="none" stroke="#7CB7E8" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/><path d="M10 14.5l2 2 2-2"/></g>
+   <text class="lbl-b" x="1046" y="212" text-anchor="middle" style="fill:#7CB7E8">HARNESS 管家</text>
+   <text class="lbl-s" x="1046" y="240" text-anchor="middle">真的去查</text>
+   <rect x="850" y="312" width="360" height="84" rx="12" fill="rgba(224,164,88,.10)" stroke="#E0A458" stroke-width="1.8"/>
+   <g transform="translate(866,338) scale(1.3333)" fill="none" stroke="#E0A458" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></g>
+   <text class="lbl-b" x="1046" y="348" text-anchor="middle" style="fill:#E0A458">外部服務</text>
+   <text class="lbl-s" x="1046" y="376" text-anchor="middle">行事曆 / Padlet / NotebookLM</text>
+
+   <path d="M776,82 L844,82" stroke="#7CB7E8" stroke-width="2" marker-end="url(#ar)"/>
+   <path d="M1030,128 L1030,170" stroke="#7CB7E8" stroke-width="2" marker-end="url(#ar)"/>
+   <path d="M1030,264 L1030,306" stroke="#E0A458" stroke-width="2" marker-end="url(#ar2)"/>
+   <text class="lbl-s" x="1044" y="292" style="fill:#E0A458">經 MCP 轉接頭</text>
+   <path d="M844,354 C800,354 790,340 751,340" fill="none" stroke="#7CB7E8" stroke-width="2" marker-end="url(#ar)"/>
+   <text class="lbl-s" x="808" y="326" text-anchor="middle">結果回傳</text>
+  </svg>
+  </div>
+  <div class="note"><p><strong class="ink">交接本、技能是「紙」</strong>，放上桌給腦袋看：交接本每次開工上桌，<span class="hl">技能講到觸發詞才上桌</span>。
+   <span class="hl2">轉接頭（MCP）</span>讓管家的手伸出去，<span class="warn">但它的使用說明一直佔著桌面</span>——做什麼才裝什麼。<br>
+   <span class="dim">今天不裝轉接頭。下一頁，你會先裝一份交接本和三份說明書。</span></p></div>
+ </div>
+</section>
+
+<section class="slide" data-slide="18" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S2 · 先用別人的，再自己寫</p>
+  <h1>先用別人寫好的技能</h1>
+  <div class="task" style="margin-top:var(--s3)">
+   <div>
+    <pre class="code" style="margin-bottom:var(--s3)"><b>做什麼：</b>照這份懶人包的 02，幫我安裝初始化、開工、收工三個技能。
+<b>用什麼：</b>https://github.com/frentexx/ppsh-agent-basics-packs
+<b style="color:var(--accent-2)">不做什麼：</b>只裝文件列出的項目；會改動電腦的指令先給我看，我同意才執行。
+<b style="color:var(--accent-2)">驗什麼：</b>裝完告訴我三個 SKILL.md 是否都在。</pre>
+    <ol class="steps">
+     <li><strong class="ink">裝之前先讀</strong>：打開 ppsh-agent-skills 裡的 SKILL.md 看一遍。<span class="dim">底線 03 就是這樣做。</span></li>
+     <li>把上面四行貼給 Agent。它列出指令時，<span class="hl2">你看過再同意</span>。</li>
+     <li>關掉 Agent 重開，在早上的考卷資料夾說「<strong class="ink">初始化專案</strong>」。</li>
+     <li>說「<strong class="ink">收工</strong>」→ 開一個新對話 → 說「<strong class="ink">開工</strong>」。它說得出早上出了考卷，就成功了。</li>
+    </ol>
+   </div>
+   <div class="pbox">
+    <h3 style="margin-bottom:var(--s3)">你會發現</h3>
+    <div class="pline"><span class="ptag">01</span><span>SKILL.md 就是一份<strong class="ink">純文字說明書</strong>，裡面沒有程式</span></div>
+    <div class="pline"><span class="ptag">02</span><span>開工、收工解決的是「<strong class="ink">換一個對話就失憶</strong>」</span></div>
+    <div class="pline key"><span class="ptag">03</span><span>別人寫得出來，<strong class="ink">你也寫得出來</strong>——下一頁開始自己寫</span></div>
+    <div class="note" style="margin-top:var(--s3)"><p>電腦教室不能裝軟體或網路不穩：<strong class="ink">講師示範</strong>，學員課後照懶人包自己裝。</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-slide="19" data-section="維持注意">
+ <div class="slide-inner">
   <p class="kicker">S2 · 今天的重點從這裡開始</p>
   <div class="grid2">
    <div>
@@ -555,46 +768,46 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
    </div>
    <div>
     <svg viewBox="0 0 440 320" style="width:100%;height:auto">
-     <rect x="40" y="24" width="160" height="200" rx="12" fill="rgba(255,255,255,.05)" stroke="#4a5680"/>
-     <text class="lbl-b" x="120" y="56" text-anchor="middle" fill="#b8c5e0">代課通知單</text>
+     <rect x="40" y="24" width="160" height="200" rx="12" fill="rgba(255,255,255,.05)" stroke="#6B7891"/>
+     <text class="lbl-b" x="120" y="56" text-anchor="middle" style="fill:#C8D2E0">代課通知單</text>
      <path d="M64 80 h112 M64 104 h112 M64 128 h88 M64 152 h112 M64 176 h72"
-       stroke="#4a5680" stroke-width="2" stroke-linecap="round"/>
+       stroke="#6B7891" stroke-width="2" stroke-linecap="round"/>
      <text class="lbl-s" x="120" y="248" text-anchor="middle">你寫給代課老師的</text>
      <text class="lbl-s" x="120" y="270" text-anchor="middle">教學流程單</text>
-     <text x="220" y="130" text-anchor="middle" font-size="28" fill="#00d4ff">≈</text>
-     <rect x="240" y="24" width="160" height="200" rx="12" fill="rgba(0,212,255,.08)" stroke="#00d4ff" stroke-width="2"/>
-     <text class="lbl-b" x="320" y="56" text-anchor="middle" fill="#eef3ff">技能說明書</text>
+     <text x="220" y="130" text-anchor="middle" font-size="28" fill="#7CB7E8">≈</text>
+     <rect x="240" y="24" width="160" height="200" rx="12" fill="rgba(124,183,232,0.088)" stroke="#7CB7E8" stroke-width="2"/>
+     <text class="lbl-b" x="320" y="56" text-anchor="middle" style="fill:#F3F6FB">技能說明書</text>
      <path d="M264 80 h112 M264 104 h112 M264 128 h88 M264 152 h112 M264 176 h72"
-       stroke="#00d4ff" stroke-width="2" stroke-linecap="round" opacity=".7"/>
-     <text class="lbl-s" x="320" y="248" text-anchor="middle" fill="#00d4ff">你寫給 AI 的</text>
-     <text class="lbl-s" x="320" y="270" text-anchor="middle" fill="#00d4ff">同一份流程單</text>
+       stroke="#7CB7E8" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+     <text class="lbl-s" x="320" y="248" text-anchor="middle" style="fill:#7CB7E8">你寫給 AI 的</text>
+     <text class="lbl-s" x="320" y="270" text-anchor="middle" style="fill:#7CB7E8">同一份流程單</text>
     </svg>
    </div>
   </div>
  </div>
 </section>
 
-<section class="slide" data-slide="18" data-section="維持注意">
+<section class="slide" data-slide="20" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 最容易踩的坑</p>
   <h1>對話型還是檔案型</h1>
   <svg viewBox="0 0 900 320" style="width:100%;height:auto;max-height:46vh;margin-top:var(--s3)">
-   <rect x="300" y="8" width="300" height="64" rx="12" fill="rgba(255,184,0,.1)" stroke="#ffb800" stroke-width="2"/>
-   <text class="lbl-b" x="450" y="47" text-anchor="middle" fill="#ffb800">它需要讀寫你電腦上的檔案嗎？</text>
-   <path d="M400 72 L200 128" stroke="#4a5680" stroke-width="2"/>
-   <path d="M500 72 L700 128" stroke="#00d4ff" stroke-width="2"/>
-   <text class="lbl-s" x="272" y="104" fill="#7a8bb8">不用</text>
-   <text class="lbl-s" x="596" y="104" fill="#00d4ff">要</text>
-   <rect x="60" y="128" width="280" height="160" rx="12" fill="rgba(255,255,255,.05)" stroke="#4a5680"/>
-   <text class="lbl-b" x="200" y="164" text-anchor="middle" fill="#b8c5e0">對話型</text>
+   <rect x="280" y="8" width="340" height="64" rx="12" fill="rgba(224,164,88,0.105)" stroke="#E0A458" stroke-width="2"/>
+   <text class="lbl-b" x="450" y="47" text-anchor="middle" style="fill:#E0A458">它需要讀寫你電腦上的檔案嗎？</text>
+   <path d="M400 72 L200 128" stroke="#6B7891" stroke-width="2"/>
+   <path d="M500 72 L700 128" stroke="#7CB7E8" stroke-width="2"/>
+   <text class="lbl-s" x="272" y="104" style="fill:#9BA9BD">不用</text>
+   <text class="lbl-s" x="596" y="104" style="fill:#7CB7E8">要</text>
+   <rect x="60" y="128" width="280" height="160" rx="12" fill="rgba(255,255,255,.05)" stroke="#6B7891"/>
+   <text class="lbl-b" x="200" y="164" text-anchor="middle" style="fill:#C8D2E0">對話型</text>
    <text class="lbl" x="200" y="196" text-anchor="middle">只靠對話就能完成</text>
    <text class="lbl" x="200" y="224" text-anchor="middle">發想貼文、擬會議流程</text>
    <text class="lbl-s" x="200" y="258" text-anchor="middle">哪裡都能跑</text>
-   <rect x="560" y="128" width="280" height="160" rx="12" fill="rgba(0,212,255,.08)" stroke="#00d4ff" stroke-width="2"/>
-   <text class="lbl-b" x="700" y="164" text-anchor="middle" fill="#eef3ff">檔案型</text>
-   <text class="lbl" x="700" y="196" text-anchor="middle" fill="#00d4ff">要讀檔、要產出檔案</text>
-   <text class="lbl" x="700" y="224" text-anchor="middle" fill="#00d4ff">出考卷、生教材 ← 今天做的</text>
-   <text class="lbl-s" x="700" y="258" text-anchor="middle" fill="#00d4ff">只能在支援本機操作的環境跑</text>
+   <rect x="560" y="128" width="280" height="160" rx="12" fill="rgba(124,183,232,0.088)" stroke="#7CB7E8" stroke-width="2"/>
+   <text class="lbl-b" x="700" y="164" text-anchor="middle" style="fill:#F3F6FB">檔案型</text>
+   <text class="lbl" x="700" y="196" text-anchor="middle" style="fill:#7CB7E8">要讀檔、要產出檔案</text>
+   <text class="lbl" x="700" y="224" text-anchor="middle" style="fill:#7CB7E8">出考卷、生教材 ← 今天做的</text>
+   <text class="lbl-s" x="700" y="258" text-anchor="middle" style="fill:#7CB7E8">只能在支援本機操作的環境跑</text>
   </svg>
   <div class="note"><p><span class="hl2">判斷錯誤，技能就會「跑不動」</span> —— 這是新手做完技能卻無法執行的頭號原因。動手寫之前先問這一句。</p></div>
  </div>
@@ -602,7 +815,7 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
 
 <!-- ══════════ 喚起行動 ══════════ -->
 
-<section class="slide" data-slide="19" data-section="喚起行動">
+<section class="slide" data-slide="21" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">S2 · 說明書要寫哪些</p>
   <h1>六個欄位</h1>
@@ -620,7 +833,7 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  </div>
 </section>
 
-<section class="slide" data-slide="20" data-section="喚起行動">
+<section class="slide" data-slide="22" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">S2 · 實作 ②</p>
   <h1>把流程包成技能</h1>
@@ -652,7 +865,7 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  </div>
 </section>
 
-<section class="slide" data-slide="21" data-section="喚起行動">
+<section class="slide" data-slide="23" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">評分怎麼看</p>
   <h1>做出來只有一半</h1>
@@ -673,58 +886,46 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:16px;fill:var(--ink-
  </div>
 </section>
 
-<section class="slide" data-slide="22" data-section="喚起行動">
+<section class="slide" data-slide="24" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">回校後你一定會撞到</p>
   <h1>三件事，先預告</h1>
-  <div class="grid3" style="margin-top:var(--s2)">
+  <div class="grid3" style="margin-top:var(--s3)">
    <div class="card warn"><span class="num">狀況 01</span><h3>「昨天教過它的，怎麼今天忘了？」</h3>
-    <p>它只記得兩個地方：全域藍圖與專案藍圖。<strong style="color:var(--ink)">關掉對話，其餘全部忘記。</strong></p></div>
+    <p>它只記得藍圖與交接本。<strong class="ink">關掉對話，其餘全部忘記。</strong></p></div>
    <div class="card warn"><span class="num">狀況 02</span><h3>「用一用它就變笨了」</h3>
-    <p>上下文（它的記憶體空間）快滿時，會開始遺忘前面的內容。<strong style="color:var(--ink)">做完一件事就開新對話。</strong></p></div>
+    <p>桌面快塞滿時，前面的內容會被稀釋。<strong class="ink">做完一件事就開新對話。</strong></p></div>
    <div class="card warn"><span class="num">狀況 03</span><h3>「額度怎麼一下就沒了」</h3>
-    <p>對話拖太長，每次都在重讀前面全部內容，<strong style="color:var(--ink)">反覆燒同一筆帳。</strong></p></div>
+    <p>對話拖太長，每問一句都重讀前面全部，<strong class="ink">反覆燒同一筆帳。</strong></p></div>
   </div>
-  <div class="note"><p>這三件事都不是你做錯，也不是工具爛 —— 是<span class="hl">記憶管理</span>，今天沒教。
-   <span class="dim">散場會發一頁講義，上面有解法與後續進修順序。</span></p></div>
- </div>
-</section>
-
-<section class="slide" data-slide="23" data-section="喚起行動">
- <div class="slide-inner">
-  <p class="kicker">下一步</p>
-  <h1>想再往下走的話</h1>
-  <div class="flow" style="margin-top:var(--s2)">
-   <div class="step" style="border-color:rgba(0,212,255,.42);background:rgba(0,212,255,.07)">
-    <div class="t">先補 A5</div><div class="d">記憶管理<br>藍圖、開工收工、上下文</div></div>
+  <div class="note"><p>這三件事都不是你做錯，也不是工具爛 —— 是<span class="hl">記憶管理</span>。
+   今天裝的開工、收工是其中一招；<span class="dim">散場講義上有完整解法與進修順序。</span></p></div>
+  <div class="flow" style="margin-top:var(--s3)">
+   <div class="step" style="border-color:rgba(124,183,232,0.462);background:rgba(124,183,232,0.077)">
+    <div class="t">先補 A5</div><div class="d">記憶管理</div></div>
    <div class="ar">→</div>
    <div class="step"><div class="t">再看 A2</div><div class="d">權限與供應鏈安全</div></div>
    <div class="ar">→</div>
-   <div class="step"><div class="t">依需求選</div><div class="d">A6 連外部工具<br>A7 教材自動化<br>A11 第二大腦</div></div>
-  </div>
-  <div class="grid3" style="margin-top:var(--s1)">
-   <div class="card"><span class="num">完整版</span><h3>12 單元</h3><p>系列研習、校內社群長期共備。</p></div>
-   <div class="card"><span class="num">精簡版</span><h3>7 單元</h3><p>寒暑假集中研習。</p></div>
-   <div class="card accent"><span class="num">你在這裡</span><h3>速成版</h3><p>今天這一場。</p></div>
+   <div class="step"><div class="t">依需求選</div><div class="d">A6 外部工具／A7 教材自動化／A11 第二大腦</div></div>
   </div>
  </div>
 </section>
 
-<section class="slide" data-slide="24" data-section="喚起行動">
+<section class="slide" data-slide="25" data-section="喚起行動">
  <div class="slide-inner" style="text-align:center">
   <svg viewBox="0 0 640 120" style="width:100%;max-width:560px;height:auto;margin-bottom:var(--s4)">
    <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
-     <stop offset="0" stop-color="#00d4ff"/><stop offset="1" stop-color="#ff006e"/></linearGradient></defs>
-   <rect x="40" y="36" width="88" height="48" rx="8" fill="none" stroke="#00d4ff" stroke-width="2"/>
-   <text class="lbl-s" x="84" y="65" text-anchor="middle" fill="#7a8bb8">考卷</text>
-   <rect x="152" y="36" width="88" height="48" rx="8" fill="none" stroke="#00d4ff" stroke-width="2"/>
-   <text class="lbl-s" x="196" y="65" text-anchor="middle" fill="#7a8bb8">教材包</text>
-   <rect x="264" y="28" width="112" height="64" rx="10" fill="rgba(255,0,110,.1)" stroke="#ff006e" stroke-width="2"/>
-   <text class="lbl" x="320" y="65" text-anchor="middle" fill="#ff006e">技能</text>
-   <path d="M392 60 h64" stroke="url(#g2)" stroke-width="2"/><path d="M450 54 l10 6 -10 6z" fill="#ff006e"/>
-   <circle cx="500" cy="60" r="18" fill="none" stroke="#ff006e" stroke-width="2"/>
-   <circle cx="548" cy="60" r="18" fill="none" stroke="#ff006e" stroke-width="2" opacity=".6"/>
-   <circle cx="596" cy="60" r="18" fill="none" stroke="#ff006e" stroke-width="2" opacity=".3"/>
+     <stop offset="0" stop-color="#7CB7E8"/><stop offset="1" stop-color="#E0A458"/></linearGradient></defs>
+   <rect x="40" y="36" width="88" height="48" rx="8" fill="none" stroke="#7CB7E8" stroke-width="2"/>
+   <text class="lbl-s" x="84" y="65" text-anchor="middle" style="fill:#9BA9BD">考卷</text>
+   <rect x="152" y="36" width="88" height="48" rx="8" fill="none" stroke="#7CB7E8" stroke-width="2"/>
+   <text class="lbl-s" x="196" y="65" text-anchor="middle" style="fill:#9BA9BD">教材包</text>
+   <rect x="264" y="28" width="112" height="64" rx="10" fill="rgba(224,164,88,0.105)" stroke="#E0A458" stroke-width="2"/>
+   <text class="lbl" x="320" y="65" text-anchor="middle" style="fill:#E0A458">技能</text>
+   <path d="M392 60 h64" stroke="url(#g2)" stroke-width="2"/><path d="M450 54 l10 6 -10 6z" fill="#E0A458"/>
+   <circle cx="500" cy="60" r="18" fill="none" stroke="#E0A458" stroke-width="2"/>
+   <circle cx="548" cy="60" r="18" fill="none" stroke="#E0A458" stroke-width="2" opacity=".6"/>
+   <circle cx="596" cy="60" r="18" fill="none" stroke="#E0A458" stroke-width="2" opacity=".3"/>
   </svg>
   <h1 style="font-size:64px">你做的不只是一份考卷</h1>
   <p class="lead" style="max-width:1200px;margin:0 auto;font-size:36px">是一個<span class="hl2">可以送人的流程</span>。<br>
@@ -792,18 +993,18 @@ function initRadar(){
     data:{
       labels:['三份文件齊備','符合命題條件','專業格式檢查','答案逐題核對'],
       datasets:[
-        {label:'只顧做出來', data:[4,4,1,1], borderColor:'#7a8bb8',
-         backgroundColor:'rgba(122,139,184,.14)', borderWidth:2, pointBackgroundColor:'#7a8bb8'},
-        {label:'做出來且檢查過', data:[4,4,4,4], borderColor:'#00d4ff',
-         backgroundColor:'rgba(0,212,255,.16)', borderWidth:2, pointBackgroundColor:'#00d4ff'}
+        {label:'只顧做出來', data:[4,4,1,1], borderColor:'#9BA9BD',
+         backgroundColor:'rgba(155,169,189,0.14)', borderWidth:2, pointBackgroundColor:'#9BA9BD'},
+        {label:'做出來且檢查過', data:[4,4,4,4], borderColor:'#7CB7E8',
+         backgroundColor:'rgba(124,183,232,0.176)', borderWidth:2, pointBackgroundColor:'#7CB7E8'}
       ]},
     options:{
       responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{labels:{color:'#b8c5e0', font:{family:'Noto Sans TC', size:17}}}},
+      plugins:{legend:{labels:{color:'#C8D2E0', font:{family:'Noto Sans TC', size:17}}}},
       scales:{r:{
         min:0, max:4, ticks:{display:false, stepSize:1},
-        grid:{color:'rgba(184,197,224,.16)'}, angleLines:{color:'rgba(184,197,224,.16)'},
-        pointLabels:{color:'#b8c5e0', font:{family:'Noto Sans TC', size:17}}
+        grid:{color:'rgba(203,213,229,0.192)'}, angleLines:{color:'rgba(203,213,229,0.192)'},
+        pointLabels:{color:'#C8D2E0', font:{family:'Noto Sans TC', size:17}}
       }}
     }});
 }

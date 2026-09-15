@@ -124,6 +124,7 @@ table.reveal tr.on{background:rgba(0,212,255,.06)}
 .q.key .qn{color:var(--accent-2)}
 .q.open{border-color:var(--accent);background:rgba(0,212,255,.07)}
 .q.key.open{border-color:var(--accent-2);background:rgba(255,0,110,.08)}
+.quad.tall .q.open .qb{max-height:460px}
 
 /* ── 程式碼／模板區塊 ── */
 .code{font-family:"JetBrains Mono",monospace;font-size:17px;line-height:1.9;
@@ -319,13 +320,13 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:15px;fill:var(--ink-
    <!-- Harness 外框 -->
    <rect x="210" y="56" width="760" height="300" rx="20" fill="rgba(0,212,255,.05)"
          stroke="#00d4ff" stroke-width="2" stroke-dasharray="8 6"/>
-   <text class="lbl-b" x="590" y="90" text-anchor="middle" fill="#00d4ff">HARNESS 外框（管家）</text>
+   <text class="lbl-b" x="590" y="90" text-anchor="middle" style="fill:#00d4ff">HARNESS 外框（管家）</text>
    <text class="lbl-s" x="590" y="112" text-anchor="middle">決定下面這些怎麼運作</text>
 
    <!-- Context -->
    <rect x="260" y="136" width="300" height="72" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(184,197,224,.3)"/>
    <text class="lbl-b" x="410" y="167" text-anchor="middle">CONTEXT 桌面</text>
-   <text class="lbl-s" x="410" y="190" text-anchor="middle">系統設定 / 對話紀錄 / 上傳檔案</text>
+   <text class="lbl-s" x="410" y="190" text-anchor="middle">設定 / 對話 / 檔案 / 技能說明書</text>
 
    <!-- LLM -->
    <rect x="260" y="252" width="300" height="72" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(184,197,224,.3)"/>
@@ -356,13 +357,14 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:15px;fill:var(--ink-
 
    <!-- Tools → 外面 -->
    <path d="M924,230 L1012,230" stroke="#ff006e" stroke-width="2" marker-end="url(#ar2)"/>
-   <text class="lbl" x="1022" y="224" fill="#ff006e">真的動到</text>
-   <text class="lbl" x="1022" y="248" fill="#ff006e">外面的東西</text>
+   <text class="lbl" x="1022" y="224" style="fill:#ff006e">真的動到</text>
+   <text class="lbl" x="1022" y="248" style="fill:#ff006e">外面的東西</text>
+   <text class="lbl-s" x="1022" y="276" style="fill:#ff006e">經 MCP／連接器</text>
 
    <!-- LLM → 停點 -->
    <path d="M410,330 L410,384" stroke="#ff006e" stroke-width="2" marker-end="url(#ar2)"/>
    <text class="lbl-s" x="426" y="344" text-anchor="start">不用工具就直接輸出</text>
-   <text class="lbl-b" x="410" y="412" text-anchor="middle" fill="#ff006e">停點 ／ 交給你驗收</text>
+   <text class="lbl-b" x="410" y="412" text-anchor="middle" style="fill:#ff006e">停點 ／ 交給你驗收</text>
   </svg>
   <div class="note a"><p>想 → 用工具 → 看結果 → 再想。學術上叫 <strong class="ink">ReAct</strong>（Reasoning + Acting）。</p></div>
  </div>
@@ -652,19 +654,19 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:15px;fill:var(--ink-
     <tr onclick="this.classList.add('on')"><td>「聊久了就變笨」</td>
       <td class="rv">Context 塞太滿，重點被稀釋</td><td class="rv"><strong>開新對話，只貼必要資料</strong></td></tr>
     <tr onclick="this.classList.add('on')"><td>「它忘記我上次說的」</td>
-      <td class="rv">那次的 Context 沒了，而你沒寫進 Memory</td><td class="rv"><strong>寫進設定（M2）</strong></td></tr>
+      <td class="rv">那次的 Context 沒了，而你沒寫進 Memory</td><td class="rv"><strong>寫進設定</strong></td></tr>
     <tr onclick="this.classList.add('on')"><td>「它說它做了，但根本沒做」</td>
-      <td class="rv">LLM 只會產生文字；Harness 沒真的執行或沒驗證</td><td class="rv"><strong>人工驗收（M4）</strong></td></tr>
+      <td class="rv">LLM 只會產生文字；Harness 沒真的執行或沒驗證</td><td class="rv"><strong>人工驗收</strong></td></tr>
     <tr onclick="this.classList.add('on')"><td>「A 軟體好用 B 難用」</td>
       <td class="rv">Harness 不同</td><td class="rv"><strong>換工具，不是換模型</strong></td></tr>
     <tr onclick="this.classList.add('on')"><td>「它自己亂做多餘的事」</td>
-      <td class="rv">沒給邊界與停點</td><td class="rv"><strong>交辦四問（M3）</strong></td></tr>
+      <td class="rv">沒給邊界與停點</td><td class="rv"><strong>交辦四問</strong></td></tr>
     <tr onclick="this.classList.add('on')"><td>「它一直反問，不肯動手」</td>
-      <td class="rv">預設行為偏保守</td><td class="rv"><strong>設定的第 4 行（M2）</strong></td></tr>
+      <td class="rv">預設行為偏保守</td><td class="rv"><strong>設定的第 4 行</strong></td></tr>
     <tr onclick="this.classList.add('on')"><td>「同樣的指令，今天跟昨天不一樣」</td>
-      <td class="rv">模型輸出本來就有隨機性，<strong>不是它壞了</strong></td><td class="rv"><strong>接受它，但每次都要驗（M4）</strong></td></tr>
+      <td class="rv">模型輸出本來就有隨機性，<strong>不是它壞了</strong></td><td class="rv"><strong>接受它，但每次都要驗</strong></td></tr>
     <tr onclick="this.classList.add('on')"><td>「中間有一步失敗，它卻說完成了」</td>
-      <td class="rv">工具回報錯誤，LLM 選擇繼續往下做</td><td class="rv"><strong>打開檔案親自看（M4）</strong></td></tr>
+      <td class="rv">工具回報錯誤，LLM 選擇繼續往下做</td><td class="rv"><strong>打開檔案親自看</strong></td></tr>
    </tbody>
   </table>
   <div class="note"><p>▶ 同一個對話連貼 3 份長文件，再問第一份裡的細節——回答開始失準，這就是 Context 塞爆。</p></div>
@@ -720,21 +722,24 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:15px;fill:var(--ink-
 <section class="slide" data-slide="22" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M2 · 示範時務必明講「看哪裡」</p>
-  <h1>同一句話，前後差別</h1>
-  <table class="tight" style="margin-top:var(--s3)">
-   <thead><tr><th style="width:6%">#</th><th style="width:36%">測試句</th><th>觀察點</th></tr></thead>
-   <tbody>
-    <tr><td>1</td><td>幫我寫一則要發給家長的通知</td>
-     <td>無設定：問三個問題、零產出。<strong>有第 4 行：直接生出格式，事由處寫［活動名稱］</strong></td></tr>
-    <tr><td>2</td><td>什麼是生成式 AI？</td>
-     <td>①「好的！」開場消失　②字數少一半　③結尾兜售的那句消失　④散文變條列</td></tr>
-    <tr><td>3</td><td>回頭檢查上面兩題有沒有講錯</td>
-     <td><strong>設定管的是「怎麼講」，不是「講得對不對」</strong></td></tr>
-   </tbody>
-  </table>
-  <div class="note"><p><strong class="ink">真實翻車案例</strong>：某次示範中，AI 說「例如剛才幫您寫的那則通知」——
-   但它剛才只有反問、沒寫過任何通知。
-   <span class="hl2">這種「聽起來合理但沒發生過」的句子，設定檔擋不掉，只有人擋得掉。</span></p></div>
+  <h1>同一句話，差一份設定</h1>
+  <pre class="code" style="text-align:center;font-size:var(--t3);padding:var(--s4) var(--s3)"><span class="dim">你輸入：</span><b>「幫我寫一則要發給家長的通知」</b></pre>
+  <div class="grid2" style="margin-top:var(--s4);align-items:stretch">
+   <div class="card" style="opacity:.82"><span class="num" style="color:var(--ink-3)">沒有設定</span>
+    <pre class="code sm" style="font-size:17px;margin-top:var(--s4);background:transparent;border-style:dashed">好的！很樂意幫您撰寫通知 😊
+請問是什麼活動呢？
+時間和地點是？
+需要家長繳回回條嗎？</pre>
+    <p style="margin-top:var(--s4)"><span class="hl2">結果：問了 3 個問題，0 份草稿</span></p></div>
+   <div class="card accent"><span class="num">有四行設定</span>
+    <pre class="code sm" style="font-size:17px;margin-top:var(--s4);background:transparent"><b>【家長通知】</b>
+主旨：<span class="c">［活動名稱］</span>通知
+時間：<span class="c">［待填］</span>　地點：<span class="c">［待填］</span>
+・請於<span class="c">［日期］</span>前繳回回條</pre>
+    <p style="margin-top:var(--s4)"><span class="hl">結果：直接給草稿，缺的標［待填］</span></p></div>
+  </div>
+  <div class="note a"><p><strong class="ink">差在哪</strong>　① 先給草稿、不反問（第 4 行）　② 缺的標［待填］　③ 繁體、條列、沒有「好的！」</p></div>
+  <div class="note w" style="margin-top:var(--s4)"><p>⚠️ 設定管的是<strong class="ink">「怎麼講」</strong>，不管<strong class="ink">「講得對不對」</strong>——內容還是要你驗。</p></div>
  </div>
 </section>
 
@@ -781,10 +786,10 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:15px;fill:var(--ink-
 <section class="slide" data-slide="26" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M3 · 本課最實用的工具</p>
-  <h1>交辦四問</h1>
-  <p class="small" style="margin-bottom:var(--s3)">
+  <h1 style="margin-bottom:var(--s4)">交辦四問</h1>
+  <p class="small" style="margin-bottom:var(--s4)">
    做什麼、用什麼、不做什麼、驗什麼。<span class="dim">四拍等長，可以當板書。（點卡片看漏掉會怎樣）</span></p>
-  <div class="quad">
+  <div class="quad" style="--s3:18px;gap:12px">
    <div class="q" onclick="this.classList.toggle('open')">
     <div class="qh"><span class="qn">1</span><span class="qt">做什麼</span><span class="qs">目標</span></div>
     <div class="qb"><p>我要的成品長什麼樣：格式、長度、幾份。<br>
@@ -802,10 +807,10 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:15px;fill:var(--ink-
     <div class="qb"><p>我要親自核對哪一項：叫它回報可核對的具體事項。<br>
      <span class="hl2">漏掉 →</span> 你不知道錯在哪。</p></div></div>
   </div>
-  <div class="note"><p><strong class="ink">為什麼「不做什麼」能一次裝下兩件事？</strong>
+  <div class="note" style="margin-top:var(--s4)"><p><strong class="ink">為什麼「不做什麼」能一次裝下兩件事？</strong>
    因為停點本來就是「做到這裡就不做了」。而界線與停點寫的都是
    <span class="hl">給 Harness 看的規則</span>——它才是真正會動手的那一層。</p></div>
-  <div class="note a" style="margin-top:var(--s4)"><p>第 4 問寫得具體，它產出時就會去比對；但<span class="hl2">它回報「都對」是線索，不是結論</span>。
+  <div class="note a" style="margin-top:12px"><p>第 4 問寫得具體，它產出時就會去比對；但<span class="hl2">它回報「都對」是線索，不是結論</span>。
    第 4 問的作用是讓你知道<strong class="ink">該看哪裡</strong>，不是讓你不用看。</p></div>
  </div>
 </section>
@@ -861,23 +866,25 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:15px;fill:var(--ink-
 <section class="slide" data-slide="29" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M3 · 這一頁是「以人為本」最上游的一問</p>
-  <h1>不是暫時不交，是不該交</h1>
-  <p class="small" style="margin-bottom:var(--s3)">
-   上一頁那張表講的是「<span class="dim">你還不熟，先別碰</span>」——言下之意是熟了以後可以。
-   <span class="hl2">但有些事情不管你多熟練，都不該讓 AI 單獨做完直接採用。</span></p>
-  <table class="tight">
-   <thead><tr><th style="width:38%">這類事情</th><th>為什麼不是熟練度問題</th></tr></thead>
+  <h1>判斷不交，但可以請它幫忙</h1>
+  <p class="small" style="margin-bottom:var(--s4)">
+   上一頁講的是「<span class="dim">你還不熟，先別碰</span>」。這一頁不一樣——
+   <span class="hl2">這些事不管多熟練，判斷都不能交出去</span>；但不是完全不能用。</p>
+  <table class="tight" style="font-size:var(--t4)">
+   <thead><tr><th style="width:22%">這類事情</th><th style="width:42%">AI 可以做</th><th style="color:var(--accent-2)">必須你做</th></tr></thead>
    <tbody>
-    <tr><td><strong>成績排名、獎懲建議</strong></td><td>這是對人的評價。評價需要有人負責，而 AI 不能負責</td></tr>
-    <tr><td><strong>輔導紀錄、學生處遇建議</strong></td><td>需要你對這個學生的實際認識，那不在它的桌面上</td></tr>
-    <tr><td><strong>申訴回覆、爭議處理</strong></td><td>有法律效果，而且對方是真人</td></tr>
-    <tr><td><strong>入學、評鑑、獎補助送審材料</strong></td><td>出錯的後果不可回復</td></tr>
-    <tr><td><strong>特殊需求學生的個別化調整</strong></td><td>要對準 IEP 目標與該生意願；錯配的代價由最沒能力查證的人承擔</td></tr>
+    <tr><td><strong>成績與排名</strong></td><td>依你給的原始分數計算、排序、抽出漏登<span class="dim">（請它寫程式算，你抽驗幾筆）</span></td><td>決定排名怎麼用；上傳前先去識別化</td></tr>
+    <tr><td><strong>獎懲建議</strong></td><td>把事實經過整理成時間軸</td><td>要不要獎懲、給什麼</td></tr>
+    <tr><td><strong>輔導紀錄、處遇建議</strong></td><td>你先寫草稿（去識別化）→ 它提文字修改建議</td><td>起稿、判斷、結論</td></tr>
+    <tr><td><strong>申訴回覆</strong></td><td>你先擬草案 → 它檢查語氣與條理</td><td>立場與內容；引用的法規條號親自查</td></tr>
+    <tr><td><strong>入學、評鑑、獎補助送審</strong></td><td>潤飾你的初稿、對照格式要求</td><td>所有事實與數據；先確認該審查允不允許用 AI</td></tr>
+    <tr><td><strong>特殊需求學生個別化調整</strong></td><td>對你依 IEP 寫的方案提文字建議</td><td>調整內容本身；IEP 與診斷資料不上傳</td></tr>
    </tbody>
   </table>
-  <div class="note"><p><strong class="ink">共同點</strong>：需要<span class="hl">情感連結、道德判斷，或對特定一個人的理解</span>。
-   這三種東西不在 Context 裡，<strong class="ink">也不會因為你把指令寫得更好而出現</strong>。<br>
-   <span class="hl2">資料它可以整理，判斷要你自己下。</span></p></div>
+  <div class="grid2" style="margin-top:var(--s4);align-items:stretch;gap:var(--s4)">
+   <div class="note" style="margin-top:0"><p><strong class="ink">空白起稿不交</strong>——<span class="hl2">你先寫、它來改。</span></p></div>
+   <div class="note a" style="margin-top:0"><p><strong class="ink">能驗算的可以交</strong>——<span class="hl">要負責的判斷不交。</span></p></div>
+  </div>
  </div>
 </section>
 
@@ -894,7 +901,7 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:15px;fill:var(--ink-
   <p class="kicker">M4 · 先看反例</p>
   <h1>不以人為本，長什麼樣</h1>
   <p class="small" style="margin-bottom:var(--s3)">💭 你聽過（或做過）哪一種？<span class="dim">（點卡片展開）</span></p>
-  <div class="quad c3">
+  <div class="quad c3 tall" style="align-items:start">
    <div class="q" onclick="this.classList.toggle('open')">
     <div class="qh"><span class="qn">01</span><span class="qt">直接放行</span></div>
     <div class="qb"><p>AI 產出沒人讀就送出去、印出來、發下去。<br>
@@ -902,11 +909,13 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:15px;fill:var(--ink-
    <div class="q key" onclick="this.classList.toggle('open')">
     <div class="qh"><span class="qn">02</span><span class="qt">橡皮圖章</span></div>
     <div class="qb"><p>流程上有「人已確認」這一格，但那個人其實沒看。<br>
+     <span style="color:var(--ink-3)">例：AI 批改 35 份學習單，每份點開兩秒就按「教師已確認」。
+     有位學生用了不同解法被判錯，家長來申覆，紀錄上寫著：</span><strong class="ink">教師已確認。</strong><br>
      <strong class="ink">比沒有檢查更危險</strong>——它製造了一份「已經查過」的假紀錄。</p></div></div>
    <div class="q" onclick="this.classList.toggle('open')">
     <div class="qh"><span class="qn">03</span><span class="qt">判斷外包</span></div>
-    <div class="qb"><p>把「該不該」交給 AI 決定（給幾分、怎麼寫這個學生、要不要通報）。<br>
-     <strong class="ink">AI 不能負責，但後果是真的。</strong></p></div></div>
+    <div class="qb"><p>把最後的決定交給 AI：它給的分數直接登錄、它寫的評語直接給學生、它說要通報就通報。<br>
+     <span style="color:var(--ink-3)">對照：AI 依你的 rubric 初評並附理由 → 你看過、改分、定案，</span><strong class="ink">這是協作，不是外包。</strong></p></div></div>
   </div>
   <div class="note"><p>第二種最常發生。<span class="hl2">人在迴圈裡，但等於不在。</span>
    M4 之後講的每一件事，都是在防這三種。</p></div>
@@ -1025,7 +1034,8 @@ svg .lbl-s{font-family:"JetBrains Mono",monospace;font-size:15px;fill:var(--ink-
   <ul class="chk">
    <li onclick="this.classList.toggle('on')">產出的<strong class="ink">數字</strong>我親自核對過至少一項</li>
    <li onclick="this.classList.toggle('on')">引用的<strong class="ink">法規／文獻</strong>我點開來源確認存在</li>
-   <li onclick="this.classList.toggle('on')">有沒有「剛才幫您做過 X」但其實沒做過的句子</li>
+   <li onclick="this.classList.toggle('on')"><span>有沒有「剛才幫您做過 X」但其實沒做過的句子<br>
+    <span class="dim" style="font-size:15px">真的發生過：它說「剛才幫您寫的那則通知」，其實它只有反問、一則也沒寫</span></span></li>
    <li onclick="this.classList.toggle('on')">它說改了檔案，我<strong class="ink">真的去打開那個檔案看過</strong></li>
    <li onclick="this.classList.toggle('on')">對外訊息由我按送出，不是它</li>
    <li onclick="this.classList.toggle('on')">如果這份東西出錯，<strong class="ink">我知道後果、也承擔得起</strong></li>
