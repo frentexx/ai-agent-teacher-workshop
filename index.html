@@ -407,6 +407,11 @@ body.show-notes .slide.active .notes::before{
 .fb-bar button{align-self:center;font-family:inherit;font-size:20px;font-weight:700;color:var(--bg);background:var(--accent-2);border:0;border-radius:12px;padding:14px 48px;cursor:pointer}
 .fb-bar button:hover{filter:brightness(1.08)}
 .fb-bar button:disabled{opacity:.6;cursor:default}
+.qr-badge{position:absolute;z-index:6;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.qr-badge img{width:150px;height:150px;background:#fff;padding:8px;border-radius:12px;display:block}
+.qr-badge span{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-3);letter-spacing:.06em}
+.qr-badge.tr{top:52px;right:60px}
+.qr-badge.br{bottom:96px;right:60px}
 </style>
 </head>
 <body>
@@ -438,6 +443,7 @@ body.show-notes .slide.active .notes::before{
   <div class="wc-canvas"><canvas id="wcCanvas"></canvas></div>
   <p class="wc-foot">已收到 <b id="wcCount">0</b> 個答案</p>
  </div>
+ <div class="qr-badge tr"><img src="img/qr-wordcloud.png" alt="掃碼輸入你的答案"><span>掃碼輸入</span></div>
  <aside class="notes">先請大家輸入自己最常用 AI 做的一件事。送出後文字雲會即時長出來。
 重複的答案會合併並放大，可以藉此看出大家的共通需求。</aside>
 </section>
@@ -1259,6 +1265,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
   </form>
   <p class="wc-foot" id="fbMsg" style="text-align:center"></p>
  </div>
+ <div class="qr-badge br"><img src="img/qr-feedback.png" alt="掃碼填寫回饋"><span>掃碼填回饋</span></div>
  <aside class="notes">回饋寫入資料庫，讀取權限只給講者的 Google 帳號，學員不會互相看到。
 可以不具名，重點是聽到真話。</aside>
 </section>

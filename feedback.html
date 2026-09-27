@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>研習回饋｜一句話就好</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#10141F; --ink:#F3F6FB; --ink-2:#C8D2E0; --ink-3:#9BA9BD; --ink-4:#8A97AB;
+  --accent:#7CB7E8; --accent-2:#E0A458;
+  --line:rgba(203,213,229,.20); --card:rgba(255,255,255,.055);
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+  font-family:"Noto Sans TC",system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+  display:flex;justify-content:center;padding:40px 20px}
+.wrap{width:100%;max-width:640px;margin:auto}
+.kicker{font-family:"JetBrains Mono",monospace;font-size:14px;letter-spacing:.2em;
+  color:var(--accent);text-transform:uppercase;margin:0 0 14px}
+h1{font-size:40px;font-weight:900;line-height:1.2;margin:0 0 16px}
+h1 .hl2{color:var(--accent-2)}
+.lead{font-size:18px;line-height:1.7;color:var(--ink-2);margin:0 0 28px}
+form{display:flex;flex-direction:column;gap:18px}
+textarea{font-family:inherit;font-size:20px;color:var(--ink);background:var(--card);
+  border:1px solid var(--line);border-radius:14px;padding:18px 20px;outline:none;
+  resize:vertical;line-height:1.6;min-height:150px}
+textarea::placeholder{color:var(--ink-4)}
+textarea:focus{border-color:var(--accent)}
+button{font-family:inherit;font-size:20px;font-weight:700;color:var(--bg);
+  background:var(--accent-2);border:0;border-radius:14px;padding:18px;cursor:pointer;transition:filter .2s}
+button:hover{filter:brightness(1.08)}
+button:disabled{opacity:.6;cursor:default}
+.msg{font-size:17px;color:var(--accent);margin:20px 0 0;min-height:24px;text-align:center}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <p class="kicker">散場前，留一句話</p>
+  <h1>今天對你有<span class="hl2">收穫</span>嗎？</h1>
+  <p class="lead">你的收穫、感想，或任何修正建議，都歡迎寫下來。<br>（只有講者看得到，可以不具名）</p>
+  <form id="fbForm" autocomplete="off">
+    <textarea id="fbText" placeholder="一句話就好…" aria-label="你的回饋"></textarea>
+    <button type="submit">送出回饋</button>
+  </form>
+  <p class="msg" id="fbMsg"></p>
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA4dqhuXY0nCSt3IvnogQOfkR9SVBUYHxc",
+  authDomain: "basic-learning-2384f.firebaseapp.com",
+  projectId: "basic-learning-2384f",
+  storageBucket: "basic-learning-2384f.firebasestorage.app",
+  messagingSenderId: "878087809392",
+  appId: "1:878087809392:web:7815af97fecd57aa7147b5"
+};
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+
+const form = document.getElementById("fbForm");
+const ta   = document.getElementById("fbText");
+const msg  = document.getElementById("fbMsg");
+const btn  = form.querySelector("button");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const t = ta.value.trim();
+  if (!t) { ta.focus(); return; }
+  btn.disabled = true;
+  try {
+    await addDoc(collection(db, "workshop_feedback"), { text: t, created_at: serverTimestamp() });
+    ta.value = "";
+    msg.textContent = "已收到你的回饋，謝謝！";
+  } catch (err) {
+    msg.textContent = "送出失敗：" + err.message;
+  } finally {
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
