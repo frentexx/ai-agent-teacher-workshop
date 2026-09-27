@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>研習後台｜文字雲與回饋</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#10141F; --ink:#F3F6FB; --ink-2:#C8D2E0; --ink-3:#9BA9BD; --ink-4:#8A97AB;
+  --accent:#7CB7E8; --accent-2:#E0A458; --bad:#D96A5A;
+  --line:rgba(203,213,229,.20); --card:rgba(255,255,255,.055);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Noto Sans TC",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:20px 32px;border-bottom:1px solid var(--line)}
+header h1{font-size:24px;margin:0;font-weight:900;letter-spacing:.02em}
+header .spacer{flex:1}
+button{font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;
+  border:0;border-radius:10px;padding:9px 18px;transition:filter .2s}
+button:hover{filter:brightness(1.1)}
+#login{background:var(--accent);color:var(--bg)}
+#logout{background:transparent;color:var(--ink-3);border:1px solid var(--line)}
+.danger{background:rgba(217,106,90,.16);color:#F0A99E;border:1px solid rgba(217,106,90,.5)}
+.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.who{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-3)}
+main{max-width:1000px;margin:0 auto;padding:32px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:24px;margin-bottom:24px}
+.card h2{font-size:20px;margin:0 0 12px;font-weight:700}
+.card .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.big{font-family:"JetBrains Mono",monospace;font-size:44px;font-weight:700;color:var(--accent-2);line-height:1}
+.muted{color:var(--ink-3);font-size:14px}
+#gate{max-width:520px;margin:80px auto;text-align:center}
+#gate p{color:var(--ink-2);line-height:1.7}
+ul{list-style:none;padding:0;margin:16px 0 0}
+li{border-top:1px solid var(--line);padding:14px 4px;display:flex;gap:14px;align-items:baseline}
+li .txt{flex:1;font-size:17px;color:var(--ink);line-height:1.6}
+li .ts{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-4);white-space:nowrap}
+.err{color:#F0A99E;font-size:14px;margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+  <h1>研習後台</h1>
+  <span class="muted">文字雲管理 ＋ 學員回饋</span>
+  <span class="spacer"></span>
+  <span class="who" id="who"></span>
+  <button id="login">用 Google 登入</button>
+  <button id="logout" hidden class="ghost">登出</button>
+</header>
+
+<div id="gate">
+  <p>這是講者專用的後台。請用 <b>fuwen@ppsh.ptc.edu.tw</b> 的 Google 帳號登入，才能檢視學員回饋與清空文字雲。</p>
+  <p class="err" id="gateErr"></p>
+</div>
+
+<main id="panel" hidden>
+  <section class="card">
+    <h2>文字雲</h2>
+    <div class="row">
+      <span class="big" id="cloudCount">0</span>
+      <span class="muted">個答案（含重複送出）</span>
+      <span class="spacer" style="flex:1"></span>
+      <button id="clearCloud" class="danger">清空文字雲</button>
+    </div>
+    <p class="muted" id="cloudMsg" style="margin:12px 0 0">清空後無法復原。</p>
+  </section>
+
+  <section class="card">
+    <h2>學員回饋</h2>
+    <div class="row">
+      <span class="big" id="fbCount">0</span>
+      <span class="muted">則</span>
+      <span style="flex:1"></span>
+      <button id="exportCsv" class="ghost">匯出 CSV</button>
+    </div>
+    <ul id="fbList"></ul>
+  </section>
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getFirestore, collection, onSnapshot, getDocs, deleteDoc, doc, query, orderBy }
+  from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA4dqhuXY0nCSt3IvnogQOfkR9SVBUYHxc",
+  authDomain: "basic-learning-2384f.firebaseapp.com",
+  projectId: "basic-learning-2384f",
+  storageBucket: "basic-learning-2384f.firebasestorage.app",
+  messagingSenderId: "878087809392",
+  appId: "1:878087809392:web:7815af97fecd57aa7147b5"
+};
+
+const OWNER = "fuwen@ppsh.ptc.edu.tw";
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+const $ = (id) => document.getElementById(id);
+const loginBtn=$("login"), logoutBtn=$("logout"), who=$("who");
+const gate=$("gate"), gateErr=$("gateErr"), panel=$("panel");
+const cloudCount=$("cloudCount"), fbCount=$("fbCount"), fbList=$("fbList");
+
+let unsubCloud=null, unsubFb=null, feedbackCache=[];
+
+loginBtn.addEventListener("click", async () => {
+  gateErr.textContent = "";
+  try { await signInWithPopup(auth, new GoogleAuthProvider()); }
+  catch (e) { gateErr.textContent = "登入失敗：" + e.message; }
+});
+logoutBtn.addEventListener("click", () => signOut(auth));
+
+onAuthStateChanged(auth, (user) => {
+  if (unsubCloud) { unsubCloud(); unsubCloud=null; }
+  if (unsubFb)    { unsubFb();    unsubFb=null; }
+
+  if (user && user.email === OWNER) {
+    who.textContent = user.email;
+    loginBtn.hidden = true; logoutBtn.hidden = false;
+    gate.hidden = true; panel.hidden = false;
+    subscribe();
+  } else if (user) {
+    who.textContent = "";
+    loginBtn.hidden = false; logoutBtn.hidden = true;
+    gate.hidden = false; panel.hidden = true;
+    gateErr.textContent = "此帳號（" + user.email + "）沒有後台權限。";
+  } else {
+    who.textContent = "";
+    loginBtn.hidden = false; logoutBtn.hidden = true;
+    gate.hidden = false; panel.hidden = true;
+  }
+});
+
+function subscribe() {
+  unsubCloud = onSnapshot(collection(db, "wordcloud_words"),
+    (s) => { cloudCount.textContent = s.size; },
+    (e) => { cloudCount.textContent = "—"; $("cloudMsg").textContent = "讀取失敗：" + e.message; });
+
+  unsubFb = onSnapshot(query(collection(db, "workshop_feedback"), orderBy("created_at", "desc")),
+    (s) => {
+      feedbackCache = s.docs.map((d) => {
+        const t = (d.data() || {}).text || "";
+        const ts = d.data().created_at;
+        return { text: t, date: ts && ts.toDate ? ts.toDate() : null };
+      });
+      fbCount.textContent = feedbackCache.length;
+      fbList.innerHTML = "";
+      fbList.innerHTML = feedbackCache.map((f) => {
+        const time = f.date ? f.date.toLocaleString("zh-TW", { hour12:false }) : "";
+        return `<li><span class="txt">${escapeHtml(f.text)}</span><span class="ts">${time}</span></li>`;
+      }).join("");
+    },
+    (e) => { fbList.innerHTML = `<li class="err">讀取失敗：${escapeHtml(e.message)}</li>`; });
+}
+
+$("clearCloud").addEventListener("click", async () => {
+  if (!confirm("確定要清空文字雲的所有答案嗎？此動作無法復原。")) return;
+  const btn = $("clearCloud"); btn.disabled = true; btn.textContent = "清空中…";
+  try {
+    const snap = await getDocs(collection(db, "wordcloud_words"));
+    await Promise.all(snap.docs.map((d) => deleteDoc(doc(db, "wordcloud_words", d.id))));
+    $("cloudMsg").textContent = "已清空 " + snap.size + " 筆。";
+  } catch (e) {
+    $("cloudMsg").textContent = "清空失敗：" + e.message;
+  } finally {
+    btn.disabled = false; btn.textContent = "清空文字雲";
+  }
+});
+
+$("exportCsv").addEventListener("click", () => {
+  const rows = [["時間", "回饋"]].concat(
+    feedbackCache.map((f) => [
+      f.date ? f.date.toLocaleString("zh-TW", { hour12:false }) : "",
+      f.text
+    ])
+  );
+  const csv = rows.map((r) => r.map((c) => '"' + String(c).replace(/"/g, '""') + '"').join(",")).join("\r\n");
+  const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "研習回饋.csv";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) =>
+    ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+}
+</script>
+</body>
+</html>
