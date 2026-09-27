@@ -383,6 +383,24 @@ body.show-notes .slide.active .notes{
 body.show-notes .slide.active .notes::before{
   content:"講者備忘";display:block;margin-bottom:var(--s5);
   font-family:"JetBrains Mono",monospace;font-size:14px;letter-spacing:.16em;color:var(--accent-2)}
+/* ── 即時文字雲頁 ── */
+.wc-bar{display:flex;gap:12px;max-width:520px}
+.wc-bar input{flex:1;font-family:inherit;font-size:17px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 16px;outline:none;transition:border-color .2s}
+.wc-bar input::placeholder{color:var(--ink-4)}
+.wc-bar input:focus{border-color:var(--accent)}
+.wc-bar button{font-family:inherit;font-size:17px;font-weight:700;color:var(--bg);background:var(--accent);border:0;border-radius:10px;padding:10px 26px;cursor:pointer}
+.wc-bar button:hover{filter:brightness(1.08)}
+.wc-canvas{position:relative;height:44vh;min-height:260px;margin-top:var(--s3)}
+.wc-canvas canvas{position:absolute;inset:0;width:100%;height:100%}
+.wc-foot{font-family:"JetBrains Mono",monospace;font-size:15px;color:var(--ink-3);margin:var(--s3) 0 0;text-align:right}
+.wc-foot b{color:var(--accent-2);font-weight:700}
+.fb-bar{display:flex;flex-direction:column;gap:var(--s3);max-width:820px;margin:var(--s3) auto 0}
+.fb-bar textarea{font-family:inherit;font-size:22px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;outline:none;resize:vertical;line-height:1.6}
+.fb-bar textarea::placeholder{color:var(--ink-4)}
+.fb-bar textarea:focus{border-color:var(--accent)}
+.fb-bar button{align-self:center;font-family:inherit;font-size:20px;font-weight:700;color:var(--bg);background:var(--accent-2);border:0;border-radius:12px;padding:14px 48px;cursor:pointer}
+.fb-bar button:hover{filter:brightness(1.08)}
+.fb-bar button:disabled{opacity:.6;cursor:default}
 </style>
 </head>
 <body>
@@ -411,6 +429,21 @@ body.show-notes .slide.active .notes::before{
 
 <section class="slide" data-slide="2" data-section="引起動機">
  <div class="slide-inner">
+  <p class="kicker">即時互動</p>
+  <h1>使用 AI 最常做的事情是<span class="hl2">什麼</span>？</h1>
+  <form class="wc-bar" id="wcForm" autocomplete="off">
+   <input id="wcInput" maxlength="20" placeholder="輸入你的答案（20 字內），按 Enter 送出" aria-label="你的答案">
+   <button type="submit">送出</button>
+  </form>
+  <div class="wc-canvas"><canvas id="wcCanvas"></canvas></div>
+  <p class="wc-foot">已收到 <b id="wcCount">0</b> 個答案</p>
+ </div>
+ <aside class="notes">先請大家輸入自己最常用 AI 做的一件事。送出後文字雲會即時長出來。
+重複的答案會合併並放大，可以藉此看出大家的共通需求。</aside>
+</section>
+
+<section class="slide" data-slide="3" data-section="引起動機">
+ <div class="slide-inner">
   <p class="kicker">先想一件事</p>
   <h2 class="big-q">你覺得這兩年<br>AI 最大的變化<br>是什麼？</h2>
  </div>
@@ -418,7 +451,7 @@ body.show-notes .slide.active .notes::before{
 先收 2 到 3 個回答再往下。多半會答「變聰明了」。</aside>
 </section>
 
-<section class="slide" data-slide="3" data-section="引起動機">
+<section class="slide" data-slide="4" data-section="引起動機">
  <div class="slide-inner">
   <p class="kicker">先拆三個誤會</p>
   <h1>不是變聰明，是被裝上手腳</h1>
@@ -440,7 +473,7 @@ body.show-notes .slide.active .notes::before{
 「用哪個都差不多」：同一個模型，放在不同軟體裡表現可以差很多。差在外面那層，不在模型。</aside>
 </section>
 
-<section class="slide" data-slide="4" data-section="引起動機">
+<section class="slide" data-slide="5" data-section="引起動機">
  <div class="slide-inner">
   <p class="kicker">今天怎麼走</p>
   <h1>四段，一條線</h1>
@@ -465,7 +498,7 @@ M4：做出來只有一半。AI 沒有責任，你有。
 
 <!-- ══════════ M1 ══════════ -->
 
-<section class="slide" data-slide="5" data-section="維持注意">
+<section class="slide" data-slide="6" data-section="維持注意">
  <div class="slide-inner divider">
   <div class="big">M1</div>
   <h1 style="margin-bottom:var(--s4)">五個詞的關係</h1>
@@ -474,7 +507,7 @@ M4：做出來只有一半。AI 沒有責任，你有。
  <aside class="notes">這是全課唯一需要動腦的部分，其餘都是應用。</aside>
 </section>
 
-<section class="slide" data-slide="6" data-section="維持注意">
+<section class="slide" data-slide="7" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 一個比喻貫穿全部</p>
   <h1>一位會失憶的聰明工讀生</h1>
@@ -509,7 +542,7 @@ M4：做出來只有一半。AI 沒有責任，你有。
 AI Agent：你給目標，它自己拆步驟、用工具、反覆做，直到完成或碰到停點。</aside>
 </section>
 
-<section class="slide" data-slide="7" data-section="維持注意">
+<section class="slide" data-slide="8" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 關係圖</p>
   <h1 style="font-size:48px">中間那個迴圈，就是 Agent 的全部</h1>
@@ -577,7 +610,7 @@ AI Agent：你給目標，它自己拆步驟、用工具、反覆做，直到完
 紅色箭頭兩條：經 MCP／連接器真的動到外面的東西；不用工具時直接輸出，停下來交給你驗收。</aside>
 </section>
 
-<section class="slide" data-slide="8" data-section="維持注意">
+<section class="slide" data-slide="9" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 最常混淆的一組</p>
   <h1 style="margin-bottom:0">桌面 vs 交接本</h1>
@@ -600,7 +633,7 @@ Memory 交接本：你事先寫的，或 AI 自己記下的；跨對話保留，
 另外，「聊久了變笨」只講了一半 —— 另一半是越長越貴：每問一句整張桌子都要重送（用 token 計價，中文更耗），而老師多半用免費額度。</aside>
 </section>
 
-<section class="slide" data-slide="9" data-section="維持注意">
+<section class="slide" data-slide="10" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 本課重點</p>
   <h1>大腦與管家</h1>
@@ -620,7 +653,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 第 ⑤ 項會讓你看到紅字 —— 那是它在自己修，不要急著按中斷。</aside>
 </section>
 
-<section class="slide" data-slide="10" data-section="維持注意">
+<section class="slide" data-slide="11" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 這一頁關係到個資，務必講</p>
   <h1 style="font-size:56px;margin-bottom:var(--s4)">Harness 在你電腦上，LLM 不在</h1>
@@ -650,7 +683,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 這就是 M4 第 2 條硬規則真正要防的事 —— 不是防你按上傳鍵，是防你以為自己沒有上傳。</aside>
 </section>
 
-<section class="slide" data-slide="11" data-section="維持注意">
+<section class="slide" data-slide="12" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 指令是誰產生的</p>
   <h1>三步，一直循環</h1>
@@ -671,7 +704,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 所以「AI 幫我改了檔案」這句話其實不準確 —— 決定改什麼的是 AI，真的去改的是一段普通程式。</aside>
 </section>
 
-<section class="slide" data-slide="12" data-section="維持注意">
+<section class="slide" data-slide="13" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 先判斷再揭曉</p>
   <h1>畫面上，哪些是它想的？</h1>
@@ -701,7 +734,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 神的部分是決策，動手的部分是一段普通程式。</aside>
 </section>
 
-<section class="slide" data-slide="13" data-section="維持注意">
+<section class="slide" data-slide="14" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 同一個模型，有的軟體好用</p>
   <h1>因為管家不同</h1>
@@ -728,7 +761,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 校園版白話：同一位優秀代課老師，放到制度清楚的學校能幫上大忙；放到沒人交代、沒有鑰匙、也沒人驗收的學校，就只能坐在辦公室寫講義。</aside>
 </section>
 
-<section class="slide" data-slide="14" data-section="維持注意">
+<section class="slide" data-slide="15" data-section="維持注意">
  <div class="slide-inner" style="text-align:center">
   <p class="kicker">M1 · 板書用</p>
   <h2 class="big-q" style="font-size:52px;line-height:1.5">
@@ -740,7 +773,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 提問：那我們平常用的網頁版聊天室，算不算 Harness？—— 算，只是功能較少的一種。</aside>
 </section>
 
-<section class="slide" data-slide="15" data-section="維持注意">
+<section class="slide" data-slide="16" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 先講清楚，收尾才不會誤會</p>
   <h1>技能不是第六個詞</h1>
@@ -768,7 +801,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 「技能寫好就會一直待命」：要被觸發才載入。沒講到關鍵字，它不會自己拿出來。</aside>
 </section>
 
-<section class="slide" data-slide="16" data-section="維持注意">
+<section class="slide" data-slide="17" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 跟技能一樣，不是新能力</p>
   <h1>MCP 是轉接頭</h1>
@@ -800,7 +833,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 轉接頭比喻改編自三師爸 Sense Bar EP04。</aside>
 </section>
 
-<section class="slide" data-slide="17" data-section="維持注意">
+<section class="slide" data-slide="18" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 把四樣東西放進同一張圖</p>
   <h1 style="font-size:48px">桌面上的東西，是從哪裡來的？</h1>
@@ -846,7 +879,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 提問答案：使用說明一直攤在桌上，每輪整份重送 → 做什麼才裝什麼。</aside>
 </section>
 
-<section class="slide" data-slide="18" data-section="維持注意">
+<section class="slide" data-slide="19" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M1 · 先只看左欄，再點列揭曉</p>
   <h1>你遇過的怪現象，全部有解</h1>
@@ -883,7 +916,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 
 <!-- ══════════ M2 ══════════ -->
 
-<section class="slide" data-slide="19" data-section="維持注意">
+<section class="slide" data-slide="20" data-section="維持注意">
  <div class="slide-inner divider">
   <div class="big">M2</div>
   <h1 style="margin-bottom:var(--s4)">把「你是誰」寫進設定</h1>
@@ -892,7 +925,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
  <aside class="notes">設定的作用不是讓 AI 變聰明，是讓你不必每次重講一遍。</aside>
 </section>
 
-<section class="slide" data-slide="20" data-section="維持注意">
+<section class="slide" data-slide="21" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M2 · 設定放在哪</p>
   <h1>設定跟著誰走？</h1>
@@ -916,7 +949,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 檔名小提醒：Claude Code 自動讀 CLAUDE.md；Codex、OpenCode 等工具讀 AGENTS.md。只有 AGENTS.md 時，在同一個資料夾放一個 CLAUDE.md，內容寫一行 @AGENTS.md 就能兩邊共用。</aside>
 </section>
 
-<section class="slide" data-slide="21" data-section="維持注意">
+<section class="slide" data-slide="22" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M2 · 四行模板</p>
   <h1>四行就夠，寫長反而失效</h1>
@@ -933,7 +966,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 寫太長會失效：超過 300 字就開始稀釋，四行剛好。</aside>
 </section>
 
-<section class="slide" data-slide="22" data-section="維持注意">
+<section class="slide" data-slide="23" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M2 · 示範</p>
   <h1>同一句話，差一份設定</h1>
@@ -959,7 +992,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 設定管的是「怎麼講」，不管「講得對不對」—— 內容還是要你驗。</aside>
 </section>
 
-<section class="slide" data-slide="23" data-section="維持注意">
+<section class="slide" data-slide="24" data-section="維持注意">
  <div class="slide-inner" style="text-align:center">
   <p class="kicker">M2 · 這一節的一句話</p>
   <h2 class="big-q">當你第三次<br>跟 AI 講同一件事，<br><span class="hl">那句話就該寫進設定。</span></h2>
@@ -972,7 +1005,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 
 <!-- ══════════ M3 ══════════ -->
 
-<section class="slide" data-slide="24" data-section="維持注意">
+<section class="slide" data-slide="25" data-section="維持注意">
  <div class="slide-inner divider">
   <div class="big">M3</div>
   <h1 style="margin-bottom:var(--s4)">交辦四問</h1>
@@ -981,7 +1014,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
  <aside class="notes">新手交辦失敗，八成是漏掉其中一項。</aside>
 </section>
 
-<section class="slide" data-slide="25" data-section="維持注意">
+<section class="slide" data-slide="26" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M3 · 換一個角色</p>
   <h1 style="margin-bottom:0">從問問題，到交辦事情</h1>
@@ -999,7 +1032,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 所以順序不同是正常的 —— 你要驗的是成品對不對，不是過程照不照你想的走。</aside>
 </section>
 
-<section class="slide" data-slide="26" data-section="維持注意">
+<section class="slide" data-slide="27" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M3 · 本課最實用的工具</p>
   <h1>交辦四問</h1>
@@ -1029,7 +1062,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 第 4 問寫得具體，它產出時就會去比對；但它回報「都對」是線索，不是結論。第 4 問的作用是讓你知道該看哪裡，不是讓你不用看。</aside>
 </section>
 
-<section class="slide" data-slide="27" data-section="維持注意">
+<section class="slide" data-slide="28" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M3 · 同一個任務的三個版本</p>
   <h1>差別在多寫的那兩行</h1>
@@ -1061,7 +1094,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 版本 C：產出乾淨、停在該停的地方，而且主動報告問題。</aside>
 </section>
 
-<section class="slide" data-slide="28" data-section="維持注意">
+<section class="slide" data-slide="29" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M3 · 新手該從哪種任務開始</p>
   <h1>任務風險越高，人越要靠近迴圈</h1>
@@ -1083,7 +1116,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 
 <!-- ══════════ M4 ══════════ -->
 
-<section class="slide" data-slide="29" data-section="維持注意">
+<section class="slide" data-slide="30" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">M3 · 不管多熟練都一樣</p>
   <h1>判斷不交，但可以請它幫忙</h1>
@@ -1112,7 +1145,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 特殊需求學生個別化調整：對你依 IEP 寫的方案提文字建議｜調整內容本身；IEP 與診斷資料不上傳。</aside>
 </section>
 
-<section class="slide" data-slide="30" data-section="喚起行動">
+<section class="slide" data-slide="31" data-section="喚起行動">
  <div class="slide-inner divider">
   <div class="big">M4</div>
   <h1 style="margin-bottom:var(--s4)">邊界、驗收與責任</h1>
@@ -1120,7 +1153,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
  </div>
 </section>
 
-<section class="slide" data-slide="31" data-section="喚起行動">
+<section class="slide" data-slide="32" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">M4 · 先看反例</p>
   <h1>不以人為本，長什麼樣</h1>
@@ -1147,7 +1180,7 @@ Harness 管家：圍繞模型外圍的工程系統與介面外殼。① 工具�
 M4 之後講的每一件事，都是在防這三種。</aside>
 </section>
 
-<section class="slide" data-slide="32" data-section="喚起行動">
+<section class="slide" data-slide="33" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">M4 · 這一頁講軟體設定，不是指令</p>
   <h1>動手前先調一個開關</h1>
@@ -1169,7 +1202,7 @@ M4 之後講的每一件事，都是在防這三種。</aside>
 配套慣例：「待刪除」資料夾 —— 它只能把檔案搬進去，不可以直接刪。但這個慣例有一個前提，後面「寫了字，不等於擋得住」那頁講。</aside>
 </section>
 
-<section class="slide" data-slide="33" data-section="喚起行動">
+<section class="slide" data-slide="34" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">M4 · 不可跳過</p>
   <h1>三條硬規則</h1>
@@ -1189,7 +1222,7 @@ M4 之後講的每一件事，都是在防這三種。</aside>
 第 1 條的延伸：對外或給學生的產出，加一行「本教材由 AI 協作整理，經教師逐項核校」。不是為了免責，是看的人有權知道 —— 你要求學生揭露，你自己也要。</aside>
 </section>
 
-<section class="slide" data-slide="34" data-section="喚起行動">
+<section class="slide" data-slide="35" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">M4 · 最容易被忽略、後果最實際</p>
   <h1>寫了字，不等於擋得住</h1>
@@ -1212,7 +1245,7 @@ M4 之後講的每一件事，都是在防這三種。</aside>
 開了全自動又把整顆硬碟給它，「請移到待刪除」就只是它答應你的一句話。</aside>
 </section>
 
-<section class="slide" data-slide="35" data-section="喚起行動">
+<section class="slide" data-slide="36" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">M4 · 別人透過它來指使它</p>
   <h1>它讀到的東西，可能是指令</h1>
@@ -1239,7 +1272,7 @@ M4 之後講的每一件事，都是在防這三種。</aside>
 看過沒問題，再開一輪做下一件事。</aside>
 </section>
 
-<section class="slide" data-slide="36" data-section="喚起行動">
+<section class="slide" data-slide="37" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">M4 · 責任歸屬</p>
   <h1>出了事，誰負責？</h1>
@@ -1255,7 +1288,7 @@ M4 之後講的每一件事，都是在防這三種。</aside>
 高中端另須遵循教育部〈高級中等學校學生學習評量及學習歷程檔案使用生成式人工智慧注意事項〉；課堂導入前應先向學生說明規則。</aside>
 </section>
 
-<section class="slide" data-slide="37" data-section="喚起行動">
+<section class="slide" data-slide="38" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">M4 · 可印成小卡帶回去</p>
   <h1>驗收檢查表</h1>
@@ -1280,7 +1313,7 @@ M4 之後講的每一件事，都是在防這三種。</aside>
 勾完卻不會改變任何行為的檢查表，就是橡皮圖章。</aside>
 </section>
 
-<section class="slide" data-slide="38" data-section="喚起行動">
+<section class="slide" data-slide="39" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">M4 · 示範</p>
   <h1>讓它失控</h1>
@@ -1307,7 +1340,7 @@ M4 之後講的每一件事，都是在防這三種。</aside>
 
 <!-- ══════════ 喚起行動 ══════════ -->
 
-<section class="slide" data-slide="39" data-section="喚起行動">
+<section class="slide" data-slide="40" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">收尾 · 一條線的起點</p>
   <h1>四問 → 四象限 → 技能</h1>
@@ -1326,7 +1359,7 @@ RDQ 四象限：動工前先挖出自己沒說的需求 —— 四問都講了�
 這正好呼應 M2 那句話：講第三次的話就該寫進設定；做第三次的事就該寫成技能。</aside>
 </section>
 
-<section class="slide" data-slide="40" data-section="喚起行動">
+<section class="slide" data-slide="41" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">收尾 · 整堂課都在講同一件事</p>
   <h1>決定權在人，責任也在人</h1>
@@ -1358,7 +1391,7 @@ RDQ 四象限：動工前先挖出自己沒說的需求 —— 四問都講了�
 （該條文規範高風險系統，教學用途多不在其列；引用它是因為它把「監督」拆得最清楚。）</aside>
 </section>
 
-<section class="slide" data-slide="41" data-section="喚起行動">
+<section class="slide" data-slide="42" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">收尾 · 技能是什麼</p>
   <h1>一份給 AI 看的說明書</h1>
@@ -1382,7 +1415,7 @@ RDQ 四象限：動工前先挖出自己沒說的需求 —— 四問都講了�
 寫技能不是重新想一遍，是把已經講清楚的東西搬進去。</aside>
 </section>
 
-<section class="slide" data-slide="42" data-section="喚起行動">
+<section class="slide" data-slide="43" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">收尾 · 自我檢核</p>
   <h1>重點在「能改」，不在「能用」</h1>
@@ -1403,7 +1436,7 @@ LEVEL 3 能設計：能為一項校內業務設計流程，含邊界與人工確
 今天沒教、但你遲早要碰的：技能（做第三次同一件事時）、專案藍圖、連接器、Agent 工具與終端機。</aside>
 </section>
 
-<section class="slide" data-slide="43" data-section="喚起行動">
+<section class="slide" data-slide="44" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">收尾 · 決定你長期省不省力的分野</p>
   <h1>「能改」改的是指令，不是成品</h1>
@@ -1424,7 +1457,7 @@ LEVEL 3 能設計：能為一項校內業務設計流程，含邊界與人工確
 而當你發現同一個修正講了第三遍 —— 那句話就該寫進設定，或者整套流程該寫成技能。這就是「能改」通往「能設計」的路。</aside>
 </section>
 
-<section class="slide" data-slide="44" data-section="喚起行動">
+<section class="slide" data-slide="45" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">收尾 · 老實話</p>
   <h1>第一次一定會不順</h1>
@@ -1441,7 +1474,7 @@ LEVEL 3 能設計：能為一項校內業務設計流程，含邊界與人工確
 實作版：今天動手的是最單純的情境。回到自己的業務上一定會卡。卡住時先回頭看四問 —— 八成是漏了其中一問，而且通常是第三問或第四問。</aside>
 </section>
 
-<section class="slide" data-slide="45" data-section="喚起行動">
+<section class="slide" data-slide="46" data-section="喚起行動">
  <div class="slide-inner" style="text-align:center">
   <p class="kicker">帶走這三句就夠</p>
   <h2 style="font-size:40px;line-height:1.7;margin-bottom:var(--s2)">
@@ -1458,6 +1491,21 @@ LEVEL 3 能設計：能為一項校內業務設計流程，含邊界與人工確
     引用時請分別標示，不可用一句「改編自三師爸」涵蓋全部。</p>
   </div>
  </div>
+</section>
+
+<section class="slide" data-slide="47" data-section="喚起行動">
+ <div class="slide-inner" style="text-align:center">
+  <p class="kicker">散場前，留一句話</p>
+  <h1>今天對你有<span class="hl2">收穫</span>嗎？</h1>
+  <p class="lead" style="max-width:900px;margin:0 auto">你的收穫、感想，或任何修正建議，都歡迎寫下來。</p>
+  <form class="fb-bar" id="fbForm" autocomplete="off">
+   <textarea id="fbText" rows="3" placeholder="一句話就好…（只有講者看得到）" aria-label="你的回饋"></textarea>
+   <button type="submit">送出回饋</button>
+  </form>
+  <p class="wc-foot" id="fbMsg" style="text-align:center"></p>
+ </div>
+ <aside class="notes">回饋寫入資料庫，讀取權限只給講者的 Google 帳號，學員不會互相看到。
+可以不具名，重點是聽到真話。</aside>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
@@ -1478,6 +1526,7 @@ function render(){
   document.getElementById('progress').style.width = ((cur+1)/total*100)+'%';
   document.getElementById('pageInfo').textContent = String(cur+1).padStart(2,'0')+' / '+total;
   document.getElementById('section-tag').textContent = '— '+slides[cur].dataset.section+' —';
+  if(window.__onSlide) window.__onSlide(slides[cur]);
 }
 function go(n){ cur = Math.max(0, Math.min(total-1, n)); render(); }
 
@@ -1525,6 +1574,92 @@ async function exportPNG(){
 }
 
 render();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA4dqhuXY0nCSt3IvnogQOfkR9SVBUYHxc",
+  authDomain: "basic-learning-2384f.firebaseapp.com",
+  projectId: "basic-learning-2384f",
+  storageBucket: "basic-learning-2384f.firebasestorage.app",
+  messagingSenderId: "878087809392",
+  appId: "1:878087809392:web:7815af97fecd57aa7147b5"
+};
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+
+/* ── 即時文字雲 ── */
+const canvas = document.getElementById("wcCanvas");
+const wcCount = document.getElementById("wcCount");
+let wcData = [];
+
+function drawCloud(){
+  if(!canvas || !wcData.length || typeof window.WordCloud !== "function") return;
+  const box = canvas.parentElement.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  const W = box.width, H = box.height;
+  if(!W || !H) return;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  const max = Math.max(...wcData.map(o=>o.c));
+  const maxSize = Math.min(W, H) * dpr * 0.42;
+  window.WordCloud(canvas, {
+    list: wcData.map(o=>[o.w, o.c]),
+    gridSize: Math.round(12 * dpr),
+    weightFactor: c => (0.34 + 0.66 * (c / max)) * maxSize,
+    fontFamily: '"Noto Sans TC", system-ui, sans-serif',
+    fontWeight: "700",
+    color: (word, weight) =>
+      weight >= max*0.7 ? "#E0A458" : weight >= max*0.4 ? "#7CB7E8" : "#C8D2E0",
+    backgroundColor: "transparent",
+    rotateRatio: 0, minSize: 10*dpr,
+    clearCanvas: true, shrinkToFit: true,
+    origin: [(W*dpr)/2, (H*dpr)/2]
+  });
+}
+window.__onSlide = (el) => { if(el && el.querySelector("#wcCanvas")) drawCloud(); };
+
+onSnapshot(collection(db, "wordcloud_words"), (snap) => {
+  const map = new Map();
+  snap.forEach(d => { const t = String((d.data()||{}).text||"").trim(); if(t) map.set(t,(map.get(t)||0)+1); });
+  wcData = [...map].map(([w,c])=>({w,c})).sort((a,b)=>b.c-a.c);
+  if(wcCount) wcCount.textContent = snap.size;
+  drawCloud();
+});
+
+const wcForm = document.getElementById("wcForm");
+if(wcForm){
+  wcForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const inp = document.getElementById("wcInput");
+    const t = inp.value.trim(); if(!t) return;
+    inp.value = "";
+    try { await addDoc(collection(db,"wordcloud_words"), { text:t, created_at:serverTimestamp() }); }
+    catch(err){ alert("送出失敗：" + err.message); }
+  });
+}
+
+/* ── 學員回饋 ── */
+const fbForm = document.getElementById("fbForm");
+if(fbForm){
+  fbForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const ta = document.getElementById("fbText");
+    const msg = document.getElementById("fbMsg");
+    const btn = fbForm.querySelector("button");
+    const t = ta.value.trim(); if(!t) return;
+    btn.disabled = true;
+    try {
+      await addDoc(collection(db,"workshop_feedback"), { text:t, created_at:serverTimestamp() });
+      ta.value = "";
+      msg.textContent = "已收到你的回饋，謝謝！";
+    } catch(err){ msg.textContent = "送出失敗：" + err.message; }
+    finally { btn.disabled = false; }
+  });
+}
 </script>
 </body>
 </html>
