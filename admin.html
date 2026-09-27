@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>研習後台｜文字雲與回饋</title>
+<title>研習後台｜文字雲統計與回饋</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -23,31 +23,47 @@ header .spacer{flex:1}
 button{font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;
   border:0;border-radius:10px;padding:9px 18px;transition:filter .2s}
 button:hover{filter:brightness(1.1)}
+button:disabled{opacity:.5;cursor:default}
 #login{background:var(--accent);color:var(--bg)}
 #logout{background:transparent;color:var(--ink-3);border:1px solid var(--line)}
 .danger{background:rgba(217,106,90,.16);color:#F0A99E;border:1px solid rgba(217,106,90,.5)}
 .ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 .who{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-3)}
-main{max-width:1000px;margin:0 auto;padding:32px}
+main{max-width:1040px;margin:0 auto;padding:32px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
   padding:24px;margin-bottom:24px}
-.card h2{font-size:20px;margin:0 0 12px;font-weight:700}
+.card h2{font-size:20px;margin:0 0 16px;font-weight:700}
 .card .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.big{font-family:"JetBrains Mono",monospace;font-size:44px;font-weight:700;color:var(--accent-2);line-height:1}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.kpi{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:16px}
+.kpi .n{font-family:"JetBrains Mono",monospace;font-size:40px;font-weight:700;color:var(--accent-2);line-height:1.1;word-break:break-all}
+.kpi .n.sm{font-size:22px}
+.kpi .l{font-size:13px;color:var(--ink-3);margin-top:6px}
 .muted{color:var(--ink-3);font-size:14px}
+.bars{margin-top:20px;display:flex;flex-direction:column;gap:10px}
+.bar{display:grid;grid-template-columns:minmax(120px,240px) 1fr 56px;gap:12px;align-items:center}
+.bar .bl{font-size:16px;color:var(--ink);text-align:right;word-break:break-all;line-height:1.4}
+.bar .bt{background:rgba(255,255,255,.06);border-radius:20px;height:20px;overflow:hidden}
+.bar .bf{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.bar .bv{font-family:"JetBrains Mono",monospace;font-size:15px;color:var(--ink-2);text-align:right}
+.fb-list{margin-top:16px;display:flex;flex-direction:column;gap:12px}
+.fb-item{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:rgba(255,255,255,.03)}
+.fb-item .txt{font-size:17px;color:var(--ink);line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.fb-item .ts{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-4);margin-top:8px}
 #gate{max-width:520px;margin:80px auto;text-align:center}
 #gate p{color:var(--ink-2);line-height:1.7}
-ul{list-style:none;padding:0;margin:16px 0 0}
-li{border-top:1px solid var(--line);padding:14px 4px;display:flex;gap:14px;align-items:baseline}
-li .txt{flex:1;font-size:17px;color:var(--ink);line-height:1.6}
-li .ts{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-4);white-space:nowrap}
 .err{color:#F0A99E;font-size:14px;margin-top:10px}
+@media (max-width:720px){
+  .kpis{grid-template-columns:1fr}
+  .bar{grid-template-columns:1fr 1fr 44px}
+  .bar .bl{text-align:left}
+}
 </style>
 </head>
 <body>
 <header>
   <h1>研習後台</h1>
-  <span class="muted">文字雲管理 ＋ 學員回饋</span>
+  <span class="muted">文字雲統計 ＋ 學員回饋</span>
   <span class="spacer"></span>
   <span class="who" id="who"></span>
   <button id="login">用 Google 登入</button>
@@ -55,31 +71,34 @@ li .ts{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-4);
 </header>
 
 <div id="gate">
-  <p>這是講者專用的後台。請用 <b>fuwen@ppsh.ptc.edu.tw</b> 的 Google 帳號登入，才能檢視學員回饋與清空文字雲。</p>
+  <p>這是講者專用的後台。請用 <b>fuwen@ppsh.ptc.edu.tw</b> 的 Google 帳號登入，才能檢視學員反應與回饋。</p>
   <p class="err" id="gateErr"></p>
 </div>
 
 <main id="panel" hidden>
   <section class="card">
-    <h2>文字雲</h2>
-    <div class="row">
-      <span class="big" id="cloudCount">0</span>
-      <span class="muted">個答案（含重複送出）</span>
-      <span class="spacer" style="flex:1"></span>
-      <button id="clearCloud" class="danger">清空文字雲</button>
+    <h2>文字雲統計</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="n" id="cloudTotal">0</div><div class="l">總送出數（含重複）</div></div>
+      <div class="kpi"><div class="n" id="cloudUnique">0</div><div class="l">不重複答案數</div></div>
+      <div class="kpi"><div class="n sm" id="cloudTop">—</div><div class="l">最高票答案</div></div>
     </div>
-    <p class="muted" id="cloudMsg" style="margin:12px 0 0">清空後無法復原。</p>
+    <div class="row" style="margin-top:20px">
+      <button id="exportCloud" class="ghost">匯出統計 CSV</button>
+      <button id="clearCloud" class="danger">清空文字雲</button>
+      <span class="muted" id="cloudMsg"></span>
+    </div>
+    <div class="bars" id="cloudBars"></div>
   </section>
 
   <section class="card">
     <h2>學員回饋</h2>
     <div class="row">
-      <span class="big" id="fbCount">0</span>
-      <span class="muted">則</span>
+      <div class="kpi" style="min-width:120px"><div class="n" id="fbCount">0</div><div class="l">則回饋</div></div>
       <span style="flex:1"></span>
-      <button id="exportCsv" class="ghost">匯出 CSV</button>
+      <button id="exportCsv" class="ghost">匯出回饋 CSV</button>
     </div>
-    <ul id="fbList"></ul>
+    <div class="fb-list" id="fbList"></div>
   </section>
 </main>
 
@@ -107,9 +126,11 @@ const db   = getFirestore(app);
 const $ = (id) => document.getElementById(id);
 const loginBtn=$("login"), logoutBtn=$("logout"), who=$("who");
 const gate=$("gate"), gateErr=$("gateErr"), panel=$("panel");
-const cloudCount=$("cloudCount"), fbCount=$("fbCount"), fbList=$("fbList");
 
-let unsubCloud=null, unsubFb=null, feedbackCache=[];
+let unsubCloud=null, unsubFb=null;
+let cloudCounts=[];   // [{w, c}]
+let cloudTotalNum=0;
+let feedbackCache=[]; // [{text, date}]
 
 loginBtn.addEventListener("click", async () => {
   gateErr.textContent = "";
@@ -127,38 +148,61 @@ onAuthStateChanged(auth, (user) => {
     loginBtn.hidden = true; logoutBtn.hidden = false;
     gate.hidden = true; panel.hidden = false;
     subscribe();
-  } else if (user) {
-    who.textContent = "";
-    loginBtn.hidden = false; logoutBtn.hidden = true;
-    gate.hidden = false; panel.hidden = true;
-    gateErr.textContent = "此帳號（" + user.email + "）沒有後台權限。";
   } else {
     who.textContent = "";
     loginBtn.hidden = false; logoutBtn.hidden = true;
     gate.hidden = false; panel.hidden = true;
+    if (user) gateErr.textContent = "此帳號（" + user.email + "）沒有後台權限。";
   }
 });
 
 function subscribe() {
-  unsubCloud = onSnapshot(collection(db, "wordcloud_words"),
-    (s) => { cloudCount.textContent = s.size; },
-    (e) => { cloudCount.textContent = "—"; $("cloudMsg").textContent = "讀取失敗：" + e.message; });
+  unsubCloud = onSnapshot(collection(db, "wordcloud_words"), (s) => {
+    const map = new Map();
+    s.forEach((d) => {
+      const t = String((d.data() || {}).text || "").trim();
+      if (!t) return;
+      map.set(t, (map.get(t) || 0) + 1);
+    });
+    cloudTotalNum = s.size;
+    cloudCounts = [...map].map(([w, c]) => ({ w, c })).sort((a, b) => b.c - a.c);
+    renderCloud();
+  }, (e) => { $("cloudMsg").textContent = "讀取失敗：" + e.message; });
 
-  unsubFb = onSnapshot(query(collection(db, "workshop_feedback"), orderBy("created_at", "desc")),
-    (s) => {
-      feedbackCache = s.docs.map((d) => {
-        const t = (d.data() || {}).text || "";
-        const ts = d.data().created_at;
-        return { text: t, date: ts && ts.toDate ? ts.toDate() : null };
-      });
-      fbCount.textContent = feedbackCache.length;
-      fbList.innerHTML = "";
-      fbList.innerHTML = feedbackCache.map((f) => {
+  unsubFb = onSnapshot(query(collection(db, "workshop_feedback"), orderBy("created_at", "desc")), (s) => {
+    feedbackCache = s.docs.map((d) => {
+      const data = d.data() || {};
+      const ts = data.created_at;
+      return { text: data.text || "", date: ts && ts.toDate ? ts.toDate() : null };
+    });
+    renderFeedback();
+  }, (e) => { $("fbList").innerHTML = `<div class="err">讀取失敗：${escapeHtml(e.message)}</div>`; });
+}
+
+function renderCloud() {
+  $("cloudTotal").textContent = cloudTotalNum;
+  $("cloudUnique").textContent = cloudCounts.length;
+  $("cloudTop").textContent = cloudCounts.length ? cloudCounts[0].w : "—";
+
+  const max = cloudCounts.length ? cloudCounts[0].c : 1;
+  $("cloudBars").innerHTML = cloudCounts.map((o) => {
+    const pct = Math.round((o.c / max) * 100);
+    return `<div class="bar">
+      <span class="bl">${escapeHtml(o.w)}</span>
+      <span class="bt"><span class="bf" style="width:${pct}%"></span></span>
+      <span class="bv">${o.c}</span>
+    </div>`;
+  }).join("");
+}
+
+function renderFeedback() {
+  $("fbCount").textContent = feedbackCache.length;
+  $("fbList").innerHTML = feedbackCache.length
+    ? feedbackCache.map((f) => {
         const time = f.date ? f.date.toLocaleString("zh-TW", { hour12:false }) : "";
-        return `<li><span class="txt">${escapeHtml(f.text)}</span><span class="ts">${time}</span></li>`;
-      }).join("");
-    },
-    (e) => { fbList.innerHTML = `<li class="err">讀取失敗：${escapeHtml(e.message)}</li>`; });
+        return `<div class="fb-item"><div class="txt">${escapeHtml(f.text)}</div><div class="ts">${time}</div></div>`;
+      }).join("")
+    : `<div class="muted">目前還沒有回饋。</div>`;
 }
 
 $("clearCloud").addEventListener("click", async () => {
@@ -175,6 +219,16 @@ $("clearCloud").addEventListener("click", async () => {
   }
 });
 
+$("exportCloud").addEventListener("click", () => {
+  const rows = [["排名", "答案", "次數", "占比"]].concat(
+    cloudCounts.map((o, i) => [
+      i + 1, o.w, o.c,
+      cloudTotalNum ? ((o.c / cloudTotalNum) * 100).toFixed(1) + "%" : ""
+    ])
+  );
+  downloadCsv(rows, "文字雲統計.csv");
+});
+
 $("exportCsv").addEventListener("click", () => {
   const rows = [["時間", "回饋"]].concat(
     feedbackCache.map((f) => [
@@ -182,14 +236,18 @@ $("exportCsv").addEventListener("click", () => {
       f.text
     ])
   );
+  downloadCsv(rows, "研習回饋.csv");
+});
+
+function downloadCsv(rows, filename) {
   const csv = rows.map((r) => r.map((c) => '"' + String(c).replace(/"/g, '""') + '"').join(",")).join("\r\n");
   const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "研習回饋.csv";
+  a.download = filename;
   a.click();
   URL.revokeObjectURL(a.href);
-});
+}
 
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) =>
