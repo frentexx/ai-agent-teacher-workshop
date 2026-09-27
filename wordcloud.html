@@ -24,46 +24,47 @@ body{
   overflow:hidden; -webkit-font-smoothing:antialiased;
 }
 .wrap{
-  height:100%; max-width:1320px; margin:0 auto;
-  padding:var(--s1) 72px; display:flex; flex-direction:column;
+  height:100%; max-width:1360px; margin:0 auto;
+  padding:36px 64px 28px; display:flex; flex-direction:column;
 }
 .kicker{
-  font-family:"JetBrains Mono",monospace; font-size:18px; letter-spacing:.2em;
-  color:var(--accent); text-transform:uppercase; margin:0 0 var(--s4);
+  font-family:"JetBrains Mono",monospace; font-size:15px; letter-spacing:.2em;
+  color:var(--accent); text-transform:uppercase; margin:0 0 10px;
 }
-h1{font-size:64px; font-weight:900; line-height:1.16; margin:0 0 var(--s3); letter-spacing:.01em}
+h1{font-size:42px; font-weight:900; line-height:1.16; margin:0 0 20px; letter-spacing:.01em}
 h1 .hl{color:var(--accent-2)}
-.answerbar{display:flex; gap:var(--s4); max-width:760px}
+.answerbar{display:flex; gap:12px; max-width:460px}
 .answerbar input{
-  flex:1; font-family:inherit; font-size:22px; color:var(--ink);
-  background:var(--card); border:1px solid var(--line); border-radius:12px;
-  padding:16px 20px; outline:none; transition:border-color .2s;
+  flex:1; font-family:inherit; font-size:16px; color:var(--ink);
+  background:var(--card); border:1px solid var(--line); border-radius:10px;
+  padding:9px 14px; outline:none; transition:border-color .2s;
 }
 .answerbar input::placeholder{color:var(--ink-4)}
 .answerbar input:focus{border-color:var(--accent)}
 .answerbar button{
-  font-family:inherit; font-size:22px; font-weight:700; color:var(--bg);
-  background:var(--accent); border:0; border-radius:12px; padding:16px 36px;
+  font-family:inherit; font-size:16px; font-weight:700; color:var(--bg);
+  background:var(--accent); border:0; border-radius:10px; padding:9px 24px;
   cursor:pointer; transition:filter .2s, transform .1s; white-space:nowrap;
 }
 .answerbar button:hover{filter:brightness(1.08)}
 .answerbar button:active{transform:translateY(1px)}
-.cloudwrap{flex:1; min-height:0; position:relative; margin-top:var(--s2)}
+.cloudwrap{flex:1; min-height:0; position:relative; margin-top:16px}
 #cloud{position:absolute; inset:0; width:100%; height:100%}
 .fallback{
-  position:absolute; inset:0; display:flex; flex-wrap:wrap; gap:6px 18px;
+  position:absolute; inset:0; display:flex; flex-wrap:wrap; gap:8px 22px;
   align-content:center; justify-content:center; overflow:hidden;
 }
 .fallback span{line-height:1.1; font-weight:700}
 .foot{
-  font-family:"JetBrains Mono",monospace; font-size:17px; color:var(--ink-4);
-  letter-spacing:.08em; margin:var(--s3) 0 0; text-align:right;
+  font-family:"JetBrains Mono",monospace; font-size:14px; color:var(--ink-4);
+  letter-spacing:.08em; margin:12px 0 0; text-align:right;
 }
 .foot b{color:var(--accent-2); font-weight:700}
 @media (max-width:1100px){
-  .wrap{padding:var(--s2) var(--s3)}
-  h1{font-size:40px}
-  .answerbar input,.answerbar button{font-size:18px; padding:12px 16px}
+  .wrap{padding:22px 24px 18px}
+  h1{font-size:30px; margin-bottom:14px}
+  .answerbar{max-width:none}
+  .answerbar input,.answerbar button{font-size:15px; padding:8px 12px}
 }
 </style>
 </head>
@@ -160,11 +161,12 @@ function drawCanvas() {
 
   const max = Math.max(...latest.map((o) => o.c));
   const list = latest.map((o) => [o.w, o.c]);
+  const maxSize = Math.min(W * dpr, H * dpr * 0.9) * 0.42;
 
   window.WordCloud(canvas, {
     list,
-    gridSize: Math.round(14 * dpr),
-    weightFactor: (c) => Math.max(26, (c / max) * 72) * dpr,
+    gridSize: Math.round(12 * dpr),
+    weightFactor: (c) => (0.34 + 0.66 * (c / max)) * maxSize,
     fontFamily: '"Noto Sans TC", system-ui, sans-serif',
     fontWeight: "700",
     color: (word, weight) =>
@@ -173,7 +175,7 @@ function drawCanvas() {
       : PALETTE[2 + (word.length % 3)],
     backgroundColor: "transparent",
     rotateRatio: 0,
-    minSize: 8 * dpr,
+    minSize: 10 * dpr,
     clearCanvas: true,
     shrinkToFit: true,
     origin: [(W * dpr) / 2, (H * dpr) / 2]
@@ -187,9 +189,9 @@ function drawFallback() {
   const max = Math.max(...latest.map((o) => o.c));
   latest.forEach((o, i) => {
     const s = document.createElement("span");
-    const scale = 0.45 + (o.c / max) * 0.55;
+    const scale = 0.4 + (o.c / max) * 0.6;
     s.textContent = o.w;
-    s.style.fontSize = (20 + scale * 56) + "px";
+    s.style.fontSize = (26 + scale * 84) + "px";
     s.style.color = i === 0 ? PALETTE[0] : i < 3 ? PALETTE[1] : PALETTE[2];
     fbWrap.appendChild(s);
   });
