@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>即時文字雲｜使用 AI 最常做的事情是什麼？</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.js"></script>
+<style>
+:root{
+  --bg:#10141F; --bg-2:#161B27;
+  --ink:#F3F6FB; --ink-2:#C8D2E0; --ink-3:#9BA9BD; --ink-4:#8A97AB;
+  --accent:#7CB7E8; --accent-2:#E0A458;
+  --line:rgba(203,213,229,.20); --card:rgba(255,255,255,.055);
+  --radius:16px; --s1:56px; --s2:40px; --s3:24px; --s4:16px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Noto Sans TC",system-ui,sans-serif; font-weight:400;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+.wrap{
+  height:100%; max-width:1320px; margin:0 auto;
+  padding:var(--s1) 72px; display:flex; flex-direction:column;
+}
+.kicker{
+  font-family:"JetBrains Mono",monospace; font-size:18px; letter-spacing:.2em;
+  color:var(--accent); text-transform:uppercase; margin:0 0 var(--s4);
+}
+h1{font-size:64px; font-weight:900; line-height:1.16; margin:0 0 var(--s3); letter-spacing:.01em}
+h1 .hl{color:var(--accent-2)}
+.answerbar{display:flex; gap:var(--s4); max-width:760px}
+.answerbar input{
+  flex:1; font-family:inherit; font-size:22px; color:var(--ink);
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:16px 20px; outline:none; transition:border-color .2s;
+}
+.answerbar input::placeholder{color:var(--ink-4)}
+.answerbar input:focus{border-color:var(--accent)}
+.answerbar button{
+  font-family:inherit; font-size:22px; font-weight:700; color:var(--bg);
+  background:var(--accent); border:0; border-radius:12px; padding:16px 36px;
+  cursor:pointer; transition:filter .2s, transform .1s; white-space:nowrap;
+}
+.answerbar button:hover{filter:brightness(1.08)}
+.answerbar button:active{transform:translateY(1px)}
+.cloudwrap{flex:1; min-height:0; position:relative; margin-top:var(--s2)}
+#cloud{position:absolute; inset:0; width:100%; height:100%}
+.fallback{
+  position:absolute; inset:0; display:flex; flex-wrap:wrap; gap:6px 18px;
+  align-content:center; justify-content:center; overflow:hidden;
+}
+.fallback span{line-height:1.1; font-weight:700}
+.foot{
+  font-family:"JetBrains Mono",monospace; font-size:17px; color:var(--ink-4);
+  letter-spacing:.08em; margin:var(--s3) 0 0; text-align:right;
+}
+.foot b{color:var(--accent-2); font-weight:700}
+@media (max-width:1100px){
+  .wrap{padding:var(--s2) var(--s3)}
+  h1{font-size:40px}
+  .answerbar input,.answerbar button{font-size:18px; padding:12px 16px}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <p class="kicker">即時互動</p>
+  <h1>使用 AI 最常做的事情是<span class="hl">什麼</span>？</h1>
+
+  <form class="answerbar" id="form" autocomplete="off">
+    <input id="answer" maxlength="20" placeholder="輸入你的答案（20 字內），按 Enter 送出" aria-label="你的答案">
+    <button type="submit" id="sendBtn">送出</button>
+  </form>
+
+  <div class="cloudwrap">
+    <canvas id="cloud"></canvas>
+    <div class="fallback" id="fallback" hidden></div>
+  </div>
+
+  <p class="foot">已收到 <b id="count">0</b> 個答案</p>
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA4dqhuXY0nCSt3IvnogQOfkR9SVBUYHxc",
+  authDomain: "basic-learning-2384f.firebaseapp.com",
+  projectId: "basic-learning-2384f",
+  storageBucket: "basic-learning-2384f.firebasestorage.app",
+  messagingSenderId: "878087809392",
+  appId: "1:878087809392:web:7815af97fecd57aa7147b5"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+const COL = "wordcloud_words";
+
+const form    = document.getElementById("form");
+const input   = document.getElementById("answer");
+const countEl = document.getElementById("count");
+const canvas  = document.getElementById("cloud");
+const fbWrap  = document.getElementById("fallback");
+const PALETTE = ["#E0A458", "#7CB7E8", "#F3F6FB", "#C8D2E0", "#9BA9BD"];
+
+let latest = [];
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const text = input.value.trim();
+  if (!text) { input.focus(); return; }
+  input.value = "";
+  input.focus();
+  try {
+    await addDoc(collection(db, COL), { text, created_at: serverTimestamp() });
+  } catch (err) {
+    alert("送出失敗：" + err.message);
+  }
+});
+
+onSnapshot(collection(db, COL), (snap) => {
+  const counts = new Map();
+  snap.forEach((d) => {
+    const t = String((d.data() || {}).text || "").trim();
+    if (!t) return;
+    counts.set(t, (counts.get(t) || 0) + 1);
+  });
+  latest = [...counts].map(([w, c]) => ({ w, c })).sort((a, b) => b.c - a.c);
+  countEl.textContent = snap.size;
+  render();
+}, (err) => {
+  fbWrap.hidden = false;
+  fbWrap.textContent = "讀取失敗：" + err.message + "（請確認 Firestore 規則允許讀取 wordcloud_words）";
+});
+
+function render() {
+  if (!latest.length) return;
+  if (typeof window.WordCloud === "function") {
+    fbWrap.hidden = true;
+    drawCanvas();
+  } else {
+    drawFallback();
+  }
+}
+
+function drawCanvas() {
+  const wrap = canvas.parentElement;
+  const dpr  = window.devicePixelRatio || 1;
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  if (!W || !H) return;
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+
+  const max = Math.max(...latest.map((o) => o.c));
+  const list = latest.map((o) => [o.w, o.c]);
+
+  window.WordCloud(canvas, {
+    list,
+    gridSize: Math.round(14 * dpr),
+    weightFactor: (c) => Math.max(26, (c / max) * 72) * dpr,
+    fontFamily: '"Noto Sans TC", system-ui, sans-serif',
+    fontWeight: "700",
+    color: (word, weight) =>
+      weight >= max * 0.7 ? PALETTE[0]
+      : weight >= max * 0.4 ? PALETTE[1]
+      : PALETTE[2 + (word.length % 3)],
+    backgroundColor: "transparent",
+    rotateRatio: 0,
+    minSize: 8 * dpr,
+    clearCanvas: true,
+    shrinkToFit: true,
+    origin: [(W * dpr) / 2, (H * dpr) / 2]
+  });
+}
+
+function drawFallback() {
+  canvas.hidden = true;
+  fbWrap.hidden = false;
+  fbWrap.innerHTML = "";
+  const max = Math.max(...latest.map((o) => o.c));
+  latest.forEach((o, i) => {
+    const s = document.createElement("span");
+    const scale = 0.45 + (o.c / max) * 0.55;
+    s.textContent = o.w;
+    s.style.fontSize = (20 + scale * 56) + "px";
+    s.style.color = i === 0 ? PALETTE[0] : i < 3 ? PALETTE[1] : PALETTE[2];
+    fbWrap.appendChild(s);
+  });
+}
+
+let t;
+window.addEventListener("resize", () => {
+  clearTimeout(t);
+  t = setTimeout(render, 200);
+});
+</script>
+</body>
+</html>
