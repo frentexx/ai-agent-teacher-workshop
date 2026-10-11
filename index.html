@@ -412,6 +412,21 @@ body.show-notes .slide.active .notes::before{
 .qr-badge span{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-3);letter-spacing:.06em}
 .qr-badge.tr{top:52px;right:60px}
 .qr-badge.br{bottom:96px;right:60px}
+/* ── 夜市小霸王補充頁（2026-10-11） ── */
+.nm-src{font-size:14px;color:var(--ink-4);margin:var(--s4) 0 0;font-family:"JetBrains Mono",monospace;letter-spacing:.04em}
+.nm-four{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+.nm-four .card{padding:var(--s3)}
+.nm-four .card h3{margin-bottom:4px}
+.nm-cost svg{width:100%;height:auto}
+.nm-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:var(--s4);align-items:stretch;margin:var(--s2) 0 var(--s3)}
+.nm-flow .ar{align-self:center;color:var(--accent);font-size:32px}
+.nm-flow .card{padding:var(--s3)}
+.nm-flow .card p{font-size:17px}
+.nm-flow .card.dim{opacity:.72}
+.nm-code2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s3);margin-top:var(--s3)}
+.nm-code2 .code{font-size:15px;line-height:1.75}
+.nm-code2 h3{font-size:20px;margin-bottom:var(--s5)}
+.nm-sub svg{width:100%;height:auto}
 </style>
 </head>
 <body>
@@ -649,6 +664,32 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 
 <section class="slide" data-slide="9" data-section="維持注意">
  <div class="slide-inner">
+  <p class="kicker">S1 · Codex 有兩種開法</p>
+  <h1>一次性開對話，要累積開專案</h1>
+  <div class="grid2" style="margin-top:var(--s3);align-items:stretch">
+   <div class="card">
+    <span class="num">一般對話</span><h3>問完就結束的事</h3>
+    <p style="margin-top:var(--s4)">臨時問一句、討論想法、單次需求。</p>
+    <p style="margin-top:var(--s4)" class="ink">「這段家長通知，幫我改得口氣軟一點。」</p>
+   </div>
+   <div class="card accent">
+    <span class="num">專案</span><h3>下週還要接著做的事</h3>
+    <p style="margin-top:var(--s4)">作業、評分規準、成績表、技能，<strong class="ink">資料、規則、成果放同一個資料夾</strong>。</p>
+    <p style="margin-top:var(--s4)" class="ink">「照評分規準改這週的作文，再更新成績表。」</p>
+   </div>
+  </div>
+  <div class="ig-alert"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.4"/></svg><p>建好專案後，<strong class="ink">從專案那一列開新對話</strong>，它才會在那個資料夾裡工作；直接按上方「新對話」不算。</p></div>
+  <p class="nm-src">參考：夜市小霸王〈Codex AI智慧體〉研習</p>
+ </div>
+ <aside class="notes">一般對話也能讀檔，但東西做完就散了；專案把資料、規則、成果集中在同一個資料夾，下週打開接著做。
+判斷方式：這件事下禮拜還會再做嗎？會，就開專案。今天的考卷、教材、技能都是專案。
+最常見的錯：建好專案，卻按畫面上方的「新對話」—— 那是一般對話，看不到專案資料夾。要從專案那一列旁邊的筆開新對話。
+另一件事先講：同一句指令，你跟隔壁老師得到的結果可能不一樣，AI 本來就有隨機性，不代表你做錯。
+（參考：夜市小霸王〈Codex AI智慧體〉研習，專案與一般對話段落）</aside>
+</section>
+
+<section class="slide" data-slide="10" data-section="維持注意">
+ <div class="slide-inner">
   <p class="kicker">S1 · 這一頁關係到個資，務必講</p>
   <h1 style="font-size:56px;margin-bottom:var(--s4)">管家在你電腦上，腦袋不在</h1>
   <div class="ig-flow">
@@ -677,7 +718,54 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 含學生姓名、成績的檔案，給路徑之前先去識別化 —— 今天的考卷與教材都用不到個資。</aside>
 </section>
 
-<section class="slide" data-slide="10" data-section="維持注意">
+<section class="slide" data-slide="11" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S1 · 帶學生一起用之前</p>
+  <h1 style="font-size:52px">全班一起用：額度從哪來</h1>
+  <div class="grid2" style="margin-top:var(--s3);align-items:start">
+   <div>
+    <p style="margin-bottom:var(--s4)"><strong class="ink">生生有Token</strong>　學校買額度，老師分給全班</p>
+    <div class="nm-four">
+     <div class="card accent"><span class="num">成員</span><h3>誰能用</h3><p>班級密碼或限定網域</p></div>
+     <div class="card accent"><span class="num">額度</span><h3>用多少</h3><p>每人、每門課各設上限</p></div>
+     <div class="card accent"><span class="num">時段</span><h3>何時用</h3><p>上課時間才開放</p></div>
+     <div class="card accent2"><span class="num">報告</span><h3>用了什麼</h3><p>每次對話與用量都留紀錄</p></div>
+    </div>
+   </div>
+   <div class="nm-cost">
+    <p style="margin-bottom:var(--s5)" class="ink">同一個模型，<span class="hl2">做的事不同，花費差很多</span></p>
+    <svg viewBox="0 0 620 330" aria-label="各類任務的相對花費">
+     <line x1="170" y1="20" x2="170" y2="276" stroke="#4A5568" stroke-width="1.5"/>
+     <text class="lbl" x="156" y="49" text-anchor="end">簡單問答</text>
+     <rect x="182" y="34" width="18" height="22" rx="6" fill="#7CB7E8" opacity=".85"/>
+     <text class="lbl" x="156" y="99" text-anchor="end">寫小程式</text>
+     <rect x="176" y="84" width="76" height="22" rx="6" fill="#7CB7E8" opacity=".85"/>
+     <text class="lbl" x="156" y="149" text-anchor="end">上網搜尋</text>
+     <rect x="212" y="134" width="40" height="22" rx="6" fill="#7CB7E8" opacity=".85"/>
+     <text class="lbl" x="156" y="199" text-anchor="end">生一張圖</text>
+     <rect x="212" y="184" width="80" height="22" rx="6" fill="#E0A458" opacity=".85"/>
+     <text class="lbl" x="156" y="249" text-anchor="end">寫報告、做簡報</text>
+     <rect x="372" y="234" width="200" height="22" rx="6" fill="#E0A458"/>
+     <line x1="170" y1="276" x2="600" y2="276" stroke="#4A5568" stroke-width="1.5"/>
+     <path d="M592,270 L604,276 L592,282" fill="none" stroke="#4A5568" stroke-width="1.5"/>
+     <text class="lbl-s" x="176" y="304">便宜</text>
+     <text class="lbl-s" x="600" y="304" text-anchor="end">貴</text>
+     <text class="lbl-s" x="388" y="324" text-anchor="middle" style="fill:#E0A458">開瀏覽器、開好幾個子代理，也會明顯變貴</text>
+    </svg>
+   </div>
+  </div>
+  <div class="ig-alert"><svg class="ig-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.4"/></svg><p>對話會留在活動報告裡，<strong class="ink">開放給學生前先告訴他們</strong>。</p></div>
+  <p class="nm-src">長條為相對範圍，依夜市小霸王講義任務點數表繪製（2026-10）；實際花費以平台報告為準</p>
+ </div>
+ <aside class="notes">老師自己有訂閱，學生沒有 —— 你在台上示範得很順，學生一動手額度就沒了，只能在旁邊看。生生有Token 就是解決這件事的平台（已列入教育部方舟計畫軟體清單）。
+它管四件事：誰能用、每人每課用多少、什麼時段能用、事後的用量與對話報告。課程額度用完就停，不會動到其他經費。
+右邊這張圖只講相對大小：簡單問答最便宜，寫報告、做簡報最貴；生圖、開瀏覽器、同時派好幾個子代理，花得也快。具體價格會變，以平台的報告為準。
+學員在 Codex 用「套用」切到平台額度，用完可以「復原」回自己的帳號。學校電腦裝不了微軟商店時，用離線安裝檔；防毒軟體可能誤擋設定工具。
+報告看得到對話內容 —— 這跟上一頁的個資是同一件事，用之前先讓學生知道。
+（參考：夜市小霸王〈Codex AI智慧體〉講義與研習）</aside>
+</section>
+
+<section class="slide" data-slide="12" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S1 · 動手前</p>
   <h1>三條安全底線</h1>
@@ -697,7 +785,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 這三條今天全程適用。</aside>
 </section>
 
-<section class="slide" data-slide="11" data-section="維持注意">
+<section class="slide" data-slide="13" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S1 · 2b · 今天唯一要記住的東西</p>
   <h1>交辦四問</h1>
@@ -727,7 +815,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 下一段會讓 AI 照四象限反問你 —— 問出來的答案，就填進這四個格子。</aside>
 </section>
 
-<section class="slide" data-slide="12" data-section="維持注意">
+<section class="slide" data-slide="14" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S1 · 這一段是今天最省時間的一段</p>
   <h1>你沒說的，它不會猜</h1>
@@ -751,7 +839,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 一般人的需求表達只停在前兩格 —— 像到咖啡廳只說「我要一杯咖啡」，店員遞給你熱美式，你卻想要冰拿鐵。</aside>
 </section>
 
-<section class="slide" data-slide="13" data-section="維持注意">
+<section class="slide" data-slide="15" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S1 · 現場活動</p>
   <h1>不用背四象限，讓它問你</h1>
@@ -779,7 +867,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 沒電腦或網路不穩：兩人一組，把第三、四象限各問出三條寫在紙上，效果一樣，只是慢一點。</aside>
 </section>
 
-<section class="slide" data-slide="14" data-section="維持注意">
+<section class="slide" data-slide="16" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S1 · 實作 ①</p>
   <h1>出一份考卷</h1>
@@ -812,7 +900,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 交件 P3 檢查紀錄表：專業格式、答案逐題核對、細目表配分是否一致、附圖位置。每項都要寫結論，含「核對無誤」。</aside>
 </section>
 
-<section class="slide" data-slide="15" data-section="維持注意">
+<section class="slide" data-slide="17" data-section="維持注意">
  <div class="slide-inner divider">
   <div class="big">S2</div>
   <h1 style="margin-bottom:var(--s4)">做過一次，就讓它變成你的</h1>
@@ -820,7 +908,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
  </div>
 </section>
 
-<section class="slide" data-slide="16" data-section="維持注意">
+<section class="slide" data-slide="18" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2</p>
   <h1>一份教材長出一整包</h1>
@@ -845,7 +933,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 不講，它就會自己去外面抓。</aside>
 </section>
 
-<section class="slide" data-slide="17" data-section="維持注意">
+<section class="slide" data-slide="19" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 這是最容易做假的地方</p>
   <h1>分層不是寫簡單點</h1>
@@ -872,7 +960,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 要求它用「尚在建立這個概念」取代「程度低」。難度分層是對題目分層，不是對學生分類。</aside>
 </section>
 
-<section class="slide" data-slide="18" data-section="維持注意">
+<section class="slide" data-slide="20" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 做技能之前，先看一張圖</p>
   <h1 style="font-size:48px">桌面上的東西，是從哪裡來的？</h1>
@@ -923,7 +1011,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 今天不裝轉接頭。</aside>
 </section>
 
-<section class="slide" data-slide="19" data-section="維持注意">
+<section class="slide" data-slide="21" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 裝之前，先看懂誰做什麼</p>
   <h1>一份教材，五種成品</h1>
@@ -952,7 +1040,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 「資訊圖表」和「圖表」是兩個詞。講錯一個字，它會做出一份十頁簡報給你。</aside>
 </section>
 
-<section class="slide" data-slide="20" data-section="維持注意">
+<section class="slide" data-slide="22" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 先用別人的，再自己寫</p>
   <h1>先用別人寫好的技能</h1>
@@ -987,7 +1075,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 電腦教室不能裝軟體或網路不穩：講師示範，學員課後照懶人包自己裝。</aside>
 </section>
 
-<section class="slide" data-slide="21" data-section="維持注意">
+<section class="slide" data-slide="23" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 實作 ②</p>
   <h1>公布欄那則訊息，做成一張圖卡</h1>
@@ -1021,7 +1109,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 它若說「本機未設定生圖，已用向量版面完成」，那是正常的，不是失敗。</aside>
 </section>
 
-<section class="slide" data-slide="22" data-section="維持注意">
+<section class="slide" data-slide="24" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 同樣一份內容，兩種交法</p>
   <h1>簡報做出來，要交什麼格式？</h1>
@@ -1044,7 +1132,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
    </div>
   </div>
   <div class="note"><p><strong style="color:var(--ink)">兩個都不用 API 金鑰。</strong></p></div>
-  <div class="note a" style="margin-top:var(--s4)"><p><span class="hl">下一頁：換你自己寫一個。</span></p></div>
+  <div class="note a" style="margin-top:var(--s4)"><p><span class="hl">先看一個示範，再換你自己寫。</span></p></div>
  </div>
  <aside class="notes">.pptx：對方用 PowerPoint 打開就能改字；校內共備、交給代課老師、送出去存查都用這個；數學式是點得進去編輯的真公式，不是圖片。
 .html：一個網址，手機平板電腦都能開；可以放會動的圖表、點得開的表格；線上研習、學生自學、班級群組都用這個。
@@ -1053,7 +1141,61 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 到這裡用的都是別人寫好的技能。別人寫得出來，你也寫得出來。</aside>
 </section>
 
-<section class="slide" data-slide="23" data-section="維持注意">
+<section class="slide" data-slide="25" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S2 · 講師示範（Codex）</p>
+  <h1>一疊作文，變成兩份簡報</h1>
+  <div class="nm-flow">
+   <div class="card dim"><span class="num">01 · 讀</span><h3>10 篇作文</h3><p>Word 檔放進專案資料夾</p></div>
+   <div class="ar">→</div>
+   <div class="card dim"><span class="num">02 · 批改</span><h3>評分表</h3><p>分數＋兩句評語，你先確認</p></div>
+   <div class="ar">→</div>
+   <div class="card accent"><span class="num">03 · 給自己看</span><h3>分數統計簡報</h3><p>分數分布、各向度平均的互動圖表</p></div>
+   <div class="ar">→</div>
+   <div class="card accent2"><span class="num">04 · 給學生上課</span><h3>作文檢討簡報</h3><p>共同問題、佳句、改寫練習</p></div>
+  </div>
+  <div class="note a"><p><span class="hl">同一份分數，一份給你看、一份拿去上課。</span></p></div>
+  <div class="note w" style="margin-top:var(--s4)"><p>示範用的是虛構作文；<strong class="ink">真的學生作文，給路徑前先去識別化</strong>。</p></div>
+  <p class="nm-src">參考：夜市小霸王〈Codex AI智慧體〉研習</p>
+ </div>
+ <aside class="notes">這一段講師示範，學員先看就好。範例是兩次作業、每次 10 篇的虛構作文。
+01、02 是批改：讓它照評分規準打分、寫評語。評分表先給你看，分數你點頭了才往下。
+03、04 才是今天要看的：同一份分數做成兩種簡報 —— 統計簡報給自己和教學研究會看，檢討簡報直接拿去上課。
+兩份都用早上裝好的 soil-html-deck，所以會是一個網址、可以放互動圖表。
+個資：示範資料是虛構的。真的作文有學生姓名，照前面個資那一頁的原則先去識別化；簡報裡一律用座號。
+（作文範例與批改流程參考：夜市小霸王〈Codex AI智慧體〉研習；原示範輸出 Excel，本研習改為兩份簡報）</aside>
+</section>
+
+<section class="slide" data-slide="26" data-section="維持注意">
+ <div class="slide-inner">
+  <p class="kicker">S2 · 講師示範 · 兩段指令</p>
+  <h1 style="font-size:48px;margin-bottom:0">每一段都是交辦四問</h1>
+  <div class="nm-code2">
+   <div>
+    <h3 class="hl">① 批改＋統計簡報</h3>
+    <pre class="code"><b>做什麼：</b>批改「第一次作業」10 篇作文，15 級分（完整度、錯字扣分、佳句加分），每篇兩句評語、用我的口吻；再用 soil-html-deck 做分數統計簡報：分數分布、各向度平均。
+<b>用什麼：</b>專案裡的「第一次作業」資料夾，只用這 10 篇。
+<b style="color:var(--accent-2)">不做什麼：</b>評分表先給我看，<u>我確認後才做簡報</u>；簡報只寫座號，不寫姓名。
+<b style="color:var(--accent-2)">驗什麼：</b>回報 10 篇是否都有分數、全班平均幾分。</pre>
+   </div>
+   <div>
+    <h3 class="hl2">② 作文檢討教學簡報</h3>
+    <pre class="code"><b>做什麼：</b>用 soil-html-deck 做一份給學生上課的作文檢討簡報：全班三個共同問題、三句佳句、一題改寫練習。
+<b>用什麼：</b>剛才的評分表和這 10 篇作文。
+<b style="color:var(--accent-2)">不做什麼：</b>不出現學生姓名或座號；不點名批評任何人。
+<b style="color:var(--accent-2)">驗什麼：</b>每個問題附一句原文例子，並告訴我出自哪一篇，讓我回去核對。</pre>
+   </div>
+  </div>
+  <div class="note a" style="margin-top:var(--s3)"><p>做完上傳本場 <strong class="ink">Padlet 作品牆</strong>　·　滿意就說「<strong class="ink">把剛才的流程存成技能</strong>」，下次換一批作業直接叫。</p></div>
+ </div>
+ <aside class="notes">兩段都照交辦四問寫，學員可以直接改科目、改級分拿去用。
+第一段的停點是「評分表先給我看」—— 分數是你的專業判斷，確認之後才讓它做簡報。
+第二段的驗什麼：要它說出例子出自哪一篇，你才回得去核對，不是它說有這個問題就算。
+小霸王的原示範到這裡會說「把上面的動作建立為技能」，第二次作業就直接叫技能來改，不用再講一次規則 —— 這就是下一段要做的事。
+做好的兩份簡報上傳到本場的 Padlet，大家互相看。</aside>
+</section>
+
+<section class="slide" data-slide="27" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 今天的重點從這裡開始</p>
   <div class="grid2">
@@ -1084,7 +1226,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
  <aside class="notes">不是程式。是一份純文字說明書，寫清楚要做什麼、怎麼做，AI 照著跑就會產出你要的結果。</aside>
 </section>
 
-<section class="slide" data-slide="24" data-section="維持注意">
+<section class="slide" data-slide="28" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 最容易踩的坑</p>
   <h1>對話型還是檔案型</h1>
@@ -1114,7 +1256,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 
 <!-- ══════════ 喚起行動 ══════════ -->
 
-<section class="slide" data-slide="25" data-section="喚起行動">
+<section class="slide" data-slide="29" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">S2 · 說明書要寫哪些</p>
   <h1 style="margin-bottom:0">六個欄位</h1>
@@ -1137,7 +1279,7 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 先跑過一次再打包。</aside>
 </section>
 
-<section class="slide" data-slide="26" data-section="喚起行動">
+<section class="slide" data-slide="30" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">S2 · 實作 ③</p>
   <h1>把流程包成技能</h1>
@@ -1175,7 +1317,78 @@ S2：今天的重點在這裡 —— 把做過的流程打包起來。
 技能資料夾整個複製給同事，對方貼上就能用。</aside>
 </section>
 
-<section class="slide" data-slide="27" data-section="喚起行動">
+<section class="slide" data-slide="31" data-section="喚起行動">
+ <div class="slide-inner">
+  <p class="kicker">S2 · 講師示範（Codex 內建瀏覽器）</p>
+  <h1>讓它自己開瀏覽器</h1>
+  <div class="task" style="margin-top:var(--s3)">
+   <div>
+    <pre class="code"><b>做什麼：</b>用內建瀏覽器到教育部全球資訊網，找最近一個月和「AI 教育」有關的公告，整理成表：日期、標題、一句重點、網址。
+<b>用什麼：</b>只看 edu.tw 底下的頁面。
+<b style="color:var(--accent-2)">不做什麼：</b>不登入任何帳號、不下載檔案、不送出任何表單。
+<b style="color:var(--accent-2)">驗什麼：</b>每一筆都附網址，讓我點開核對。</pre>
+   </div>
+   <div class="pbox">
+    <h3 style="margin-bottom:var(--s3)">先知道它的限制</h3>
+    <div class="pline"><span class="ptag">01</span><span><strong class="ink">驗證碼、付款</strong>還做不到</span></div>
+    <div class="pline"><span class="ptag">02</span><span>比文字對話<strong class="ink">慢，也貴</strong></span></div>
+    <div class="pline key"><span class="ptag">03</span><span>登入資料<strong class="ink">可以不匯入</strong>，要登入就自己來</span></div>
+   </div>
+  </div>
+  <div class="note w"><p>讀信、回信、填表這類會送出去的動作，<strong class="ink">送出前一定自己看過</strong>。</p></div>
+  <p class="nm-src">參考：夜市小霸王〈Codex AI智慧體〉研習</p>
+ </div>
+ <aside class="notes">前面它都在讀寫你的檔案；這一招是它自己開瀏覽器、點網頁、把結果整理回來。
+小霸王現場示範了兩個：查澎湖來回機票比價，還有用內建瀏覽器讀 Gmail、整理回覆建議、再幫他回信。這裡換成學校情境。
+三個限制：驗證碼和付款還做不到；比文字對話慢，也比較花額度；Codex 會問要不要把你瀏覽器的登入資料匯入 —— 擔心就不要匯入，需要登入的網站自己手動登。
+「不做什麼」那行很重要：瀏覽器是會把東西送出去的工具。公務信件有個資，讓它讀信之前先想清楚；寄出前一定自己看過。
+（參考：夜市小霸王〈Codex AI智慧體〉研習，瀏覽器操作段落）</aside>
+</section>
+
+<section class="slide" data-slide="32" data-section="喚起行動">
+ <div class="slide-inner">
+  <p class="kicker">S2 · 講師示範（子代理）</p>
+  <h1>一個主管，三個助手</h1>
+  <div class="grid2" style="margin-top:var(--s3)">
+   <div>
+    <ol class="steps">
+     <li><strong class="ink">先蒐集</strong>：網路上找 5 份水資源教材，存進「網路教材」資料夾</li>
+     <li><strong class="ink">再生成</strong>：只依這些教材做 18 週大綱、教案、學習單</li>
+     <li><strong class="ink">再分工</strong>：第一週簡報 6 頁，<span class="hl">分給 3 個子代理</span>，每個畫 2 頁</li>
+    </ol>
+    <div class="note a"><p>先存檔再生成，它用的就是<strong class="ink">你看得到的資料</strong>。</p></div>
+   </div>
+   <div class="nm-sub">
+    <svg viewBox="0 0 560 360" aria-label="主代理把工作分給三個子代理">
+     <rect x="180" y="16" width="200" height="64" rx="12" fill="rgba(124,183,232,.12)" stroke="#7CB7E8" stroke-width="2"/>
+     <text class="lbl-b" x="280" y="46" text-anchor="middle" style="fill:#7CB7E8">主代理</text>
+     <text class="lbl-s" x="280" y="68" text-anchor="middle">拆工作、最後合併</text>
+     <path d="M240,82 L100,138 M280,82 L280,138 M320,82 L460,138" stroke="#7CB7E8" stroke-width="1.6" stroke-dasharray="5 5"/>
+     <rect x="20" y="140" width="160" height="56" rx="10" fill="#1A2030" stroke="rgba(203,213,229,.38)" stroke-width="1.5"/>
+     <text class="lbl" x="100" y="174" text-anchor="middle" style="fill:#F3F6FB">第 1–2 頁</text>
+     <rect x="200" y="140" width="160" height="56" rx="10" fill="#1A2030" stroke="rgba(203,213,229,.38)" stroke-width="1.5"/>
+     <text class="lbl" x="280" y="174" text-anchor="middle" style="fill:#F3F6FB">第 3–4 頁</text>
+     <rect x="380" y="140" width="160" height="56" rx="10" fill="#1A2030" stroke="rgba(203,213,229,.38)" stroke-width="1.5"/>
+     <text class="lbl" x="460" y="174" text-anchor="middle" style="fill:#F3F6FB">第 5–6 頁</text>
+     <path d="M100,198 L240,250 M280,198 L280,250 M460,198 L320,250" stroke="#7CB7E8" stroke-width="1.6" stroke-dasharray="5 5"/>
+     <rect x="180" y="252" width="200" height="50" rx="12" fill="rgba(255,255,255,.05)" stroke="#9BA9BD" stroke-width="1.5"/>
+     <text class="lbl" x="280" y="283" text-anchor="middle" style="fill:#C8D2E0">合成 6 頁簡報</text>
+     <text class="lbl-b" x="150" y="342" text-anchor="middle" style="fill:#7CB7E8">快約 3 倍</text>
+     <text class="lbl-b" x="410" y="342" text-anchor="middle" style="fill:#E0A458">用量也約 ×3</text>
+    </svg>
+   </div>
+  </div>
+  <p class="nm-src">參考：夜市小霸王〈Codex AI智慧體〉研習</p>
+ </div>
+ <aside class="notes">小霸王現場從一個空白專案開始：「珍惜水資源」，國一、每週兩小時、18 週。
+第一步先叫它上網找 5 份教材、存進資料夾 —— 先存檔，你才看得到它根據什麼在寫，這就是交辦四問的「用什麼」。
+第二步依這些教材做 18 週大綱、教案、學習單、評量；要 Word 就明講格式和存檔位置。
+第三步做第一週的 6 頁繪本式簡報：叫主代理開 3 個子代理，每個負責 2 頁插圖，同時畫。
+代價要講清楚：快了大約三倍，用量也大約乘三。趕時間才用，平常一個代理慢慢做就好。
+（參考：夜市小霸王〈Codex AI智慧體〉研習，從零備課與子代理段落）</aside>
+</section>
+
+<section class="slide" data-slide="33" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">評分怎麼看</p>
   <h1>做出來只有一半</h1>
@@ -1197,7 +1410,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 把「抓到 AI 的錯」設為最高級，是想講一件事。</aside>
 </section>
 
-<section class="slide" data-slide="28" data-section="喚起行動">
+<section class="slide" data-slide="34" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">回校後你一定會撞到</p>
   <h1>三件事，先預告</h1>
@@ -1220,10 +1433,11 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
  <aside class="notes">狀況 01：它只記得藍圖與交接本。關掉對話，其餘全部忘記。
 狀況 02：桌面快塞滿時，前面的內容會被稀釋。做完一件事就開新對話。
 狀況 03：對話拖太長，每問一句都重讀前面全部，反覆燒同一筆帳。
+額度怎麼算、哪些事特別花，回頭看「全班一起用：額度從哪來」那一頁。
 這三件事都不是你做錯，也不是工具爛 —— 是記憶管理。今天裝的開工、收工是其中一招；散場講義上有完整解法與進修順序。</aside>
 </section>
 
-<section class="slide" data-slide="29" data-section="喚起行動">
+<section class="slide" data-slide="35" data-section="喚起行動">
  <div class="slide-inner" style="text-align:center">
   <svg viewBox="0 0 640 120" style="width:100%;max-width:560px;height:auto;margin-bottom:var(--s4)">
    <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
@@ -1246,6 +1460,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
    <p>實作情境整理自 <a href="https://www.youtube.com/@sensebar" target="_blank" rel="noopener">三師爸 Sense Bar</a> 教學影片，經原作者同意教育使用與改作</p>
    <p><a href="https://www.youtube.com/playlist?list=PLkNQUBglz8EyGuOIKfrKX9V7ot5VbZKha" target="_blank" rel="noopener">AI Agent 基本功（EP01–EP07）</a>
     ·　<a href="https://www.youtube.com/@sensebar/playlists" target="_blank" rel="noopener">全部播放清單</a></p>
+   <p>專案／額度／作文、瀏覽器、子代理示範參考夜市小霸王〈Codex AI智慧體〉講義（twgo.io/codex）<span style="color:var(--ink-4)">，此部分不在下方 CC 授權範圍</span></p>
    <p class="tiny"><strong class="ink">授權分兩層</strong>：實作情境與流程改編自上述影片；單元架構、交辦四問、實作題與評分規準為本校自編。
     均以 <strong class="ink" style="white-space:nowrap">CC BY-NC-SA 4.0</strong> 釋出，引用時請分別標示。</p>
   </div>
@@ -1254,7 +1469,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 （下方為授權與出處，CC BY-NC-SA 4.0，保留不刪。）</aside>
 </section>
 
-<section class="slide" data-slide="30" data-section="喚起行動">
+<section class="slide" data-slide="36" data-section="喚起行動">
  <div class="slide-inner" style="text-align:center">
   <p class="kicker">散場前，留一句話</p>
   <h1>今天對你有<span class="hl2">收穫</span>嗎？</h1>
