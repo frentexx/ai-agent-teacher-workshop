@@ -449,6 +449,31 @@ body.show-notes .slide.active .notes::before{
 .nm-li.w{border-color:rgba(224,164,88,.45);background:rgba(224,164,88,.07)}
 .nm-li.w b{color:var(--accent-2)}
 .nm-cover .hand{font-family:"Noto Serif TC",serif}
+
+/* ══ 2026-10-26 做網站兩頁（改作自 ppsh-student-agent-intro p18–19）＋ GitHub 部署 ══ */
+.flow.compact{flex-wrap:nowrap;gap:0}
+.flow.compact .st{flex:1 1 0;min-width:0;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:var(--s4) 14px;text-align:center}
+.flow.compact .st b{display:block;font-size:var(--t4);color:var(--ink);margin-bottom:4px}
+.flow.compact .st>span{display:block;font-size:16px;color:var(--ink-3);line-height:1.5}
+.flow.compact .st .n{font-family:"JetBrains Mono",monospace;color:var(--accent);font-size:15px;
+  letter-spacing:.14em;display:block;margin-bottom:4px}
+.flow.compact .st.hot{border-color:rgba(224,164,88,.55);background:rgba(224,164,88,.08)}
+.flow.compact .st.cool{border-color:rgba(124,183,232,.5);background:rgba(124,183,232,.08)}
+.flow.compact .ar{flex:0 0 34px;display:flex;align-items:center;justify-content:center;
+  color:var(--ink-4);font-size:24px}
+.prompt{background:rgba(124,183,232,.07);border:1px solid rgba(124,183,232,.4);border-radius:14px;
+  padding:var(--s4) var(--s3);position:relative;margin-bottom:var(--s4)}
+.prompt .tag{font-family:"JetBrains Mono","Noto Sans TC",monospace;font-size:15px;letter-spacing:.14em;
+  color:var(--accent);margin-bottom:6px;display:block}
+.prompt p{margin:0;font-size:21px;line-height:1.7;color:var(--ink);padding-right:72px}
+.prompt button{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.08);color:var(--ink-2);
+  border:1px solid var(--line);border-radius:8px;padding:4px 14px;font:inherit;font-size:15px;cursor:pointer}
+.prompt button:hover{border-color:var(--accent);color:var(--accent)}
+.prompt button.done{color:var(--accent);border-color:var(--accent)}
+.swap{color:var(--ink);font-weight:700;background:rgba(124,183,232,.2);
+  border-bottom:2px dashed var(--accent);border-radius:4px;padding:0 3px}
+.notes p{margin:0 0 6px}
 </style>
 </head>
 <body>
@@ -925,7 +950,155 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 沒電腦或網路不穩：兩人一組，把第三、四象限各問出三條寫在紙上，效果一樣，只是慢一點。</aside>
 </section>
 
-<section class="slide" data-slide="16" data-section="維持注意">
+
+<!-- ══════════ 做一個網站（p.16 起） ══════════ -->
+
+<section class="slide" data-slide="16" data-section="成果上線">
+ <div class="slide-inner">
+  <p class="kicker">STEP 1 · 兩句話生出初稿</p>
+  <h1>步驟一：兩句話，<span class="hl">先有一個網站</span></h1>
+  <div class="prompt"><span class="tag">全班先用同一份</span>
+   <p data-copy>請上網搜尋最近一個月<span class="swap">〔K-pop〕</span>的<span class="swap">〔演唱會、來台活動和熱門舞蹈資訊〕</span>，整理成一個單頁網站，存到專案的「作業成果\網站」。網站要有<span class="swap">〔「近期行事曆」「熱門舞蹈連結」「追星用語」〕</span>三個區塊，用繁體中文，手機也能看，每筆資料都附來源網址。</p>
+   <button type="button">複製</button></div>
+  <div class="flow compact" style="margin-top:var(--s3)">
+   <div class="st"><span class="n">1</span><b>送出指令</b><span>等 Agent 搜尋與製作</span></div><div class="ar">→</div>
+   <div class="st"><span class="n">2</span><b>打開 index.html</b><span>用瀏覽器看初稿</span></div><div class="ar">→</div>
+   <div class="st hot"><span class="n">3</span><b>點兩筆來源</b><span>確認日期與內容是真的</span></div>
+  </div>
+  <p class="small" style="margin-top:var(--s3)"><span class="swap">〔藍底虛線〕</span>＝可以換成你自己的：<strong>主題</strong>（偶像、運動、遊戲…）、<strong>想看的資訊</strong>、<strong>網站區塊</strong>。換完再送出。</p>
+ </div>
+ <aside class="notes"><p>全班同一份指令，10 分鐘內人人有初稿，先求有成就感。只給目標與成果，不講語法。</p>
+  <p>資料是 AI 搜尋來的，可能過期或搜錯，所以要求附來源並親自核對，是媒體識讀練習。</p>
+  <p>Threads 需要登入，Agent 通常抓不到，用一般網頁搜尋即可。</p>
+  <p>【待實測】教室環境的搜尋能力與網頁預覽方式，上課前先跑一次。</p></aside>
+</section>
+
+<section class="slide" data-slide="17" data-section="成果上線">
+ <div class="slide-inner">
+  <p class="kicker">STEP 2 · 引導探索需求</p>
+  <h1>步驟二：<span class="hl">一次改一件</span>，改完再看</h1>
+  <div class="flow compact" style="margin-top:var(--s2)">
+   <div class="st"><span class="n">問 1</span><b>換哪一個？</b><span>內容、外觀、功能三選一</span></div><div class="ar">→</div>
+   <div class="st"><span class="n">問 2</span><b>要什麼感覺？</b><span>一句話，不講技術</span></div><div class="ar">→</div>
+   <div class="st hot"><span class="n">改</span><b>貼句型給 Agent</b><span>先說做法，我同意再動手</span></div><div class="ar">→</div>
+   <div class="st cool"><span class="n">問 3</span><b>重新整理看結果</b><span>不滿意就「恢復上一版」</span></div>
+  </div>
+  <div class="grid3" style="margin-top:var(--s3)">
+   <div class="prompt"><span class="tag">外觀</span>
+    <p data-copy style="font-size:18px">請把網站改成<span class="swap">〔舞台、暗底螢光粉〕</span>的感覺，先給我兩種配色，我選了你再改。</p>
+    <button type="button">複製</button></div>
+   <div class="prompt"><span class="tag">功能</span>
+    <p data-copy style="font-size:18px">我想加<span class="swap">〔演唱會倒數計時〕</span>，請先用白話說明做法，我同意再動手。</p>
+    <button type="button">複製</button></div>
+   <div class="prompt"><span class="tag">質感</span>
+    <p data-copy style="font-size:18px">請找出這個網站最不專業的三個地方，列給我看，我選要不要改。</p>
+    <button type="button">複製</button></div>
+  </div>
+  <p class="small"><span class="swap">〔藍底虛線〕</span>＝換成你的想法。交件：至少改一次外觀、加一個功能，並說得出「為什麼這樣改」。</p>
+ </div>
+ <aside class="notes"><p>不要問「你想改什麼」，學生沒經驗答不出來；改成三選一，再用感覺描述。卡住時問：「你想讓看網站的人有什麼感覺？」</p>
+  <p>「恢復上一版」是安全網，學生知道能退回就敢嘗試。第三句讓 Agent 當審查員，不需設計經驗也能提升質感。</p>
+  <p>改內容：「把主角換成〔團名〕，資料重新搜尋，一樣附來源網址。」</p>
+  <p>可替換處：步驟一的〔主題〕〔資訊類型〕〔網站區塊〕，步驟二的〔氛圍〕〔功能〕。藍底虛線＝替換處，複製後括號可保留或刪掉。主題不限 K-pop，示範用。</p></aside>
+</section>
+
+<section class="slide" data-slide="18" data-section="成果上線">
+ <div class="slide-inner">
+  <p class="kicker">部署上線 · 加入 GitHub｜3 小時只示範，課後自己做</p>
+  <h1 style="margin-bottom:var(--s4)">先有一個<span class="hl">免費帳號</span></h1>
+  <div class="task" style="margin-top:var(--s4)">
+   <div>
+    <ol class="steps">
+     <li>開 <strong style="color:var(--ink)">github.com</strong>，按 Sign up</li>
+     <li>填 email、密碼、<strong style="color:var(--ink)">使用者名稱</strong></li>
+     <li>去信箱收驗證碼，輸入</li>
+     <li>把使用者名稱<span class="hl">記下來</span></li>
+    </ol>
+    <div class="note"><p>你不需要會指令，也不用背流程 —— 後面每一步都交給 AI 執行。</p></div>
+   </div>
+   <div class="pbox">
+    <h3 style="margin-bottom:var(--s3)">三個提醒</h3>
+    <div class="pline"><span class="ptag">01</span><span><strong style="color:var(--ink)">使用者名稱就是網址</strong><br>用英文、數字、減號，之後改很麻煩</span></div>
+    <div class="pline"><span class="ptag">02</span><span>免費方案就夠 —— <strong style="color:var(--ink)">公開 repo 與 Pages 都不用錢</strong></span></div>
+    <div class="pline key"><span class="ptag">03</span><span>repo 設公開，等於<strong style="color:var(--ink)">全世界都看得到</strong></span></div>
+   </div>
+  </div>
+  <div class="note w" style="margin-top:var(--s4)"><p>公開之前，<strong style="color:var(--ink)">學生姓名、班級、座號一律換掉</strong>。這是本課唯一不能讓步的底線。</p></div>
+ </div>
+ <aside class="notes">做好了，但檔案只在你電腦裡，只有你打得開。同事要、學生要看，就得給一個網址 —— 這就是部署。
+註冊只做四件事：開 github.com 按 Sign up、填資料、收驗證碼、記下使用者名稱。
+使用者名稱會變成網址的一部分（https://名稱.github.io/…），所以用英文或數字，不要用中文；要改很麻煩。
+免費方案就夠用：公開的 repo 和 GitHub Pages 都不收費。
+最下面那句是法遵底線（對應 A8-D2-2）：repo 公開就是全世界都看得到，學生姓名、班級、座號一律換掉再上傳。
+課後自己做的話，把左邊四步照順序做完就好，其餘交給 AI。</aside>
+</section>
+
+<section class="slide" data-slide="19" data-section="成果上線">
+ <div class="slide-inner">
+  <p class="kicker">部署上線 · 講師示範：GitHub CLI（gh）</p>
+  <h1 style="margin-bottom:var(--s4)">你出一張嘴，它推上去</h1>
+  <div class="task" style="margin-top:var(--s4)">
+   <div>
+    <ol class="steps">
+     <li>安裝 <strong style="color:var(--ink)">GitHub CLI</strong>（gh）</li>
+     <li>執行 <strong style="color:var(--ink)">gh auth login</strong>，瀏覽器跳出來按 Authorize</li>
+     <li>建 repo，把資料夾推上去</li>
+     <li>Settings → Pages → 分支選 main → Save</li>
+    </ol>
+    <div class="note"><p>四步都叫 AI 做，你只在瀏覽器<strong style="color:var(--ink)">按同意</strong>。</p></div>
+   </div>
+   <div>
+    <pre class="code"><b>做什麼：</b>把 classroom-site 這個資料夾推上 GitHub Pages。
+<b>用什麼：</b>我的 GitHub 帳號；repo 名稱 my-first-site，公開。
+<b style="color:var(--accent-2)">不做什麼：</b>不上傳 data 資料夾和 xlsx，也不改我原本的檔案。
+<b style="color:var(--accent-2)">驗什麼：</b>給我網址，並用無痕視窗截圖證明打得開。</pre>
+    <div class="note" style="margin-top:var(--s4)"><p>網址長這樣：
+     <strong class="hl" style="font-family:'JetBrains Mono',monospace;font-size:16px">https://帳號.github.io/repo名稱/</strong></p></div>
+   </div>
+  </div>
+  <div class="note w" style="margin-top:var(--s4)"><p>第一次開可能出現 404，<strong style="color:var(--ink)">等 1–2 分鐘</strong>再重新整理，不是做錯。</p></div>
+ </div>
+ <aside class="notes">這一頁是講師示範，學員看就好 —— 3 小時塞不下每個人現場部署，課後照這頁自己做。
+四個動作：裝 gh（Windows 用 winget 一行、Mac 用 brew）、gh auth login 會給你一組 8 碼代碼，貼進瀏覽器按 Authorize、建 repo 並推送、最後到 Settings → Pages 選 main 分支存檔。
+右邊那段就是可以直接貼給 AI 的指令 —— 照交辦四問寫：做什麼、用什麼、不做什麼、驗什麼。
+「不做什麼」寫了兩件事：不要把 data 資料夾和 Excel 推上去（裡面常有名單），也不要改你原本的檔案。
+驗什麼要求它用無痕視窗截圖，因為你自己瀏覽器可能還登入著，看到的不是別人看到的。
+Pages 第一次部署要一兩分鐘，看到 404 先等，不要重推。</aside>
+</section>
+
+<section class="slide" data-slide="20" data-section="成果上線">
+ <div class="slide-inner">
+  <p class="kicker">部署上線 · 驗收與繳交</p>
+  <h1 style="margin-bottom:var(--s4)">打得開，才算上線</h1>
+  <div class="grid2" style="align-items:stretch">
+   <div>
+    <div class="pbox">
+     <h3 style="margin-bottom:var(--s3)">三項驗收</h3>
+     <div class="pline"><span class="ptag">P1</span><span><strong style="color:var(--ink)">無痕視窗</strong>打得開</span></div>
+     <div class="pline"><span class="ptag">P2</span><span><strong style="color:var(--ink)">手機</strong>也打得開</span></div>
+     <div class="pline key"><span class="ptag">P3</span><span>貼給<strong style="color:var(--ink)">隔壁同事</strong>，他打得開</span></div>
+    </div>
+    <div class="note"><p>只有你看得到，就不算做完。</p></div>
+   </div>
+   <div class="card accent">
+    <span class="num">課後作業 · 自由參加</span>
+    <h3 style="margin-bottom:var(--s4)">貼上作品牆</h3>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:19px;color:var(--accent);word-break:break-all;margin-bottom:var(--s4)">https://tool.ppsh.ptc.edu.tw/works/</p>
+    <div class="pline"><span class="ptag">01</span><span>貼上你的網址</span></div>
+    <div class="pline"><span class="ptag">02</span><span>系統自動截圖、帶入標題</span></div>
+    <div class="pline"><span class="ptag">03</span><span>勾選封面，送出</span></div>
+    <p class="small" style="margin-top:var(--s4)">通關碼現場公布，只有上傳才要。</p>
+   </div>
+  </div>
+ </div>
+ <aside class="notes">上線不算完，打得開才算。三項驗收：無痕視窗、手機、貼給隔壁同事。
+為什麼要無痕？因為你自己的瀏覽器可能還登入著 GitHub，看到的是「只有你看得到」的版本。
+作品牆是課後作業、自由參加，沒有期限：把 GitHub Pages 網址貼上去，系統會自動截圖並帶入標題，你勾一張當封面就送出。
+只有上傳要通關碼，看作品不用。通關碼現場公布，也會放在散場講義。
+作品牆上可以看同一題別人怎麼做，也可以直接拿回自己班上用。</aside>
+</section>
+
+<section class="slide" data-slide="21" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S1 · 實作 ①</p>
   <h1>批改一疊作文</h1>
@@ -959,7 +1132,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 這份評分表.xlsx 是下午所有成品的資料來源，不要刪。</aside>
 </section>
 
-<section class="slide" data-slide="17" data-section="維持注意">
+<section class="slide" data-slide="22" data-section="維持注意">
  <div class="slide-inner divider">
   <div class="big">S2</div>
   <h1 style="margin-bottom:var(--s4)">一份評分表，長出一整套</h1>
@@ -967,7 +1140,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
  </div>
 </section>
 
-<section class="slide" data-slide="18" data-section="維持注意">
+<section class="slide" data-slide="23" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 做技能之前，先看一張圖</p>
   <h1 style="font-size:48px">桌面上的東西，是從哪裡來的？</h1>
@@ -1018,7 +1191,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 今天不裝轉接頭。</aside>
 </section>
 
-<section class="slide" data-slide="19" data-section="維持注意">
+<section class="slide" data-slide="24" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 裝之前，先看懂誰做什麼</p>
   <h1>一份評分表，三種成品</h1>
@@ -1046,7 +1219,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 怎麼選：答案不同，路完全不同。「資訊圖表」和「圖表」是兩個詞，講錯一個字，它會做出一份十頁簡報給你。</aside>
 </section>
 
-<section class="slide" data-slide="20" data-section="維持注意">
+<section class="slide" data-slide="25" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 先用別人的，再自己寫</p>
   <h1>先用別人寫好的技能</h1>
@@ -1081,7 +1254,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 電腦教室不能裝軟體或網路不穩：講師示範，學員課後照懶人包自己裝。</aside>
 </section>
 
-<section class="slide" data-slide="21" data-section="維持注意">
+<section class="slide" data-slide="26" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 實作 ②</p>
   <h1>評分表做成一張圖卡</h1>
@@ -1115,7 +1288,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 它若說「本機未設定生圖，已用向量版面完成」，那是正常的，不是失敗。</aside>
 </section>
 
-<section class="slide" data-slide="22" data-section="維持注意">
+<section class="slide" data-slide="27" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 同一份評分表，兩種交法</p>
   <h1>一份給學生上課，一份給你看</h1>
@@ -1146,7 +1319,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 下一頁是兩段可以直接貼的指令。</aside>
 </section>
 
-<section class="slide" data-slide="23" data-section="維持注意">
+<section class="slide" data-slide="28" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 實作 ②（續）· 兩段指令</p>
   <h1 style="font-size:48px;margin-bottom:0">每一段都是交辦四問</h1>
@@ -1176,7 +1349,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 （作文範例與「改完存成技能」的做法參考：夜市小霸王〈Codex AI智慧體〉研習）</aside>
 </section>
 
-<section class="slide" data-slide="24" data-section="維持注意">
+<section class="slide" data-slide="29" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 今天的重點從這裡開始</p>
   <div class="grid2">
@@ -1207,7 +1380,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
  <aside class="notes">不是程式。是一份純文字說明書，寫清楚要做什麼、怎麼做，AI 照著跑就會產出你要的結果。</aside>
 </section>
 
-<section class="slide" data-slide="25" data-section="維持注意">
+<section class="slide" data-slide="30" data-section="維持注意">
  <div class="slide-inner">
   <p class="kicker">S2 · 最容易踩的坑</p>
   <h1>對話型還是檔案型</h1>
@@ -1235,7 +1408,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 動手寫之前先問這一句。</aside>
 </section>
 
-<section class="slide" data-slide="26" data-section="喚起行動">
+<section class="slide" data-slide="31" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">S2 · 說明書要寫哪些</p>
   <h1 style="margin-bottom:0">六個欄位</h1>
@@ -1258,7 +1431,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 先跑過一次再打包。</aside>
 </section>
 
-<section class="slide" data-slide="27" data-section="喚起行動">
+<section class="slide" data-slide="32" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">S2 · 實作 ③</p>
   <h1>把流程包成技能</h1>
@@ -1296,7 +1469,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 技能資料夾整個複製給同事，對方貼上就能用。</aside>
 </section>
 
-<section class="slide" data-slide="28" data-section="喚起行動">
+<section class="slide" data-slide="33" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">S2 · 講師示範（Codex 內建瀏覽器）</p>
   <h1>讓它自己開瀏覽器</h1>
@@ -1324,7 +1497,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 （參考：夜市小霸王〈Codex AI智慧體〉研習，瀏覽器操作段落）</aside>
 </section>
 
-<section class="slide" data-slide="29" data-section="喚起行動">
+<section class="slide" data-slide="34" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">延伸練習 · 換一種工作，時間不夠就課後做</p>
   <h1>延伸：出一份考卷</h1>
@@ -1358,7 +1531,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 交件 P3 檢查紀錄表：專業格式、答案逐題核對、細目表配分是否一致、附圖位置。每項都要寫結論，含「核對無誤」。</aside>
 </section>
 
-<section class="slide" data-slide="30" data-section="喚起行動">
+<section class="slide" data-slide="35" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">延伸練習 · 出題最容易做假的地方</p>
   <h1>分層不是寫簡單點</h1>
@@ -1385,7 +1558,7 @@ S2：同一份評分表，用現成的技能做出圖卡和兩種簡報；最後
 要求它用「尚在建立這個概念」取代「程度低」。難度分層是對題目分層，不是對學生分類。</aside>
 </section>
 
-<section class="slide" data-slide="31" data-section="喚起行動">
+<section class="slide" data-slide="36" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">評分怎麼看</p>
   <h1>做出來只有一半</h1>
@@ -1407,7 +1580,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 把「抓到 AI 的錯」設為最高級，是想講一件事。</aside>
 </section>
 
-<section class="slide" data-slide="32" data-section="喚起行動">
+<section class="slide" data-slide="37" data-section="喚起行動">
  <div class="slide-inner">
   <p class="kicker">回校後你一定會撞到</p>
   <h1>三件事，先預告</h1>
@@ -1434,7 +1607,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 這三件事都不是你做錯，也不是工具爛 —— 是記憶管理。今天裝的開工、收工是其中一招；散場講義上有完整解法與進修順序。</aside>
 </section>
 
-<section class="slide" data-slide="33" data-section="喚起行動">
+<section class="slide" data-slide="38" data-section="喚起行動">
  <div class="slide-inner" style="text-align:center">
   <svg viewBox="0 0 640 120" style="width:100%;max-width:560px;height:auto;margin-bottom:var(--s4)">
    <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
@@ -1466,7 +1639,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 （下方為授權與出處，CC BY-NC-SA 4.0，保留不刪。）</aside>
 </section>
 
-<section class="slide" data-slide="34" data-section="喚起行動">
+<section class="slide" data-slide="39" data-section="喚起行動">
  <div class="slide-inner" style="text-align:center">
   <p class="kicker">散場前，留一句話</p>
   <h1>今天對你有<span class="hl2">收穫</span>嗎？</h1>
@@ -1531,6 +1704,19 @@ document.querySelectorAll('#bloomTable th').forEach(th=>{
       const x=a.cells[i].innerText.trim(), y=b.cells[i].innerText.trim();
       return asc ? x.localeCompare(y,'zh-Hant') : y.localeCompare(x,'zh-Hant');
     }).forEach(r=>tb.appendChild(r));
+  });
+});
+
+/* 提示語卡複製 */
+document.querySelectorAll('.prompt button').forEach(btn=>{
+  btn.addEventListener('click', async ()=>{
+    const p = btn.parentElement.querySelector('p[data-copy]');
+    if(!p) return;
+    try{
+      await navigator.clipboard.writeText(p.textContent.trim());
+      btn.textContent = '已複製'; btn.classList.add('done');
+      setTimeout(()=>{ btn.textContent='複製'; btn.classList.remove('done'); }, 1600);
+    }catch(err){ btn.textContent = '複製失敗'; }
   });
 });
 
