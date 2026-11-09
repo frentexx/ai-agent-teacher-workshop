@@ -100,7 +100,8 @@ main{max-width:1040px;margin:0 auto;padding:32px}
       <textarea class="full" id="noticeText" maxlength="500" placeholder="公告內容（必填，500 字內）" required></textarea>
       <input id="noticeLabel" maxlength="30" placeholder="按鈕文字（選填，例如：下載範例檔）">
       <input id="noticeUrl" type="url" placeholder="連結網址（選填，https:// 開頭）">
-      <div class="row full"><button type="submit" class="primary">發布</button><span class="muted" id="noticeMsg"></span></div>
+      <div class="row full"><button type="submit" class="primary" id="noticeSubmit">發布</button>
+        <button type="button" class="ghost" id="noticeCancel" hidden>取消修改</button><span class="muted" id="noticeMsg"></span></div>
     </form>
     <div class="mg-list" id="noticeList"></div>
 
@@ -144,7 +145,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/fireba
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { getFirestore, collection, onSnapshot, getDocs, deleteDoc, doc, query, orderBy,
-  addDoc, serverTimestamp }
+  addDoc, updateDoc, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -166,6 +167,8 @@ const loginBtn=$("login"), logoutBtn=$("logout"), who=$("who");
 const gate=$("gate"), gateErr=$("gateErr"), panel=$("panel");
 
 let unsubCloud=null, unsubFb=null, unsubNotice=null, unsubLink=null;
+let noticeCache=new Map(); // id → 公告資料，給「編輯」帶回表單用
+let editingId=null;        // 正在修改的公告 id；null 代表發布新公告
 let cloudCounts=[];   // [{w, c}]
 let cloudTotalNum=0;
 let feedbackCache=[]; // [{text, date}]
@@ -199,11 +202,13 @@ onAuthStateChanged(auth, (user) => {
 function subscribe() {
   // 公布欄：公告（新的在上）與課堂連結（依新增順序）
   unsubNotice = onSnapshot(query(collection(db, "workshop_notices"), orderBy("created_at", "desc")), (s) => {
+    noticeCache = new Map(s.docs.map((d) => [d.id, d.data() || {}]));
     $("noticeList").innerHTML = s.empty ? `<div class="muted">目前沒有公告。</div>`
       : s.docs.map((d) => {
           const n = d.data() || {};
           const u = n.link_url ? `<div class="u">${escapeHtml(n.link_label || "開啟連結")}：${escapeHtml(n.link_url)}</div>` : "";
           return `<div class="mg-item"><div class="body"><div class="t">${escapeHtml(n.text || "")}</div>${u}</div>
+            <button class="ghost" data-edit="${d.id}">編輯</button>
             <button class="danger" data-col="workshop_notices" data-id="${d.id}">刪除</button></div>`;
         }).join("");
   }, (e) => { $("noticeMsg").textContent = "讀取失敗：" + e.message; });
@@ -272,14 +277,44 @@ $("noticeForm").addEventListener("submit", async (e) => {
   const url = $("noticeUrl").value.trim();
   if (!text) return;
   if (url && !/^https?:\/\//i.test(url)) { $("noticeMsg").textContent = "網址要用 http:// 或 https:// 開頭。"; return; }
+  const data = { text, link_label: $("noticeLabel").value.trim(), link_url: url };
   try {
-    await addDoc(collection(db, "workshop_notices"), {
-      text, link_label: $("noticeLabel").value.trim(), link_url: url, created_at: serverTimestamp()
-    });
-    $("noticeForm").reset();
-    $("noticeMsg").textContent = "已發布。";
-  } catch (err) { $("noticeMsg").textContent = "發布失敗：" + err.message; }
+    if (editingId) {
+      // 修改：保留原發布時間（排序不變），另記修改時間
+      await updateDoc(doc(db, "workshop_notices", editingId), { ...data, updated_at: serverTimestamp() });
+      endEdit();
+      $("noticeMsg").textContent = "已儲存修改。";
+    } else {
+      await addDoc(collection(db, "workshop_notices"), { ...data, created_at: serverTimestamp() });
+      $("noticeForm").reset();
+      $("noticeMsg").textContent = "已發布。";
+    }
+  } catch (err) { $("noticeMsg").textContent = (editingId ? "修改" : "發布") + "失敗：" + err.message; }
 });
+
+function startEdit(id) {
+  const n = noticeCache.get(id);
+  if (!n) return;
+  editingId = id;
+  $("noticeText").value = n.text || "";
+  $("noticeLabel").value = n.link_label || "";
+  $("noticeUrl").value = n.link_url || "";
+  $("noticeSubmit").textContent = "儲存修改";
+  $("noticeCancel").hidden = false;
+  $("noticeMsg").textContent = "正在修改公告…";
+  $("noticeForm").scrollIntoView({ behavior: "smooth", block: "center" });
+  $("noticeText").focus();
+}
+
+function endEdit() {
+  editingId = null;
+  $("noticeForm").reset();
+  $("noticeSubmit").textContent = "發布";
+  $("noticeCancel").hidden = true;
+  $("noticeMsg").textContent = "";
+}
+
+$("noticeCancel").addEventListener("click", endEdit);
 
 $("linkForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -295,10 +330,13 @@ $("linkForm").addEventListener("submit", async (e) => {
 
 // 公告與連結的刪除鈕（清單會重繪，所以用事件委派）
 $("panel").addEventListener("click", async (e) => {
+  const edit = e.target.closest("button[data-edit]");
+  if (edit) { startEdit(edit.dataset.edit); return; }
   const btn = e.target.closest("button[data-col]");
   if (!btn) return;
   if (!confirm("確定要刪除這一則嗎？")) return;
   btn.disabled = true;
+  if (btn.dataset.id === editingId) endEdit(); // 刪掉正在修改的那則，就跳出修改模式
   try { await deleteDoc(doc(db, btn.dataset.col, btn.dataset.id)); }
   catch (err) { alert("刪除失敗：" + err.message); btn.disabled = false; }
 });

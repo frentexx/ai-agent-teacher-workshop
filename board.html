@@ -90,7 +90,7 @@ onSnapshot(query(collection(db, "workshop_notices"), orderBy("created_at", "desc
           : "";
         return `<article class="notice">
           <div class="txt">${escapeHtml(n.text || "")}</div>${go}
-          <div class="ts">${ts ? ts.toLocaleString("zh-TW", { hour12:false }) : ""}</div>
+          <div class="ts">${ts ? ts.toLocaleString("zh-TW", { hour12:false }) : ""}${n.updated_at ? "（已修改）" : ""}</div>
         </article>`;
       }).join("");
 }, (e) => { $("notices").innerHTML = `<p class="err">讀取失敗：${escapeHtml(e.message)}</p>`; });
