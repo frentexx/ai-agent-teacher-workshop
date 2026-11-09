@@ -109,7 +109,8 @@ main{max-width:1040px;margin:0 auto;padding:32px}
     <form class="form" id="linkForm" autocomplete="off">
       <input id="linkLabel" maxlength="40" placeholder="名稱（例如：作文範例資料夾）" required>
       <input id="linkUrl" type="url" placeholder="網址（https:// 開頭）" required>
-      <div class="row full"><button type="submit" class="primary">新增連結</button><span class="muted" id="linkMsg"></span></div>
+      <div class="row full"><button type="submit" class="primary" id="linkSubmit">新增連結</button>
+        <button type="button" class="ghost" id="linkCancel" hidden>取消修改</button><span class="muted" id="linkMsg"></span></div>
     </form>
     <div class="mg-list" id="linkList"></div>
   </section>
@@ -169,6 +170,8 @@ const gate=$("gate"), gateErr=$("gateErr"), panel=$("panel");
 let unsubCloud=null, unsubFb=null, unsubNotice=null, unsubLink=null;
 let noticeCache=new Map(); // id → 公告資料，給「編輯」帶回表單用
 let editingId=null;        // 正在修改的公告 id；null 代表發布新公告
+let linkCache=new Map();   // id → 連結資料
+let editingLinkId=null;    // 正在修改的連結 id；null 代表新增連結
 let cloudCounts=[];   // [{w, c}]
 let cloudTotalNum=0;
 let feedbackCache=[]; // [{text, date}]
@@ -214,11 +217,13 @@ function subscribe() {
   }, (e) => { $("noticeMsg").textContent = "讀取失敗：" + e.message; });
 
   unsubLink = onSnapshot(query(collection(db, "workshop_links"), orderBy("created_at", "asc")), (s) => {
+    linkCache = new Map(s.docs.map((d) => [d.id, d.data() || {}]));
     $("linkList").innerHTML = s.empty ? `<div class="muted">目前沒有連結。</div>`
       : s.docs.map((d) => {
           const l = d.data() || {};
           return `<div class="mg-item"><div class="body"><div class="t">${escapeHtml(l.label || "")}</div>
             <div class="u">${escapeHtml(l.url || "")}</div></div>
+            <button class="ghost" data-edit-link="${d.id}">編輯</button>
             <button class="danger" data-col="workshop_links" data-id="${d.id}">刪除</button></div>`;
         }).join("");
   }, (e) => { $("linkMsg").textContent = "讀取失敗：" + e.message; });
@@ -322,21 +327,55 @@ $("linkForm").addEventListener("submit", async (e) => {
   const url = $("linkUrl").value.trim();
   if (!label || !/^https?:\/\//i.test(url)) { $("linkMsg").textContent = "請填名稱，網址要用 http:// 或 https:// 開頭。"; return; }
   try {
-    await addDoc(collection(db, "workshop_links"), { label, url, created_at: serverTimestamp() });
-    $("linkForm").reset();
-    $("linkMsg").textContent = "已新增。";
-  } catch (err) { $("linkMsg").textContent = "新增失敗：" + err.message; }
+    if (editingLinkId) {
+      // 修改：保留原新增時間（排序不變）
+      await updateDoc(doc(db, "workshop_links", editingLinkId), { label, url, updated_at: serverTimestamp() });
+      endEditLink();
+      $("linkMsg").textContent = "已儲存修改。";
+    } else {
+      await addDoc(collection(db, "workshop_links"), { label, url, created_at: serverTimestamp() });
+      $("linkForm").reset();
+      $("linkMsg").textContent = "已新增。";
+    }
+  } catch (err) { $("linkMsg").textContent = (editingLinkId ? "修改" : "新增") + "失敗：" + err.message; }
 });
+
+function startEditLink(id) {
+  const l = linkCache.get(id);
+  if (!l) return;
+  editingLinkId = id;
+  $("linkLabel").value = l.label || "";
+  $("linkUrl").value = l.url || "";
+  $("linkSubmit").textContent = "儲存修改";
+  $("linkCancel").hidden = false;
+  $("linkMsg").textContent = "正在修改連結…";
+  $("linkForm").scrollIntoView({ behavior: "smooth", block: "center" });
+  $("linkLabel").focus();
+}
+
+function endEditLink() {
+  editingLinkId = null;
+  $("linkForm").reset();
+  $("linkSubmit").textContent = "新增連結";
+  $("linkCancel").hidden = true;
+  $("linkMsg").textContent = "";
+}
+
+$("linkCancel").addEventListener("click", endEditLink);
 
 // 公告與連結的刪除鈕（清單會重繪，所以用事件委派）
 $("panel").addEventListener("click", async (e) => {
   const edit = e.target.closest("button[data-edit]");
   if (edit) { startEdit(edit.dataset.edit); return; }
+  const editLink = e.target.closest("button[data-edit-link]");
+  if (editLink) { startEditLink(editLink.dataset.editLink); return; }
   const btn = e.target.closest("button[data-col]");
   if (!btn) return;
   if (!confirm("確定要刪除這一則嗎？")) return;
   btn.disabled = true;
-  if (btn.dataset.id === editingId) endEdit(); // 刪掉正在修改的那則，就跳出修改模式
+  // 刪掉正在修改的那則，就跳出修改模式
+  if (btn.dataset.id === editingId) endEdit();
+  if (btn.dataset.id === editingLinkId) endEditLink();
   try { await deleteDoc(doc(db, btn.dataset.col, btn.dataset.id)); }
   catch (err) { alert("刪除失敗：" + err.message); btn.disabled = false; }
 });
