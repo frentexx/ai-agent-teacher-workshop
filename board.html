@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>課堂公布欄｜高中教師 AI Agent 研習</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#10141F; --ink:#F3F6FB; --ink-2:#C8D2E0; --ink-3:#9BA9BD; --ink-4:#8A97AB;
+  --accent:#7CB7E8; --accent-2:#E0A458;
+  --line:rgba(203,213,229,.20); --card:rgba(255,255,255,.055);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Noto Sans TC",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:880px;margin:0 auto;padding:40px 24px 64px}
+.kicker{font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.08em;color:var(--accent-2);margin:0 0 8px}
+h1{font-size:32px;font-weight:900;margin:0;letter-spacing:.02em}
+.lead{color:var(--ink-3);font-size:15px;margin:8px 0 0}
+h2{font-size:20px;font-weight:700;margin:40px 0 16px;display:flex;align-items:baseline;gap:10px}
+h2 small{font-size:13px;font-weight:400;color:var(--ink-4)}
+.notices{display:flex;flex-direction:column;gap:12px}
+.notice{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent-2);
+  border-radius:12px;padding:16px 20px}
+.notice .txt{font-size:17px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+.notice .go{display:inline-block;margin-top:12px;background:var(--accent);color:var(--bg);
+  font-weight:700;font-size:15px;text-decoration:none;border-radius:10px;padding:8px 16px}
+.notice .go:hover{filter:brightness(1.1)}
+.notice .ts{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-4);margin-top:10px}
+.links{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.link{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:14px 18px;color:var(--ink);text-decoration:none;transition:border-color .2s}
+.link:hover{border-color:var(--accent)}
+.link b{display:block;font-size:17px}
+.link span{display:block;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-4);
+  margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.empty{color:var(--ink-3);font-size:15px}
+.err{color:#F0A99E;font-size:14px}
+footer{margin-top:48px;font-size:14px;color:var(--ink-4)}
+footer a{color:var(--accent)}
+@media (max-width:600px){ h1{font-size:26px} main{padding:28px 16px 48px} }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">11/18 高中教師 AI Agent 實作研習</p>
+  <h1>課堂公布欄</h1>
+  <p class="lead">講師發布的消息與課堂會用到的連結都在這裡，內容會即時更新。</p>
+
+  <h2>公告</h2>
+  <div class="notices" id="notices"><p class="empty">載入中…</p></div>
+
+  <h2>課堂連結 <small>點了會開新分頁</small></h2>
+  <div class="links" id="links"><p class="empty">載入中…</p></div>
+
+  <footer><a href="./">回到研習簡報</a></footer>
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, collection, onSnapshot, query, orderBy }
+  from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA4dqhuXY0nCSt3IvnogQOfkR9SVBUYHxc",
+  authDomain: "basic-learning-2384f.firebaseapp.com",
+  projectId: "basic-learning-2384f",
+  storageBucket: "basic-learning-2384f.firebasestorage.app",
+  messagingSenderId: "878087809392",
+  appId: "1:878087809392:web:7815af97fecd57aa7147b5"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+const $ = (id) => document.getElementById(id);
+
+// 公告：新的在上
+onSnapshot(query(collection(db, "workshop_notices"), orderBy("created_at", "desc")), (s) => {
+  $("notices").innerHTML = s.empty
+    ? `<p class="empty">目前沒有公告。</p>`
+    : s.docs.map((d) => {
+        const n = d.data() || {};
+        const ts = n.created_at && n.created_at.toDate ? n.created_at.toDate() : null;
+        const url = safeUrl(n.link_url);
+        const go = url
+          ? `<a class="go" href="${url}" target="_blank" rel="noopener">${escapeHtml(n.link_label || "開啟連結")} →</a>`
+          : "";
+        return `<article class="notice">
+          <div class="txt">${escapeHtml(n.text || "")}</div>${go}
+          <div class="ts">${ts ? ts.toLocaleString("zh-TW", { hour12:false }) : ""}</div>
+        </article>`;
+      }).join("");
+}, (e) => { $("notices").innerHTML = `<p class="err">讀取失敗：${escapeHtml(e.message)}</p>`; });
+
+// 課堂連結：依新增順序
+onSnapshot(query(collection(db, "workshop_links"), orderBy("created_at", "asc")), (s) => {
+  const html = s.docs.map((d) => {
+    const l = d.data() || {};
+    const url = safeUrl(l.url);
+    if (!url) return "";
+    return `<a class="link" href="${url}" target="_blank" rel="noopener">
+      <b>${escapeHtml(l.label || l.url)}</b><span>${escapeHtml(hostOf(l.url))}</span></a>`;
+  }).join("");
+  $("links").innerHTML = html || `<p class="empty">目前沒有連結。</p>`;
+}, (e) => { $("links").innerHTML = `<p class="err">讀取失敗：${escapeHtml(e.message)}</p>`; });
+
+// 只接受 http/https，避免 javascript: 之類的網址被寫進頁面
+function safeUrl(u) {
+  const t = String(u || "").trim();
+  return /^https?:\/\//i.test(t) ? escapeHtml(t) : null;
+}
+function hostOf(u) {
+  try { return new URL(u).host; } catch (e) { return ""; }
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) =>
+    ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+}
+</script>
+</body>
+</html>

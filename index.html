@@ -412,6 +412,9 @@ body.show-notes .slide.active .notes::before{
 .qr-badge span{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-3);letter-spacing:.06em}
 .qr-badge.tr{top:52px;right:60px}
 .qr-badge.br{bottom:96px;right:60px}
+.qr-badge.bl{bottom:68px;left:72px;flex-direction:row;gap:14px;text-align:left}
+.qr-badge.bl img{width:104px;height:104px}
+.qr-badge.bl span{font-size:14px;line-height:1.6}
 /* ── 夜市小霸王補充頁（2026-10-11） ── */
 .nm-src{font-size:14px;color:var(--ink-4);margin:var(--s4) 0 0;font-family:"JetBrains Mono",monospace;letter-spacing:.04em}
 .nm-four{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
@@ -547,7 +550,9 @@ body.show-notes .slide.active .notes::before{
   <text x="500" y="404" font-family="JetBrains Mono" font-size="15" fill="#7CB7E8" letter-spacing=".08em">AI：讀、算、整理</text>
  </svg>
  </div>
- <aside class="notes">封面的意象：紙上琥珀色的圈點和分數是你的判斷，藍色是 AI 把內容整理成表 —— 你批改，它整理。
+ <div class="qr-badge bl"><img src="img/qr-board.png" alt="掃碼開啟課堂公布欄"><span>課堂公布欄<br>連結都在這裡</span></div>
+ <aside class="notes">課堂公布欄（右下 QR）：講師在後台 admin.html 發布的消息與課堂連結都在 board.html，請學員先掃碼或開好分頁。
+封面的意象：紙上琥珀色的圈點和分數是你的判斷，藍色是 AI 把內容整理成表 —— 你批改，它整理。
 今天只有一條線：改一次作文 → 用同一份評分表做出統計與檢討簡報 → 把整個流程包成技能。
 下一次改作文，叫技能就好；技能資料夾複製給同事，對方貼上就能用。</aside>
 </section>

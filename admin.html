@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>研習後台｜文字雲統計與回饋</title>
+<title>研習後台｜公布欄、文字雲與回饋</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -50,6 +50,21 @@ main{max-width:1040px;margin:0 auto;padding:32px}
 .fb-item{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:rgba(255,255,255,.03)}
 .fb-item .txt{font-size:17px;color:var(--ink);line-height:1.7;white-space:pre-wrap;word-break:break-word}
 .fb-item .ts{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-4);margin-top:8px}
+.card h3{font-size:16px;margin:24px 0 10px;color:var(--ink-2);font-weight:700}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form .full{grid-column:1/-1}
+.form textarea,.form input{font-family:inherit;font-size:15px;color:var(--ink);
+  background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+.form textarea{min-height:84px;resize:vertical;line-height:1.6}
+.form textarea:focus,.form input:focus{outline:none;border-color:var(--accent)}
+.primary{background:var(--accent);color:var(--bg)}
+.mg-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.mg-item{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;
+  padding:10px 14px;background:rgba(255,255,255,.03)}
+.mg-item .body{flex:1;min-width:0}
+.mg-item .t{font-size:15px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.mg-item .u{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-4);word-break:break-all;margin-top:2px}
+.mg-item button{padding:6px 12px;font-size:13px}
 #gate{max-width:520px;margin:80px auto;text-align:center}
 #gate p{color:var(--ink-2);line-height:1.7}
 .err{color:#F0A99E;font-size:14px;margin-top:10px}
@@ -57,13 +72,14 @@ main{max-width:1040px;margin:0 auto;padding:32px}
   .kpis{grid-template-columns:1fr}
   .bar{grid-template-columns:1fr 1fr 44px}
   .bar .bl{text-align:left}
+  .form{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 <header>
   <h1>研習後台</h1>
-  <span class="muted">文字雲統計 ＋ 學員回饋</span>
+  <span class="muted">公布欄 ＋ 文字雲統計 ＋ 學員回饋</span>
   <span class="spacer"></span>
   <span class="who" id="who"></span>
   <button id="login">用 Google 登入</button>
@@ -76,6 +92,27 @@ main{max-width:1040px;margin:0 auto;padding:32px}
 </div>
 
 <main id="panel" hidden>
+  <section class="card">
+    <h2>課堂公布欄 <a class="muted" href="board.html" target="_blank" rel="noopener" style="font-weight:400;margin-left:8px">開啟學員看到的頁面 →</a></h2>
+
+    <h3>發布公告</h3>
+    <form class="form" id="noticeForm" autocomplete="off">
+      <textarea class="full" id="noticeText" maxlength="500" placeholder="公告內容（必填，500 字內）" required></textarea>
+      <input id="noticeLabel" maxlength="30" placeholder="按鈕文字（選填，例如：下載範例檔）">
+      <input id="noticeUrl" type="url" placeholder="連結網址（選填，https:// 開頭）">
+      <div class="row full"><button type="submit" class="primary">發布</button><span class="muted" id="noticeMsg"></span></div>
+    </form>
+    <div class="mg-list" id="noticeList"></div>
+
+    <h3>課堂連結</h3>
+    <form class="form" id="linkForm" autocomplete="off">
+      <input id="linkLabel" maxlength="40" placeholder="名稱（例如：作文範例資料夾）" required>
+      <input id="linkUrl" type="url" placeholder="網址（https:// 開頭）" required>
+      <div class="row full"><button type="submit" class="primary">新增連結</button><span class="muted" id="linkMsg"></span></div>
+    </form>
+    <div class="mg-list" id="linkList"></div>
+  </section>
+
   <section class="card">
     <h2>文字雲統計</h2>
     <div class="kpis">
@@ -106,7 +143,8 @@ main{max-width:1040px;margin:0 auto;padding:32px}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import { getFirestore, collection, onSnapshot, getDocs, deleteDoc, doc, query, orderBy }
+import { getFirestore, collection, onSnapshot, getDocs, deleteDoc, doc, query, orderBy,
+  addDoc, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -127,7 +165,7 @@ const $ = (id) => document.getElementById(id);
 const loginBtn=$("login"), logoutBtn=$("logout"), who=$("who");
 const gate=$("gate"), gateErr=$("gateErr"), panel=$("panel");
 
-let unsubCloud=null, unsubFb=null;
+let unsubCloud=null, unsubFb=null, unsubNotice=null, unsubLink=null;
 let cloudCounts=[];   // [{w, c}]
 let cloudTotalNum=0;
 let feedbackCache=[]; // [{text, date}]
@@ -142,6 +180,8 @@ logoutBtn.addEventListener("click", () => signOut(auth));
 onAuthStateChanged(auth, (user) => {
   if (unsubCloud) { unsubCloud(); unsubCloud=null; }
   if (unsubFb)    { unsubFb();    unsubFb=null; }
+  if (unsubNotice){ unsubNotice(); unsubNotice=null; }
+  if (unsubLink)  { unsubLink();  unsubLink=null; }
 
   if (user && user.email === OWNER) {
     who.textContent = user.email;
@@ -157,6 +197,27 @@ onAuthStateChanged(auth, (user) => {
 });
 
 function subscribe() {
+  // 公布欄：公告（新的在上）與課堂連結（依新增順序）
+  unsubNotice = onSnapshot(query(collection(db, "workshop_notices"), orderBy("created_at", "desc")), (s) => {
+    $("noticeList").innerHTML = s.empty ? `<div class="muted">目前沒有公告。</div>`
+      : s.docs.map((d) => {
+          const n = d.data() || {};
+          const u = n.link_url ? `<div class="u">${escapeHtml(n.link_label || "開啟連結")}：${escapeHtml(n.link_url)}</div>` : "";
+          return `<div class="mg-item"><div class="body"><div class="t">${escapeHtml(n.text || "")}</div>${u}</div>
+            <button class="danger" data-col="workshop_notices" data-id="${d.id}">刪除</button></div>`;
+        }).join("");
+  }, (e) => { $("noticeMsg").textContent = "讀取失敗：" + e.message; });
+
+  unsubLink = onSnapshot(query(collection(db, "workshop_links"), orderBy("created_at", "asc")), (s) => {
+    $("linkList").innerHTML = s.empty ? `<div class="muted">目前沒有連結。</div>`
+      : s.docs.map((d) => {
+          const l = d.data() || {};
+          return `<div class="mg-item"><div class="body"><div class="t">${escapeHtml(l.label || "")}</div>
+            <div class="u">${escapeHtml(l.url || "")}</div></div>
+            <button class="danger" data-col="workshop_links" data-id="${d.id}">刪除</button></div>`;
+        }).join("");
+  }, (e) => { $("linkMsg").textContent = "讀取失敗：" + e.message; });
+
   unsubCloud = onSnapshot(collection(db, "wordcloud_words"), (s) => {
     const map = new Map();
     s.forEach((d) => {
@@ -204,6 +265,43 @@ function renderFeedback() {
       }).join("")
     : `<div class="muted">目前還沒有回饋。</div>`;
 }
+
+$("noticeForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const text = $("noticeText").value.trim();
+  const url = $("noticeUrl").value.trim();
+  if (!text) return;
+  if (url && !/^https?:\/\//i.test(url)) { $("noticeMsg").textContent = "網址要用 http:// 或 https:// 開頭。"; return; }
+  try {
+    await addDoc(collection(db, "workshop_notices"), {
+      text, link_label: $("noticeLabel").value.trim(), link_url: url, created_at: serverTimestamp()
+    });
+    $("noticeForm").reset();
+    $("noticeMsg").textContent = "已發布。";
+  } catch (err) { $("noticeMsg").textContent = "發布失敗：" + err.message; }
+});
+
+$("linkForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const label = $("linkLabel").value.trim();
+  const url = $("linkUrl").value.trim();
+  if (!label || !/^https?:\/\//i.test(url)) { $("linkMsg").textContent = "請填名稱，網址要用 http:// 或 https:// 開頭。"; return; }
+  try {
+    await addDoc(collection(db, "workshop_links"), { label, url, created_at: serverTimestamp() });
+    $("linkForm").reset();
+    $("linkMsg").textContent = "已新增。";
+  } catch (err) { $("linkMsg").textContent = "新增失敗：" + err.message; }
+});
+
+// 公告與連結的刪除鈕（清單會重繪，所以用事件委派）
+$("panel").addEventListener("click", async (e) => {
+  const btn = e.target.closest("button[data-col]");
+  if (!btn) return;
+  if (!confirm("確定要刪除這一則嗎？")) return;
+  btn.disabled = true;
+  try { await deleteDoc(doc(db, btn.dataset.col, btn.dataset.id)); }
+  catch (err) { alert("刪除失敗：" + err.message); btn.disabled = false; }
+});
 
 $("clearCloud").addEventListener("click", async () => {
   if (!confirm("確定要清空文字雲的所有答案嗎？此動作無法復原。")) return;
