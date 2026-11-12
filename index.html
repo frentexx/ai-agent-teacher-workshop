@@ -597,7 +597,7 @@ body.show-notes .slide.active .notes::before{
  </div>
  <div class="qr-badge bl"><img src="img/qr-board.png" alt="掃碼開啟課堂公布欄"><span>課堂公布欄<br><a class="qr-link" href="board.html" target="_blank" rel="noopener">連結都在這裡 →</a></span></div>
  <div class="qr-badge bl b2"><img src="img/qr-skills.png" alt="掃碼開啟研習技能包 GitHub repo"><span>研習技能包<br><a class="qr-link" href="https://github.com/frentexx/ppsh-agent-skills" target="_blank" rel="noopener">ppsh-agent-skills →</a></span></div>
- <aside class="notes">左下兩個 QR：課堂公布欄（講師在 admin.html 發布的消息與連結）、研習技能包 repo（github.com/frentexx/ppsh-agent-skills，9 個技能）。
+ <aside class="notes">左下兩個 QR：課堂公布欄（講師在 admin.html 發布的消息與連結）、研習技能包 repo（github.com/frentexx/ppsh-agent-skills，11 個技能）。
 課堂公布欄：講師在後台 admin.html 發布的消息與課堂連結都在 board.html，請學員先掃碼或開好分頁。
 封面的意象：紙上琥珀色的圈點和分數是你的判斷，藍色是 AI 把內容整理成表 —— 你批改，它整理。
 今天只有一條線：改一次作文 → 用同一份評分表做出統計與檢討簡報 → 把整個流程包成技能。
@@ -963,7 +963,7 @@ body.show-notes .slide.active .notes::before{
  <aside class="notes">這段話照抄 ppsh-agent-skills README 的「一段話交給 AI Agent」，老師不用打任何指令。
 AI 要動到電腦時會跳出確認：看一眼再按同意（呼應「三條安全底線」）。
 說「裝好了，請重開」時，Codex 要整個關掉再打開，只關視窗不夠。
-驗收：重開後問「你有哪些 ppsh 開頭的技能？」。應列出 10 個 ppsh 開頭的技能，另有 motion-explainer、motion-design、review-loop 三個輔助技能（做影片用）。影片工具（HyperFrames、ffmpeg）安裝較久，請先開始。
+驗收：重開後問「你有哪些 ppsh 開頭的技能？」。應列出 11 個 ppsh 開頭的技能，另有 motion-explainer、motion-design、review-loop 三個輔助技能（做影片用）。影片工具（HyperFrames、ffmpeg）安裝較久，請先開始。
 裝到一半失敗：不用自己修，把 AI 最後給的結果表截圖給講師；重開後再貼一次同一段話，已裝好的會自動跳過。</aside>
 </section>
 
@@ -1374,7 +1374,160 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 （下方為授權與出處，CC BY-NC-SA 4.0，保留不刪。）</aside>
 </section>
 
-<section class="slide" data-section="喚起行動" data-slide="27">
+<section class="slide" data-section="Q&amp;A" data-slide="27">
+ <div class="slide-inner divider">
+  <p class="kicker">Q&amp;A · 報名表上你們寫的</p>
+  <h1 style="font-size:84px">你想交給 AI 的事</h1>
+  <div class="grid2" style="margin-top:var(--s2);text-align:left;align-items:stretch">
+   <div class="card accent2"><span class="num">Q1</span><h3>撰寫計畫</h3><p>國教署計畫，今年換重點，要怎麼改？</p></div>
+   <div class="card accent"><span class="num">Q2</span><h3>剪影片、上字幕、打逐字稿</h3><p>不想再一句一句聽打</p></div>
+  </div>
+  <p class="small" style="margin-top:var(--s3)">其他（鐘點費計算、Apps Script 做到一半失敗…）現場直接問</p>
+ </div>
+ <aside class="notes">報名表最後一題「想用 AI 處理哪件教學或行政工作」，收到的回答裡挑兩題最多人會碰到的來答。
+其他回答還有：鐘點費計算、環境檢核 app（用 Apps Script 做，做到一半失敗）、各種煩瑣的行政。時間夠就現場聊；Apps Script 那題正好接動手 ④ 的 clasp。</aside>
+</section>
+
+<section class="slide" data-section="Q&amp;A" data-slide="28">
+ <div class="slide-inner">
+  <p class="kicker">Q1 · 撰寫計畫</p>
+  <h1>不要叫它<span class="hl2">直接改 Word</span></h1>
+  <div class="flow compact" style="margin-top:var(--s3)">
+   <div class="st cool"><span class="n">01 讀</span><b>去年的計畫</b><span>ppsh-office-reader</span></div>
+   <div class="ar">→</div>
+   <div class="st"><span class="n">02 盤點</span><b>牽動哪些位置</b><span>先停，等你確認</span></div>
+   <div class="ar">→</div>
+   <div class="st"><span class="n">03 寫</span><b>修訂對照表</b><span>位置、原文、改後、理由</span></div>
+   <div class="ar">→</div>
+   <div class="st hot"><span class="n">04 貼回</span><b>你貼進 Word</b><span>排版不會跑掉</span></div>
+   <div class="ar">→</div>
+   <div class="st cool"><span class="n">05 驗算</span><b>它再讀一次</b><span>數字、名稱、跨表</span></div>
+  </div>
+  <div class="note" style="margin-top:var(--s3)"><p>合作學校要寫的，<strong class="ink">大多在表格裡</strong>：課程表、活動表、研習表、經費表。</p></div>
+ </div>
+ <aside class="notes">國教署計畫格式不一：高優計畫幾乎全是表格；新興科技聯盟計畫是「段落＋表格」。但仔細看合作學校版，計畫目標、摘要那些段落是中心學校寫的，我們要寫的主體其實在四張表裡。
+為什麼不叫它直接改 Word？計畫書有合併儲存格、核章欄、看不見的格式，程式寫回去常常把排版弄壞；而且送出去的文件是你核章負責。所以分工是：它寫「修訂對照表」，你貼回 Word。
+真正省力的是第 5 步：同一件事在課程表、活動表、研習表、經費說明出現四次，人工很容易漏改一處，AI 不會累。
+讀 Word 用 ppsh-office-reader（技能包已改成 Word 用 anydoc，合併儲存格不會錯欄）；要它產出新的 Word 草稿就用 ppsh-word-writer。
+中心學校寫的段落不要自己改，請它另列「建議中心學校調整」。</aside>
+</section>
+
+<section class="slide" data-section="Q&amp;A" data-slide="29">
+ <div class="slide-inner">
+  <p class="kicker">Q1 · 撰寫計畫｜換成你的檔名與重點</p>
+  <h1>一段話：<span class="hl">先盤點，再改寫</span></h1>
+  <div class="prompt">
+   <span class="tag">貼給你的 AI Agent · 整段複製</span>
+   <p data-copy style="white-space:pre-line">請用 ppsh-office-reader 讀「115新興科技計畫書.docx」，這是我們學校去年的計畫。
+116 學年度要把「雷射切割機教學」列為重點：去年已編列雷射雕刻機，今年不再買；新開一門高一雷切課程，結合 AI 協作設計；3D 列印份量減少；每學期 10 萬元、資本門 3 萬元不變。
+不要改原檔。修改內容用「修訂對照表」給我（位置｜原文｜修改後｜理由），我自己貼回 Word。
+同一件事出現在課程表、活動表、研習表、經費表，要一起改；金額改了要重算；沒把握的事標「待確認」，不要自己編。
+先只列出這個重點會牽動哪些位置，等我確認再改寫。</p>
+   <button type="button">複製</button>
+  </div>
+  <p class="small" style="margin-top:var(--s3)">做什麼、用什麼、<span class="hl">不做什麼</span>、<span class="hl2">驗什麼</span> —— 四問都在裡面</p>
+ </div>
+ <aside class="notes">這段是實際案例：屏北 115 學年度新興科技聯盟計畫，116 學年度想以雷切教學為重點。換成你的計畫時，只要改三個地方：檔名、今年的重點、經費上限。
+逐句對交辦四問：第一句是「用什麼」；第二句是「做什麼」；「不要改原檔」「不要自己編」是「不做什麼」；「金額重算、要一起改、標待確認」是「驗什麼」。
+最後一句最重要：先盤點、停下來。它列出來的位置你看過、刪掉不要的，再叫它寫對照表。一次叫它全部改完，錯了你很難找。
+如果有今年的徵件須知，一起放進專案資料夾，並在第一句加上「對照今年徵件須知」——次主題編號、必填項目常常每年改。</aside>
+</section>
+
+<section class="slide" data-section="Q&amp;A" data-slide="30">
+ <div class="slide-inner">
+  <p class="kicker">Q1 · 實例：115 → 116，雷切當重點</p>
+  <h1>它該替你<span class="hl2">抓出來的事</span></h1>
+  <div class="grid2" style="margin-top:var(--s3);align-items:stretch">
+   <div class="pbox">
+    <h3 style="margin-bottom:var(--s3)">今年的重點牽動</h3>
+    <div class="pline"><span class="ptag">01</span><span>課程表：雷切<strong class="ink">不是積層製造</strong>，次主題要重選</span></div>
+    <div class="pline"><span class="ptag">02</span><span>活動、研習表：名稱裡的「3D 列印」要一起改</span></div>
+    <div class="pline"><span class="ptag">03</span><span>經費表：設備去年買過，<strong class="ink">設備費改列別項</strong></span></div>
+    <div class="pline key"><span class="ptag">04</span><span>不能把 115 <strong class="ink">全部換成 116</strong></span></div>
+   </div>
+   <div class="pbox">
+    <h3 style="margin-bottom:var(--s3)">舊計畫常見的漏洞</h3>
+    <div class="pline"><span class="ptag">01</span><span>編了設備，卻<strong class="ink">沒有對應的課程</strong></span></div>
+    <div class="pline"><span class="ptag">02</span><span>同一場活動，兩處<strong class="ink">名稱不一樣</strong></span></div>
+    <div class="pline"><span class="ptag">03</span><span>徵件要求的項目<strong class="ink">漏寫</strong></span></div>
+    <div class="pline key"><span class="ptag">04</span><span>聯絡人<strong class="ink">職務已異動</strong></span></div>
+   </div>
+  </div>
+  <div class="note w"><p>對照表它寫，<strong class="ink">核章的是你</strong>：數字、人名、次主題自己再看一次。</p></div>
+ </div>
+ <aside class="notes">左邊是「今年的重點會牽動哪裡」，好的 Agent 盤點時應該列得出來：
+01 雷射切割是減法加工，不屬於「3-2 積層製造」（那是 3D 列印），要對照徵件須知重選次主題 —— 這種專業判斷要你確認，不能讓它沿用去年的。
+02 去年的工作坊、成果展名稱都叫「AI×3D列印」，改重點就要一起改。
+03 去年第 2 學期已編列雷射雕刻機，今年設備費要改列其他項目（例如排煙設備，待確認）；材料費說明改成木板、壓克力。
+04 年度陷阱：去年的計畫裡本來就有「116 年 1 月 31 日」這種日期，全部取代成 116 會變成錯的日期，要逐一處理。
+右邊是用 AI 幫舊計畫「健檢」時，實際抓到的幾類問題（不點名哪一份）：有編設備卻沒有課程對應（審查委員會問買來做什麼）；同一場參訪在活動表和經費表名稱不同；徵件須知要求「參與聯盟外研習至少 6 場」卻沒規劃；聯絡人職務已經異動。
+經費小計可以叫它驗算，但貼回 Word 之後、送出核章之前，數字和人名你還是要自己看一次。</aside>
+</section>
+
+<section class="slide" data-section="Q&amp;A" data-slide="31">
+ <div class="slide-inner">
+  <p class="kicker">Q2 · 打逐字稿、上字幕</p>
+  <h1>先用<span class="hl">校內工具</span>，不用裝軟體</h1>
+  <div class="grid2" style="margin-top:var(--s3);align-items:stretch">
+   <div class="card accent">
+    <span class="num">影片 · 網址</span>
+    <h3 style="margin-bottom:var(--s4)">影音工具箱</h3>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:19px;color:var(--accent);word-break:break-all;margin-bottom:var(--s4)">https://tool.ppsh.ptc.edu.tw/media/</p>
+    <div class="pline"><span class="ptag">01</span><span>貼網址或上傳影片</span></div>
+    <div class="pline"><span class="ptag">02</span><span>產出 <strong class="ink">SRT 字幕</strong>、TXT 逐字稿</span></div>
+    <div class="pline"><span class="ptag">03</span><span>也能下載 MP4／MP3</span></div>
+   </div>
+   <div class="card accent2">
+    <span class="num">錄音 · 會議</span>
+    <h3 style="margin-bottom:var(--s4)">語音轉文字</h3>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:19px;color:var(--accent-2);word-break:break-all;margin-bottom:var(--s4)">https://tool.ppsh.ptc.edu.tw/asr/</p>
+    <div class="pline"><span class="ptag">01</span><span>上傳錄音檔</span></div>
+    <div class="pline"><span class="ptag">02</span><span>產出逐字稿 TXT、SRT</span></div>
+    <div class="pline key"><span class="ptag">03</span><span>錄音<strong class="ink">轉完即刪</strong></span></div>
+   </div>
+  </div>
+  <div class="note"><p>都用<strong class="ink">學校 Google 帳號</strong>登入；伺服器在校內，檔案不送到外部 AI。</p></div>
+ </div>
+ <aside class="notes">打逐字稿、做字幕，不必叫 Agent 從頭做，校內平台已經有現成工具，伺服器在學校機房。
+影音工具箱：貼 YouTube 等網址或上傳影片（mp4、mov…單檔 1GB 內），產出 SRT／VTT 字幕檔與 TXT 逐字稿；影片原本有字幕就直接用，沒有才做語音辨識。逐字稿保留 30 天，單支最長 3 小時。也能下載 MP4（最高 1080p）／MP3。
+語音轉文字：給會議、訪談錄音用。錄音轉完立即刪除，逐字稿 72 小時後自動刪除，適合有個資的內容。
+提醒兩件事：1. 語音辨識會有同音錯字，人名和校內名詞特別容易錯，字幕要先校對。2. 尊重著作權，下載與轉寫以教學合理範圍為限。
+字幕檔可以直接匯入剪映、Clipchamp、YouTube Studio；下一頁示範交給 Agent 剪。</aside>
+</section>
+
+<section class="slide" data-section="Q&amp;A" data-slide="32">
+ <div class="slide-inner">
+  <p class="kicker">Q2 · 剪影片</p>
+  <h1>有了字幕檔，<span class="hl2">剪輯交給 Agent</span></h1>
+  <div class="prompt">
+   <span class="tag">貼給你的 AI Agent · 整段複製</span>
+   <p data-copy style="white-space:pre-line">專案資料夾裡有「社團成果.mp4」和影音工具箱產生的「社團成果.srt」。
+請先讀字幕，列出可以剪成 1 分鐘精華的段落和時間點，等我確認。
+確認後用 ffmpeg 剪出精華，把字幕燒進畫面（字型用微軟正黑體），存成「社團成果_精華.mp4」，不要覆蓋原檔。</p>
+   <button type="button">複製</button>
+  </div>
+  <div class="flow compact" style="margin-top:var(--s3)">
+   <div class="st cool"><span class="n">MP4</span><b>原始影片</b><span>你拍的</span></div>
+   <div class="ar">→</div>
+   <div class="st"><span class="n">SRT</span><b>工具箱字幕</b><span>先校對錯字</span></div>
+   <div class="ar">→</div>
+   <div class="st"><span class="n">PICK</span><b>它挑段落</b><span>附時間點</span></div>
+   <div class="ar">→</div>
+   <div class="st hot"><span class="n">OK</span><b>你確認</b><span>刪、留、調順序</span></div>
+   <div class="ar">→</div>
+   <div class="st cool"><span class="n">FFMPEG</span><b>剪接＋上字幕</b><span>另存新檔</span></div>
+  </div>
+  <p class="small" style="margin-top:var(--s3)">ffmpeg 在動手 ① 已經裝好 —— 做口白影片用的那一個</p>
+ </div>
+ <aside class="notes">Agent 看不懂畫面，但讀得懂字幕：有了 SRT，它就知道每一句話在第幾秒，可以照內容挑段落、算時間點。
+ffmpeg 是剪影片、轉檔、上字幕的指令工具，動手 ① 裝技能包時已經一起裝好（口白影片要用）。你不用學指令，它來下。
+「等我確認」很重要：挑哪幾段是你的判斷。燒進畫面的字幕改不掉，所以 SRT 要先校對；想保留修改空間，就叫它「字幕另外放、不要燒進畫面」。
+中文字幕要指定字型，不然可能變成方框。
+學生入鏡的影片：剪完要公開前，確認有沒有不該出現的臉、名牌、聲音。
+（本頁流程待研習前實機測一次。）</aside>
+</section>
+
+<section class="slide" data-section="喚起行動" data-slide="33">
  <div class="slide-inner" style="text-align:center">
   <p class="kicker">散場前，留一句話</p>
   <h1>今天對你有<span class="hl2">收穫</span>嗎？</h1>
