@@ -36,7 +36,7 @@
 
 | 段落 | 頁 | 內容 |
 |---|---|---|
-| 封面 | 1 | 速成版封面（公布欄、技能包 QR） |
+| 封面 | 1 | 速成版封面（公布欄、技能包、新興科技計畫回饋問卷 QR） |
 | 學生版併入（教師 11/18 版） | 2–12 | Agent 入門封面（點數池 auipa、技能包網址可複製）、今天三件事、**點數池四頁**（三個限制、班級密碼領取、套用設定、個人⇄專案切換）、Chat AI vs Agent、五個組成、大腦與管家、Context 桌面、專案資料夾 |
 | **動手做** | 13–14 | **① 一段話裝好研習技能包**（照 ppsh-agent-skills README）、**② 一段話交辦**：讀 `D:\codex_test\作文作業` → 依大考中心國寫評閱標準批閱寫 Word → 檢討與 50 分鐘教學內容 → 圖卡＋PPT＋網頁（宋代美學＋現代極簡）→ 「研習成果」資料夾 |
 | 理論（Agent 跑的時候講） | 15–17 | GitHub 上線三頁（免費帳號、gh 推上去、三項驗收） |
@@ -71,7 +71,7 @@
 ### 四個互動元件
 
 - 互動後台：[admin.html](admin.html)（用講者 Google 帳號登入，可**發布公布欄公告與課堂連結**、清空文字雲、匯出文字雲與回饋 CSV）
-- **課堂公布欄**：[board.html](board.html)（2026-11-09 加）學員看的唯讀頁，公告（可附連結按鈕）與課堂連結即時同步；封面左下角有公布欄 QR（`img/qr-board.png`）與研習技能包 repo QR（`img/qr-skills.png`，github.com/frentexx/ppsh-agent-skills）。公告與連結在後台都能編輯。資料在 Firestore `workshop_notices`／`workshop_links`，規則為公開讀、僅講者帳號可寫
+- **課堂公布欄**：[board.html](board.html)（2026-11-09 加）學員看的唯讀頁，公告（可附連結按鈕）與課堂連結即時同步；封面左下角有公布欄 QR（`img/qr-board.png`）與研習技能包 repo QR（`img/qr-skills.png`，github.com/frentexx/ppsh-agent-skills），2026-11-17 加第三個：新興科技計畫研習回饋問卷（Google 表單，`img/qr-survey.png`）。公告與連結在後台都能編輯。資料在 Firestore `workshop_notices`／`workshop_links`，規則為公開讀、僅講者帳號可寫
 - **P13 交辦四問**：點卡片看「漏掉會怎樣」。四問是把需求交出去的格式，四象限是問出需求的工具
 - **P14 需求探索四象限**：點卡片展開。建議現場一格一格點開，第三、四象限留到最後
 - **P34 Bloom 分層對比表**（延伸練習）：點欄位標題可排序，含一欄「假分層的樣子」
