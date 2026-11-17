@@ -613,7 +613,7 @@ body.show-notes .slide.active .notes::before{
     <p class="lead" style="margin-bottom:var(--s2)">從「會聊天」到「會做事」</p>
     <p class="small">領點數 · 裝技能 · 讓 Agent 改一疊作文</p>
     <div class="urls">
-      <div class="urlrow"><span class="ul">① 領取點數池</span><code class="uv">https://ai.nmking.io/auipa</code><button type="button" class="ucopy" data-u="https://ai.nmking.io/auipa">複製</button><a class="uopen" href="https://ai.nmking.io/auipa" target="_blank" rel="noopener">開啟 →</a></div>
+      <div class="urlrow"><span class="ul">① 領取點數池</span><code class="uv">https://ai.nmking.io/ijpax</code><button type="button" class="ucopy" data-u="https://ai.nmking.io/ijpax">複製</button><a class="uopen" href="https://ai.nmking.io/ijpax" target="_blank" rel="noopener">開啟 →</a></div>
       <div class="urlrow"><span class="ul">② 技能包</span><code class="uv">https://github.com/frentexx/ppsh-agent-skills</code><button type="button" class="ucopy" data-u="https://github.com/frentexx/ppsh-agent-skills">複製</button><a class="uopen" href="https://github.com/frentexx/ppsh-agent-skills" target="_blank" rel="noopener">開啟 →</a></div>
     </div>
   </div>
@@ -670,7 +670,7 @@ body.show-notes .slide.active .notes::before{
         <div class="st" style="text-align:left;display:flex;gap:16px;align-items:center"><span class="n" style="margin:0;font-size:22px">5</span><b style="margin:0">核對點數池、模型、有效時間，<span class="hl">下載自己的 ZIP</span></b></div>
       </div>
       <div>
-        <div style="margin-bottom:var(--s4)"><a class="btn" href="https://ai.nmking.io/auipa" target="_blank" rel="noopener">開啟領取連結 →</a></div>
+        <div style="margin-bottom:var(--s4)"><a class="btn" href="https://ai.nmking.io/ijpax" target="_blank" rel="noopener">開啟領取連結 →</a></div>
         <div class="card accent2" style="margin-bottom:var(--s4)"><h3>班級密碼</h3><p>老師<strong>口頭或寫在黑板</strong>告訴你，自己在網頁輸入。<strong>不要貼在群組。</strong></p></div>
         <div class="card danger"><h3>不要換瀏覽器</h3><p>免登入領取<strong>沒有復原碼</strong>。換電腦或清除瀏覽器資料後，不一定打得開同一份設定。</p></div>
       </div>
@@ -1093,7 +1093,37 @@ Pages 第一次部署要一兩分鐘，看到 404 先等，不要重推。</asid
 作品牆上可以看同一題別人怎麼做，也可以直接拿回自己班上用。</aside>
 </section>
 
-<section class="slide" data-section="動手做" data-slide="18" data-motion>
+<section class="slide" data-section="延伸 · 接轉接頭" data-slide="18">
+ <div class="slide-inner">
+  <p class="kicker">延伸 · 一份批閱結果，再變出測驗和圖卡</p>
+  <h1>接上 <span class="hl">Kahoot</span> 和 <span class="hl2">Canva</span></h1>
+  <div class="grid2" style="align-items:stretch;margin-top:var(--s3)">
+   <div class="prompt" style="margin:0">
+    <span class="tag">KAHOOT · 批閱結果 → 複習測驗</span>
+     <p data-copy style="white-space:pre-line;font-size:16px;line-height:1.6">請讀取「研習成果」資料夾裡的作文批閱結果 Word 檔，找出全班最常出現的 5 類問題（例如錯別字、標點、論點不清、段落銜接）。用 Kahoot 做一份 5 題的課中複習測驗，全部用四選一選擇題。</p>
+    <button type="button">複製</button>
+   </div>
+   <div class="prompt" style="margin:0">
+    <span class="tag">CANVA · 批閱結果 → 檢討圖卡</span>
+     <p data-copy style="white-space:pre-line;font-size:16px;line-height:1.6">用 Canva 做一張直式圖卡（1080×1350），標題「這次作文，大家卡在哪？」。內容三塊：等級分布（各等級人數）、最常見的三個問題、各一句改進建議。不放任何學生姓名或原文句子；字體用清楚的中文黑體，不要裝飾性字體。先產生 2–3 個候選設計給我連結，我選好再定稿。</p>
+    <button type="button">複製</button>
+   </div>
+  </div>
+  <div class="prompt" style="margin:var(--s2) 0 0">
+   <span class="tag">KAHOOT 要先接上 · CODEX 外掛商店沒有</span>
+     <p data-copy style="white-space:pre-line;font-size:16px;line-height:1.6">請讀取 https://github.com/frentexx/ppsh-agent-basics-packs/blob/main/16-MCP-Kahoot.md，照「給 AI Agent 的執行步驟」幫我接上 Kahoot。需要我登入的地方停下來告訴我。</p>
+   <button type="button">複製</button>
+  </div>
+ </div>
+ <aside class="notes">這頁回答「外掛和 MCP 有什麼不同」：外掛是 Codex 自己的打包格式，按 ＋ 就裝好，裡面裝的是 MCP 轉接頭加使用說明；MCP 本身是公開標準，Claude Code、Codex、ChatGPT 都能接同一個網址。
+Canva（口頭帶過）：Codex 左側「外掛程式」→ 找到 Canva 按 ＋ → 瀏覽器跳出來登入 Canva、按允許。不想走商店，也可以貼懶人包 #15，兩條路接的是同一個 Canva 官方 MCP，只裝一個就好。
+Kahoot 有官方 MCP（https://mcp.kahoot.it/mcp），但 Codex 外掛商店裡沒有，所以先貼最下面那段話接上，重開 Codex 後再貼左上那段。11/17 測過網址在線，研習電腦還沒實機登入過；需要哪種方案官方頁面未確認，登入被拒就截圖給講師。
+Kahoot 建的是草稿：題目、答案、秒數看過再按開始。Kahoot 有速度分會獎勵猜測，這份是課中複習，不當診斷。
+驗收：Kahoot 打開草稿逐題看，例句有沒有認得出是誰寫的、答案對不對；Canva 圖上的人數要和批閱結果 Word 對得上。提示語已精簡，這兩項口頭提醒。
+Kahoot 會投影、Canva 在雲端：學生姓名、座號一律不放，例句先改寫。</aside>
+</section>
+
+<section class="slide" data-section="動手做" data-slide="19" data-motion>
  <div class="slide-inner">
   <p class="kicker">動手 ③ · 變成影片</p>
   <h1>把簡報變成<span class="hl">有口白的教學影片</span></h1>
@@ -1123,7 +1153,7 @@ Pages 第一次部署要一兩分鐘，看到 404 先等，不要重推。</asid
 驗收：影片從頭聽一遍，注意破音字和數字唸法；畫面上的數字要和 Word、圖卡對得上。它跑影片的這段時間，我們接著往下講。</aside>
 </section>
 
-<section class="slide" data-section="維持注意" data-slide="19">
+<section class="slide" data-section="維持注意" data-slide="20">
  <div class="slide-inner">
   <p class="kicker">S2 · 做技能之前，先看一張圖</p>
   <h1 style="font-size:48px">桌面上的東西，是從哪裡來的？</h1>
@@ -1174,7 +1204,7 @@ Pages 第一次部署要一兩分鐘，看到 404 先等，不要重推。</asid
 今天不裝轉接頭。</aside>
 </section>
 
-<section class="slide" data-section="喚起行動" data-slide="20">
+<section class="slide" data-section="喚起行動" data-slide="21">
  <div class="slide-inner">
   <p class="kicker">S2 · 講師示範（Codex 內建瀏覽器）</p>
   <h1>讓它自己開瀏覽器</h1>
@@ -1202,7 +1232,7 @@ Pages 第一次部署要一兩分鐘，看到 404 先等，不要重推。</asid
 （參考：夜市小霸王〈Codex AI智慧體〉研習，瀏覽器操作段落）</aside>
 </section>
 
-<section class="slide" data-section="動手做" data-slide="21" data-clasp>
+<section class="slide" data-section="動手做" data-slide="22" data-clasp>
  <div class="slide-inner">
   <p class="kicker">動手 ④ · 前端＋後端</p>
   <h1>做一個<span class="hl">有後端</span>的報名網頁</h1>
@@ -1234,7 +1264,7 @@ Pages 第一次部署要一兩分鐘，看到 404 先等，不要重推。</asid
 網址一定要叫它用 clasp 查出來（技能裡有寫），自己拼的網址常常打不開。</aside>
 </section>
 
-<section class="slide" data-section="喚起行動" data-slide="22">
+<section class="slide" data-section="喚起行動" data-slide="23">
  <div class="slide-inner">
   <p class="kicker">延伸練習 · 換一種工作，時間不夠就課後做</p>
   <h1>延伸：出一份考卷</h1>
@@ -1268,7 +1298,7 @@ Pages 第一次部署要一兩分鐘，看到 404 先等，不要重推。</asid
 交件 P3 檢查紀錄表：專業格式、答案逐題核對、細目表配分是否一致、附圖位置。每項都要寫結論，含「核對無誤」。</aside>
 </section>
 
-<section class="slide" data-section="喚起行動" data-slide="23">
+<section class="slide" data-section="喚起行動" data-slide="24">
  <div class="slide-inner">
   <p class="kicker">延伸練習 · 出題最容易做假的地方</p>
   <h1>分層不是寫簡單點</h1>
@@ -1295,7 +1325,7 @@ Pages 第一次部署要一兩分鐘，看到 404 先等，不要重推。</asid
 要求它用「尚在建立這個概念」取代「程度低」。難度分層是對題目分層，不是對學生分類。</aside>
 </section>
 
-<section class="slide" data-section="喚起行動" data-slide="24">
+<section class="slide" data-section="喚起行動" data-slide="25">
  <div class="slide-inner">
   <p class="kicker">評分怎麼看</p>
   <h1>做出來只有一半</h1>
@@ -1317,7 +1347,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 把「抓到 AI 的錯」設為最高級，是想講一件事。</aside>
 </section>
 
-<section class="slide" data-section="喚起行動" data-slide="25">
+<section class="slide" data-section="喚起行動" data-slide="26">
  <div class="slide-inner">
   <p class="kicker">回校後你一定會撞到</p>
   <h1>三件事，先預告</h1>
@@ -1344,7 +1374,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 這三件事都不是你做錯，也不是工具爛 —— 是記憶管理。今天裝的開工、收工是其中一招；散場講義上有完整解法與進修順序。</aside>
 </section>
 
-<section class="slide" data-section="喚起行動" data-slide="26">
+<section class="slide" data-section="喚起行動" data-slide="27">
  <div class="slide-inner" style="text-align:center">
   <svg viewBox="0 0 640 120" style="width:100%;max-width:560px;height:auto;margin-bottom:var(--s4)">
    <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
@@ -1376,7 +1406,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 （下方為授權與出處，CC BY-NC-SA 4.0，保留不刪。）</aside>
 </section>
 
-<section class="slide" data-section="Q&amp;A" data-slide="27">
+<section class="slide" data-section="Q&amp;A" data-slide="28">
  <div class="slide-inner divider">
   <p class="kicker">Q&amp;A · 報名表上你們寫的</p>
   <h1 style="font-size:84px">你想交給 AI 的事</h1>
@@ -1390,7 +1420,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 其他回答還有：鐘點費計算、環境檢核 app（用 Apps Script 做，做到一半失敗）、各種煩瑣的行政。時間夠就現場聊；Apps Script 那題正好接動手 ④ 的 clasp。</aside>
 </section>
 
-<section class="slide" data-section="Q&amp;A" data-slide="28">
+<section class="slide" data-section="Q&amp;A" data-slide="29">
  <div class="slide-inner">
   <p class="kicker">Q1 · 撰寫計畫</p>
   <h1>不要叫它<span class="hl2">直接改 Word</span></h1>
@@ -1414,7 +1444,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 中心學校寫的段落不要自己改，請它另列「建議中心學校調整」。</aside>
 </section>
 
-<section class="slide" data-section="Q&amp;A" data-slide="29">
+<section class="slide" data-section="Q&amp;A" data-slide="30">
  <div class="slide-inner">
   <p class="kicker">Q1 · 撰寫計畫｜換成你的檔名與重點</p>
   <h1>一段話：<span class="hl">先盤點，再改寫</span></h1>
@@ -1435,7 +1465,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 如果有今年的徵件須知，一起放進專案資料夾，並在第一句加上「對照今年徵件須知」——次主題編號、必填項目常常每年改。</aside>
 </section>
 
-<section class="slide" data-section="Q&amp;A" data-slide="30">
+<section class="slide" data-section="Q&amp;A" data-slide="31">
  <div class="slide-inner">
   <p class="kicker">Q1 · 實例：115 → 116，雷切當重點</p>
   <h1>它該替你<span class="hl2">抓出來的事</span></h1>
@@ -1466,7 +1496,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 經費小計可以叫它驗算，但貼回 Word 之後、送出核章之前，數字和人名你還是要自己看一次。</aside>
 </section>
 
-<section class="slide" data-section="Q&amp;A" data-slide="31">
+<section class="slide" data-section="Q&amp;A" data-slide="32">
  <div class="slide-inner">
   <p class="kicker">Q2 · 打逐字稿、上字幕</p>
   <h1>先用<span class="hl">校內工具</span>，不用裝軟體</h1>
@@ -1497,7 +1527,7 @@ D2 正確性與檢查：有沒有經過人工檢查？有沒有抓到 AI 的錯�
 字幕檔可以直接匯入剪映、Clipchamp、YouTube Studio；下一頁示範交給 Agent 剪。</aside>
 </section>
 
-<section class="slide" data-section="Q&amp;A" data-slide="32">
+<section class="slide" data-section="Q&amp;A" data-slide="33">
  <div class="slide-inner">
   <p class="kicker">Q2 · 剪影片</p>
   <h1>有了字幕檔，<span class="hl2">剪輯交給 Agent</span></h1>
@@ -1529,7 +1559,7 @@ ffmpeg 是剪影片、轉檔、上字幕的指令工具，動手 ① 裝技能�
 （本頁流程待研習前實機測一次。）</aside>
 </section>
 
-<section class="slide" data-section="喚起行動" data-slide="33">
+<section class="slide" data-section="喚起行動" data-slide="34">
  <div class="slide-inner" style="text-align:center">
   <p class="kicker">散場前，留一句話</p>
   <h1>今天對你有<span class="hl2">收穫</span>嗎？</h1>
