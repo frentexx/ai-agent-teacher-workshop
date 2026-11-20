@@ -41,6 +41,8 @@ h2 small{font-size:13px;font-weight:400;color:var(--ink-4)}
 .err{color:#F0A99E;font-size:14px}
 footer{margin-top:48px;font-size:14px;color:var(--ink-4)}
 footer a{color:var(--accent)}
+footer .sep{margin:0 8px}
+footer .admin-link{color:var(--ink-4)}
 @media (max-width:600px){ h1{font-size:26px} main{padding:28px 16px 48px} }
 </style>
 </head>
@@ -56,7 +58,8 @@ footer a{color:var(--accent)}
   <h2>課堂連結 <small>點了會開新分頁</small></h2>
   <div class="links" id="links"><p class="empty">載入中…</p></div>
 
-  <footer><a href="./">回到研習簡報</a></footer>
+  <!-- 講師後台入口：只有講者 Google 帳號能登入，其他人點進去只會看到「沒有後台權限」 -->
+  <footer><a href="./">回到研習簡報</a><span class="sep">｜</span><a class="admin-link" href="admin.html">講師後台</a></footer>
 </main>
 
 <script type="module">
